@@ -1,0 +1,30 @@
+/* ─── Google Fonts — only families actually used in the app ──────────────── */
+/* Great Vibes → .logo in header                                              */
+/* DM Sans     → .roots-btn                                                   */
+/* Noto Sans JP → all Japanese body text                                      */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=DM+Sans:wght@400;700&family=Noto+Sans+JP:wght@400&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 🚨 Defeat default smooth scrolling so our math engine wins */
+html {
+  scroll-behavior: auto !important;
+  overflow: visible;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #000;
+}
+
+/* Optional: Hide the ugly Windows scrollbar while keeping the functionality */
+::-webkit-scrollbar {
+  width: 0;
+}
+html {
+  scrollbar-width: none;
+}
