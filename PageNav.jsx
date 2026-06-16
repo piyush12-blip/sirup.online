@@ -2,10 +2,10 @@ import React from 'react';
 
 export default function PageNav({ isOpen, onClose, onOpenPlayer, onNavigate }) {
   const menuItems = [
-    { label: 'MUSIC PLAYER', action: 'player' },
-    { label: 'PERSONAL DETAILS', action: 'details' },
-    { label: 'CHESS ARENA', action: 'chess' },
-    { label: 'CAR ARCADE', action: 'car' }
+    { num: '01', label: 'MUSIC PLAYER', action: 'player' },
+    { num: '02', label: 'PERSONAL DETAILS', action: 'details' },
+    { num: '03', label: 'CHESS ARENA', action: 'chess' },
+    { num: '04', label: 'CAR ARCADE', action: 'car' }
   ];
 
   const handleItemClick = (action) => {
@@ -41,7 +41,9 @@ export default function PageNav({ isOpen, onClose, onOpenPlayer, onNavigate }) {
                   className="nav-menu-link"
                   onClick={() => handleItemClick(item.action)}
                 >
-                  <span>{item.label}</span>
+                  <span className="menu-num">{item.num}</span>
+                  <span className="menu-label">{item.label}</span>
+                  <span className="menu-arrow">→</span>
                 </a>
               </li>
             ))}
