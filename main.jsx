@@ -13,9 +13,7 @@ if (window.location.pathname === '/studio') {
 } else {
   import('./App.jsx').then(({ default: App }) => {
     root.render(
-      React.createElement(React.StrictMode, null,
-        React.createElement(App)
-      )
+      React.createElement(App)
     );
   });
 }

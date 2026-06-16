@@ -99,15 +99,8 @@ export default function ScrollHeader({ logoSrc, socials = [], zIndex = 100 }) {
         }}
       />
 
-      {/* Burger — left */}
-      <button
-        className="burger"
-        aria-label="Menu"
-        style={{ pointerEvents: 'all', position: 'relative', zIndex: 1 }}
-      >
-        <span className="bar" />
-        <span className="bar" />
-      </button>
+      {/* Spacer where the burger used to be to preserve flex space */}
+      <div style={{ width: '40px' }} />
 
       {/* Logo — centered */}
       <div
@@ -130,7 +123,7 @@ export default function ScrollHeader({ logoSrc, socials = [], zIndex = 100 }) {
       {/* Socials — right */}
       <nav
         className="socials"
-        style={{ pointerEvents: 'all', position: 'relative', zIndex: 1 }}
+        style={{ pointerEvents: 'auto', position: 'relative', zIndex: 1 }}
       >
         {socials.map(({ key, href, svg }) => (
           <a key={key} href={href} className="si" aria-label={key}>

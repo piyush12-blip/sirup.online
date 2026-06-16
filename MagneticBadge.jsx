@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
-export function MagneticBadge({ label = "ROOTS\nPLAYLIST" }) {
+export function MagneticBadge({ label = "ROOTS\nPLAYLIST", onClick }) {
   const wrapperRef = useRef(null);
   const badgeRef = useRef(null);
   const textRef = useRef(null);
@@ -58,6 +58,7 @@ export function MagneticBadge({ label = "ROOTS\nPLAYLIST" }) {
       ref={wrapperRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
       style={{
         position: 'absolute',
         width: '180px', // Larger than the button to catch the mouse early

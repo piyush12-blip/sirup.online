@@ -1,11 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import LivingBackground from './LivingBackground.jsx';
 import KineticScrollProvider, { useKineticScroll } from './KineticScrollProvider.jsx';
 import { ParallaxLayer } from './ParallaxLayer.jsx';
-import { RevealImage } from './RevealImage.jsx';
 import { FocalText } from './FocalText.jsx';
 import { MagneticBadge } from './MagneticBadge.jsx';
-import { InnerParallaxImage } from './InnerParallaxImage';
 import { StaggeredTextReveal } from './StaggeredTextReveal.jsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -17,132 +15,16 @@ import CharacterParallax from './CharacterParallax';
 import ScrollHeader from './ScrollHeader';
 import MarqueeStrip from './MarqueeStrip';
 import HoverParallaxCard from './HoverParallaxCard';
-// CustomCursor is available in CustomCursor.jsx — wire in when ready
-const IMAGE_POSITIONS = ['10%', '35%', '65%', '100%'];
-const REVERSE_IMAGE_POSITIONS = ['100%', '65%', '35%', '10%'];
+import IntroLoader from './IntroLoader';
+import PageNav from './PageNav';
+import MusicPlayer from './MusicPlayer';
 
-// ─── Photo Strips with Scroll Physics ────────────────────────────────────────
-// These are sub-components so they can call useKineticScroll() while being
-// rendered inside KineticScrollProvider — same velocity skewY as ParallaxLayer.
+gsap.registerPlugin(ScrollTrigger);
 
-function AboutPhotoStrip({ cardsRef }) {
-  const stripRef = useRef(null);
-  const { velocity, addTick, removeTick } = useKineticScroll();
+// ─── Shared shadow ─────────────────────────────────────────────────────────────
+const HERO_SHADOW = 'drop-shadow(0 3px 10px rgba(0,0,0,0.45)) drop-shadow(0 12px 30px rgba(0,0,0,0.20))';
 
-  useEffect(() => {
-    if (!stripRef.current) return;
-    // ✅ AI-1 Fix: quickSetter writes only the skewY sub-property — doesn't
-    // clobber GSAP's transform matrix or thrash the 3D context on child cards.
-    // Also skip writing skewY(0) when idle so 3D context stays stable.
-    const setSkew = gsap.quickSetter(stripRef.current, 'skewY', 'deg');
-    let lastSkew = null;
-    const tick = () => {
-      if (!stripRef.current) return;
-      const v    = velocity.current * 0.04;
-      const skew = Math.abs(v) < 0.01 ? 0 : v;
-      if (skew !== lastSkew) { setSkew(skew); lastSkew = skew; }
-    };
-    addTick(tick);
-    return () => removeTick(tick);
-  }, [velocity, addTick, removeTick]);
-
-  return (
-    <div ref={stripRef} className="about-photo" style={{
-      position:      'absolute',
-      top:           '130vh',
-      left:          '0.2vw',
-      display:       'flex',
-      gap:           '2px',
-      zIndex:         60,
-      willChange:    'transform',
-      pointerEvents: 'auto', // ✅ AI-2 Fix: explicit auto so hover chain is never broken
-    }}>
-      {[0, 1, 2, 3].map(i => (
-        <div key={i} ref={el => cardsRef.current[i] = el}
-          style={{
-            width:         '140px',
-            height:        '180px',
-            flexShrink:     0,
-            pointerEvents: 'auto', // ✅ AI-2 Fix: explicit auto on every link in the chain
-          }}>
-          {/* Element 1: About cards — 8deg tilt, glow on hover */}
-          <HoverParallaxCard
-            maxTilt={8}
-            perspective={800}
-            scaleOnHover={1.04}
-            glowOnHover={true}
-            style={{ width: '100%', height: '100%' }}
-          >
-            <InnerParallaxImage
-              src="https://sirup.online/5th/asset/img/header/header-about-photo.webp"
-              alt="About Photo"
-              objectPositionY={REVERSE_IMAGE_POSITIONS[i]}
-            />
-          </HoverParallaxCard>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function RootsPhotoStrip({ cardsRef }) {
-  const stripRef = useRef(null);
-  const { velocity, addTick, removeTick } = useKineticScroll();
-
-  useEffect(() => {
-    if (!stripRef.current) return;
-    // ✅ Same quickSetter fix as AboutPhotoStrip
-    const setSkew = gsap.quickSetter(stripRef.current, 'skewY', 'deg');
-    let lastSkew = null;
-    const tick = () => {
-      if (!stripRef.current) return;
-      const v    = velocity.current * 0.04;
-      const skew = Math.abs(v) < 0.01 ? 0 : v;
-      if (skew !== lastSkew) { setSkew(skew); lastSkew = skew; }
-    };
-    addTick(tick);
-    return () => removeTick(tick);
-  }, [velocity, addTick, removeTick]);
-
-  return (
-    <div ref={stripRef} className="roots-photo" style={{
-      position:      'absolute',
-      top:           '260vh',
-      right:         '9vw',
-      display:       'flex',
-      gap:           '2px',
-      zIndex:         60,
-      willChange:    'transform',
-      pointerEvents: 'auto', // ✅ explicit auto
-    }}>
-      {[0, 1, 2, 3].map(i => (
-        <div key={i} ref={el => cardsRef.current[i] = el}
-          style={{
-            width:         '140px',
-            height:        '180px',
-            flexShrink:     0,
-            pointerEvents: 'auto', // ✅ explicit auto
-          }}>
-          {/* Element 2: Roots cards — same tilt + glow */}
-          <HoverParallaxCard
-            maxTilt={8}
-            perspective={800}
-            scaleOnHover={1.04}
-            glowOnHover={true}
-            style={{ width: '100%', height: '100%' }}
-          >
-            <InnerParallaxImage
-              src="https://sirup.online/5th/asset/img/header/header-roots-photo.webp"
-              alt="Roots Photo"
-              objectPositionY={IMAGE_POSITIONS[i]}
-            />
-          </HoverParallaxCard>
-        </div>
-      ))}
-    </div>
-  );
-}
-
+// ─── Social icon SVGs ──────────────────────────────────────────────────────────
 const SVGS = {
   x: (
     <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15">
@@ -173,155 +55,468 @@ const SVGS = {
   ),
 };
 
-export default function App() {
-  const containerRef          = useRef(null); // ✅ FIX 3: scope for useGSAP
-  const characterRef          = useRef(null);
-  const panelRef              = useRef(null);
-  const aboutCardsRef         = useRef([]);
-  const rootsCardsRef         = useRef([]);
-  const headlineVeslineRef    = useRef(null);
-  const headlineDateRef       = useRef(null);
-  const seventhRef            = useRef(null);
+// ─── About Photo Strip ─────────────────────────────────────────────────────────
+function AboutPhotoStrip() {
+  const stripRef = useRef(null);
+  const cardRefs = useRef([]);
+  const { velocity, addTick, removeTick } = useKineticScroll();
 
-
-  // Staggered offsets — GSAP owns these, not React inline styles
-  const ABOUT_OFFSETS = [0, 18.7, 37.5, 56.3];
-  const ROOTS_OFFSETS = [0, 16.4, 32.9, 49.3];
+  useEffect(() => {
+    if (!stripRef.current) return;
+    const setSkew = gsap.quickSetter(stripRef.current, 'skewY', 'deg');
+    let lastSkew = null;
+    const tick = () => {
+      if (!stripRef.current) return;
+      const v    = velocity.current * 0.04;
+      const skew = Math.abs(v) < 0.01 ? 0 : v;
+      if (skew !== lastSkew) { setSkew(skew); lastSkew = skew; }
+    };
+    addTick(tick);
+    return () => removeTick(tick);
+  }, [velocity, addTick, removeTick]);
 
   useGSAP(() => {
+    if (!stripRef.current) return;
+    const cards = cardRefs.current.filter(Boolean);
+    cards.forEach(card => {
+      gsap.set(card, { scaleY: 0, transformOrigin: 'bottom center', opacity: 0 });
+      const overlay = card.querySelector('[data-overlay]');
+      if (overlay) gsap.set(overlay, { scaleY: 0, opacity: 1, transformOrigin: 'bottom center' });
+    });
+    ScrollTrigger.create({
+      trigger: stripRef.current,
+      start:   'top 88%',
+      once:    true,
+      onEnter: () => {
+        cards.forEach((card, i) => {
+          const delay = i * 0.07;
+          gsap.to(card, { scaleY: 1, opacity: 1, duration: 1.0, ease: 'power3.out', delay });
+          const overlay = card.querySelector('[data-overlay]');
+          if (overlay) {
+            gsap.to(overlay, { scaleY: 1, duration: 1.0, ease: 'power3.out', delay });
+            gsap.to(overlay, { opacity: 0, duration: 0.5, ease: 'power1.inOut', delay: delay + 1.0 });
+          }
+        });
+      },
+    });
+
+    cards.forEach((card, i) => {
+      const parallaxEx = i * 80;
+      const target = card.querySelector('[data-parallax-ex]');
+      if (!target) return;
+
+      gsap.to(target, {
+        y: () => parallaxEx * (stripRef.current.clientHeight / 560),
+        scrollTrigger: {
+          trigger: stripRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1,
+          invalidateOnRefresh: true,
+        }
+      });
+    });
+  }, { scope: stripRef });
+
+  const offsets = [-80, -40, 0, 40];
+
+  return (
+    <div ref={stripRef} className="about-photo" style={{
+      position: 'absolute', top: '130vh', left: '0.2vw',
+      display: 'flex', gap: '2px', zIndex: 60,
+      willChange: 'transform', pointerEvents: 'none',
+    }}>
+      {offsets.map((offset, i) => (
+        <div key={i} ref={el => cardRefs.current[i] = el} className="photo" style={{
+          position: 'relative',
+          width: 'calc(420 * var(--pv))', height: 'calc(560 * var(--pv))',
+          overflow: 'hidden', flexShrink: 0, transformOrigin: 'bottom center',
+        }}>
+          <div data-insert style={{ height: '100%' }}>
+            <div data-parallax-ex={i * 80} style={{ height: '100%', position: 'relative' }}>
+              <span style={{ display: 'block', position: 'absolute', left: 0, width: '100%', bottom: `calc(${offset} * var(--pv))` }}>
+                <img src="https://sirup.online/5th/asset/img/header/header-about-photo.webp" alt="" style={{
+                  display: 'block', width: '100%', height: 'auto', willChange: 'transform',
+                }} />
+                <div data-overlay="true" style={{
+                  position: 'absolute', inset: 0, background: '#E03200',
+                  mixBlendMode: 'overlay', pointerEvents: 'none', transformOrigin: 'bottom center',
+                }} />
+              </span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ─── Roots Photo Strip ─────────────────────────────────────────────────────────
+function RootsPhotoStrip() {
+  const stripRef = useRef(null);
+  const cardRefs = useRef([]);
+  const { velocity, addTick, removeTick } = useKineticScroll();
+
+  useEffect(() => {
+    if (!stripRef.current) return;
+    const setSkew = gsap.quickSetter(stripRef.current, 'skewY', 'deg');
+    let lastSkew = null;
+    const tick = () => {
+      if (!stripRef.current) return;
+      const v    = velocity.current * 0.04;
+      const skew = Math.abs(v) < 0.01 ? 0 : v;
+      if (skew !== lastSkew) { setSkew(skew); lastSkew = skew; }
+    };
+    addTick(tick);
+    return () => removeTick(tick);
+  }, [velocity, addTick, removeTick]);
+
+  useGSAP(() => {
+    if (!stripRef.current) return;
+    const cards = cardRefs.current.filter(Boolean);
+    cards.forEach(card => {
+      gsap.set(card, { scaleY: 0, transformOrigin: 'bottom center', opacity: 0 });
+      const overlay = card.querySelector('[data-overlay]');
+      if (overlay) gsap.set(overlay, { scaleY: 0, opacity: 1, transformOrigin: 'bottom center' });
+    });
+    ScrollTrigger.create({
+      trigger: stripRef.current,
+      start:   'top 88%',
+      once:    true,
+      onEnter: () => {
+        cards.forEach((card, i) => {
+          const delay = i * 0.07;
+          gsap.to(card, { scaleY: 1, opacity: 1, duration: 1.0, ease: 'power3.out', delay });
+          const overlay = card.querySelector('[data-overlay]');
+          if (overlay) {
+            gsap.to(overlay, { scaleY: 1, duration: 1.0, ease: 'power3.out', delay });
+            gsap.to(overlay, { opacity: 0, duration: 0.5, ease: 'power1.inOut', delay: delay + 1.0 });
+          }
+        });
+      },
+    });
+
+    cards.forEach((card, i) => {
+      const parallaxEx = i * 80;
+      const target = card.querySelector('[data-parallax-ex]');
+      if (!target) return;
+
+      gsap.to(target, {
+        y: () => parallaxEx * (stripRef.current.clientHeight / 560),
+        scrollTrigger: {
+          trigger: stripRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1,
+          invalidateOnRefresh: true,
+        }
+      });
+    });
+  }, { scope: stripRef });
+
+  const offsets = [-80, -40, 0, 40];
+
+  return (
+    <div ref={stripRef} className="roots-photo" style={{
+      position: 'absolute', top: '260vh', right: '9vw',
+      display: 'flex', gap: '2px', zIndex: 60,
+      willChange: 'transform', pointerEvents: 'none',
+    }}>
+      {offsets.map((offset, i) => (
+        <div key={i} ref={el => cardRefs.current[i] = el} className="photo" style={{
+          position: 'relative',
+          width: 'calc(420 * var(--pv))', height: 'calc(560 * var(--pv))',
+          overflow: 'hidden', flexShrink: 0, transformOrigin: 'bottom center',
+        }}>
+          <div data-insert style={{ height: '100%' }}>
+            <div data-parallax-ex={i * 80} style={{ height: '100%', position: 'relative' }}>
+              <span style={{ display: 'block', position: 'absolute', left: 0, width: '100%', bottom: `calc(${offset} * var(--pv))` }}>
+                <img src="https://sirup.online/5th/asset/img/header/header-roots-photo.webp" alt="" style={{
+                  display: 'block', width: '100%', height: 'auto', willChange: 'transform',
+                }} />
+                <div data-overlay="true" style={{
+                  position: 'absolute', inset: 0, background: '#E03200',
+                  mixBlendMode: 'overlay', pointerEvents: 'none', transformOrigin: 'bottom center',
+                }} />
+              </span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ─── Footer Section ────────────────────────────────────────────────────────────
+function FooterSection() {
+  const debutRef  = useRef(null);
+  const sepRef    = useRef(null);
+  const nextRef   = useRef(null);
+  const panelRef  = useRef(null);
+
+  useGSAP(() => {
+    // Debut SVGs stagger reveal
+    if (debutRef.current) {
+      const items = debutRef.current.querySelectorAll('.debut-item');
+      gsap.set(items, { opacity: 0, scaleY: 0, transformOrigin: 'center bottom' });
+      ScrollTrigger.create({
+        trigger: debutRef.current, start: 'top 85%', once: true,
+        onEnter: () => gsap.to(items, { opacity: 1, scaleY: 1, duration: 1.0, ease: 'power3.out', stagger: 0.05 }),
+      });
+    }
+    // Separate spinner reveal
+    if (sepRef.current) {
+      gsap.set(sepRef.current, { opacity: 0, y: '12.5vh' });
+      ScrollTrigger.create({
+        trigger: sepRef.current, start: 'top 85%', once: true,
+        onEnter: () => gsap.to(sepRef.current, { opacity: 0.9, y: 0, duration: 0.5, ease: 'power3.out' }),
+      });
+    }
+    // NEXT SVG reveal
+    if (nextRef.current) {
+      gsap.set(nextRef.current, { opacity: 0, y: '12.5vh' });
+      ScrollTrigger.create({
+        trigger: nextRef.current, start: 'top 85%', once: true,
+        onEnter: () => gsap.to(nextRef.current, { opacity: 0.9, y: 0, duration: 0.5, ease: 'power3.out' }),
+      });
+    }
+    // Panel reveal
+    if (panelRef.current) {
+      gsap.set(panelRef.current, { opacity: 0, y: '25vh' });
+      ScrollTrigger.create({
+        trigger: panelRef.current, start: 'top 90%', once: true,
+        onEnter: () => gsap.to(panelRef.current, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }),
+      });
+    }
+  });
+
+  return (
+    <div style={{ position: 'relative', height: 'calc(3350 * var(--pv))', marginTop: '4vh' }}>
+
+      {/* Debut SVGs — 2017.9.27 / SIRUP / DEBUT */}
+      <div ref={debutRef} style={{
+        position: 'absolute', left: 0, right: 0,
+        bottom: 'calc(2400 * var(--pv))',
+        width: 'calc(1465 * var(--pv))', margin: 'auto',
+        opacity: 0.9, mixBlendMode: 'overlay',
+      }}>
+        {['footer-debut-1.svg', 'footer-debut-2.svg', 'footer-debut-3.svg'].map((f, i) => (
+          <div key={i} className="debut-item" style={{ display: 'block', position: 'absolute', left: 0, bottom: 0, width: '100%' }}>
+            <img src={`/asset/img/footer/${f}`} alt="" style={{ display: 'block', width: '100%', height: 'auto' }} />
+          </div>
+        ))}
+      </div>
+
+      {/* Separate spinning icon */}
+      <div ref={sepRef} style={{
+        position: 'absolute', left: 0, right: 0,
+        bottom: 'calc(1900 * var(--pv))',
+        width: 'calc(450 * var(--pv))', margin: 'auto',
+        opacity: 0, mixBlendMode: 'overlay',
+      }}>
+        <img src="/asset/img/footer/footer-separate.svg" alt="" style={{
+          display: 'block', width: '100%', height: 'auto',
+          animation: 'footer-rotateY 2.0s linear infinite',
+        }} />
+      </div>
+
+      {/* NEXT arrow */}
+      <div ref={nextRef} style={{
+        position: 'absolute', left: 0, right: 0,
+        bottom: 'calc(1400 * var(--pv))',
+        width: 'calc(85 * var(--pv))', margin: 'auto',
+        opacity: 0, mixBlendMode: 'overlay',
+      }}>
+        <img src="/asset/img/footer/footer-next.svg" alt="NEXT" style={{ display: 'block', width: '100%', height: 'auto' }} />
+      </div>
+
+      {/* Footer Tickers */}
+      <div style={{ mixBlendMode: 'overlay', position: 'absolute', left: 0, right: 0, bottom: 'calc(455 * var(--pv))', width: '100%', height: 'calc(290 * var(--pv))', overflow: 'hidden' }}>
+        <div style={{ display: 'block', position: 'absolute', left: 0, top: 0, width: 'calc(12532 * var(--pv))', height: '100%', backgroundImage: 'url(https://sirup.online/5th/asset/img/ticker.svg)', backgroundRepeat: 'repeat-x', backgroundPosition: 'left center', backgroundSize: 'contain', opacity: 1.0, animation: 'footer-tickerL 30s linear infinite' }} />
+      </div>
+      <div style={{ mixBlendMode: 'overlay', position: 'absolute', left: 0, right: 0, bottom: 'calc(300 * var(--pv))', width: '100%', height: 'calc(155 * var(--pv))', overflow: 'hidden' }}>
+        <div style={{ display: 'block', position: 'absolute', right: 0, bottom: 0, width: 'calc(12532 * var(--pv))', height: 'calc(290 * var(--pv))', backgroundImage: 'url(https://sirup.online/5th/asset/img/ticker.svg)', backgroundRepeat: 'repeat-x', backgroundPosition: 'left center', backgroundSize: 'contain', opacity: 0.7, animation: 'footer-tickerR 45s linear infinite' }} />
+      </div>
+
+      {/* Footer Panel — rotating 3D card */}
+      <div ref={panelRef} style={{
+        position: 'absolute', left: 0, right: 0, bottom: 0,
+        width: 'calc(1440 * var(--pv))', height: 'calc(1300 * var(--pv))',
+        margin: 'auto', opacity: 0,
+      }}>
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+          {/* Front panel */}
+          <div style={{
+            position: 'absolute', left: 0, bottom: 0, width: '100%', height: '100%',
+            borderRadius: '100vw 100vw 0 0', overflow: 'hidden',
+            animation: 'footer-panelF 2.0s linear infinite',
+          }}>
+            <img src="/asset/img/footer/footer-panel-1.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(2.5)', transformOrigin: 'center center' }} />
+          </div>
+          {/* Back panel */}
+          <div style={{
+            position: 'absolute', left: 0, bottom: 0, width: '100%', height: '100%',
+            borderRadius: '100vw 100vw 0 0', overflow: 'hidden',
+            animation: 'footer-panelB 2.0s linear infinite',
+          }}>
+            <img src="/asset/img/footer/pc/footer-panel-2.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(2.5)', transformOrigin: 'center center' }} />
+          </div>
+        </div>
+      </div>
+
+      {/* Footer Links (bottom left) */}
+      <div style={{ position: 'absolute', left: 'calc(110 * var(--pv))', bottom: 'calc(85 * var(--pv))', display: 'flex', gap: 'calc(85 * var(--pv))' }}>
+        {[
+          { label: 'SIRUP OFFICIAL SITE', href: 'https://sirup.online' },
+          { label: 'CHANNEL SRP', href: 'https://subscription.app.c-rayon.com/app/sirup/home' },
+        ].map(({ label, href }) => (
+          <a key={label} href={href} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Termina', 'DM Sans', sans-serif", fontSize: 'calc(11 * var(--pv))', lineHeight: 1, fontWeight: 200, letterSpacing: '0.1em', color: '#ffffff', textDecoration: 'none' }}>
+            {label}
+          </a>
+        ))}
+      </div>
+
+      {/* Copyright (bottom center-right) */}
+      <div style={{ position: 'absolute', right: 'calc(720 * var(--pv))', bottom: 'calc(85 * var(--pv))', fontFamily: "'Termina', 'DM Sans', sans-serif", fontSize: 'calc(11 * var(--pv))', lineHeight: 1, fontWeight: 200, letterSpacing: '0.1em', color: '#ffffff' }}>
+        © SIRUP {new Date().getFullYear()}
+      </div>
+
+      {/* Social icons (bottom right) */}
+      <div style={{ position: 'absolute', right: 'calc(110 * var(--pv))', bottom: 'calc(85 * var(--pv))', display: 'flex', gap: 'calc(65 * var(--pv))' }}>
+        {[
+          { alt: 'Twitter/X',   src: '/asset/img/icon-twitter.svg',   href: 'https://twitter.com/IamSIRUP' },
+          { alt: 'Instagram',   src: '/asset/img/icon-instagram.svg', href: 'https://www.instagram.com/sirup_insta/' },
+          { alt: 'YouTube',     src: '/asset/img/icon-youtube.svg',   href: 'https://www.youtube.com/channel/UCT0DEDLRQmlcBE93gLzWJ5A/featured' },
+          { alt: 'Apple Music', src: '/asset/img/icon-apple.svg',     href: 'https://music.apple.com/jp/artist/sirup/1281420386' },
+          { alt: 'Spotify',     src: '/asset/img/icon-spotify.svg',   href: 'https://open.spotify.com/artist/1HzcHe0WFm4koBalCEOkVh' },
+        ].map(({ alt, src, href }) => (
+          <a key={alt} href={href} target="_blank" rel="noopener noreferrer" style={{ display: 'block', height: 'calc(20 * var(--pv))' }}>
+            <img src={src} alt={alt} style={{ width: 'auto', height: '100%', filter: 'invert(1)' }} />
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Live Ticker Section ──────────────────────────────────────────────────
+function MainLiveSection() {
+  return (
+    <div style={{ position: 'relative', height: 'calc(1500 * var(--pv))', marginBottom: '4vh' }}>
+      {/* Ticker 1 — moves right, dim */}
+      <div style={{ position: 'absolute', left: 0, top: 'calc(-442 * var(--pv))', width: '100%', height: 'calc(235 * var(--pv))', overflow: 'hidden', mixBlendMode: 'overlay' }}>
+        <div style={{ display: 'block', position: 'absolute', right: 0, top: 0, width: 'calc(17932 * var(--pv))', height: 'calc(415 * var(--pv))', backgroundImage: 'url(https://sirup.online/5th/asset/img/ticker.svg)', backgroundRepeat: 'repeat-x', backgroundPosition: 'left center', backgroundSize: 'contain', opacity: 0.4, animation: 'footer-tickerR 60s linear infinite' }} />
+      </div>
+      {/* Ticker 2 — moves left, bright */}
+      <div style={{ position: 'absolute', left: 0, top: 'calc(-207 * var(--pv))', width: '100%', height: 'calc(415 * var(--pv))', overflow: 'hidden', mixBlendMode: 'overlay' }}>
+        <div style={{ display: 'block', position: 'absolute', left: 0, top: 0, width: 'calc(17932 * var(--pv))', height: 'calc(415 * var(--pv))', backgroundImage: 'url(https://sirup.online/5th/asset/img/ticker.svg)', backgroundRepeat: 'repeat-x', backgroundPosition: 'left center', backgroundSize: 'contain', opacity: 1.0, animation: 'footer-tickerL 40s linear infinite' }} />
+      </div>
+      {/* Ticker 3 — moves right, semi */}
+      <div style={{ position: 'absolute', left: 0, top: 'calc(208 * var(--pv))', width: '100%', height: 'calc(235 * var(--pv))', overflow: 'hidden', mixBlendMode: 'overlay' }}>
+        <div style={{ display: 'block', position: 'absolute', right: 0, bottom: 0, width: 'calc(17932 * var(--pv))', height: 'calc(415 * var(--pv))', backgroundImage: 'url(https://sirup.online/5th/asset/img/ticker.svg)', backgroundRepeat: 'repeat-x', backgroundPosition: 'left center', backgroundSize: 'contain', opacity: 0.7, animation: 'footer-tickerR 50s linear infinite' }} />
+      </div>
+    </div>
+  );
+}
+
+// ─── App ───────────────────────────────────────────────────────────────────────
+export default function App() {
+  const containerRef       = useRef(null);
+  const characterRef       = useRef(null);
+  const panelRef           = useRef(null);
+  const headlineVeslineRef = useRef(null);
+  const headlineDateRef    = useRef(null);
+  const seventhRef         = useRef(null);
+  const [loaderDone, setLoaderDone] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false);
+
+  const handleNavigate = (target) => {
+    let el = null;
+    if (target === 'details') {
+      el = document.querySelector('.about-photo');
+    } else if (target === 'chess') {
+      el = document.querySelector('.section-main-live');
+    } else if (target === 'car') {
+      el = document.querySelector('.section-footer-wrap');
+    }
+
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      const scrollY = window.scrollY + rect.top;
+      window.scrollTo({
+        top: scrollY,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // ── Entrance animation (fires once loader is done) ──────────────────────────
+  useGSAP(() => {
+    if (!loaderDone) return;
+
     const tl = gsap.timeline({ defaults: { force3D: true } });
 
-    // ── 1. PANEL — the stage appears first ──────────────────────────────────
     if (panelRef.current) {
-      gsap.set(panelRef.current, { xPercent: -50, yPercent: 40, opacity: 0 });
-      tl.to(panelRef.current, {
-        yPercent: 0,
-        opacity:  1,
-        duration: 2.4,
-        ease:     'expo.out',
-      }, 0);
+      gsap.set(panelRef.current, { yPercent: 40, opacity: 0 });
+      tl.to(panelRef.current, { yPercent: 0, opacity: 1, duration: 2.4, ease: 'expo.out' }, 0);
     }
 
-    // ── 2. CHARACTER — the star walks in ────────────────────────────────────
     if (characterRef.current) {
-      gsap.set(characterRef.current, { xPercent: -50, yPercent: 110 });
-      tl.to(characterRef.current, {
-        yPercent: 0,
-        duration: 2.6,
-        ease:     'power4.out',
-      }, 0.3);
+      gsap.set(characterRef.current, { yPercent: 110 });
+      tl.to(characterRef.current, { yPercent: 0, duration: 2.6, ease: 'power4.out' }, 0.3);
     }
 
-    // ── 3. DATE "2007-2012" — cascade with no bounce ────────────────────────────
     if (headlineDateRef.current) {
       const dateChars = headlineDateRef.current.querySelectorAll('.date-char');
-      if (dateChars.length > 0) {
+      if (dateChars.length) {
         gsap.set(dateChars, { y: 120, opacity: 0 });
-        tl.to(dateChars, {
-          y:        0,
-          opacity:  1,
-          duration: 1.6,
-          ease:     'expo.out', // Removed bounce here
-          stagger:  { each: 0.05, from: 'start' },
-        }, 0.9);
+        tl.to(dateChars, { y: 0, opacity: 1, duration: 1.6, ease: 'expo.out', stagger: { each: 0.05 } }, 0.9);
       }
     }
 
-    // ── 4. "7th" — the punchline ─────────────────────────────────────────────
     if (seventhRef.current) {
       const seventhChars = seventhRef.current.querySelectorAll('.date-char');
-      if (seventhChars.length > 0) {
+      if (seventhChars.length) {
         gsap.set(seventhChars, { y: 160, opacity: 0 });
-        tl.to(seventhChars, {
-          y:        0,
-          opacity:  1,
-          duration: 1.8,
-          ease:     'expo.out',
-          stagger:  { each: 0.08, from: 'start' },
-        }, 1.4);
+        tl.to(seventhChars, { y: 0, opacity: 1, duration: 1.8, ease: 'expo.out', stagger: { each: 0.08 } }, 1.4);
       }
     }
 
-    // ── 5. VESLINE — single drift tween, no glitch ──────────────────────────
-    // power4.out: covers 94% of distance in first 50% of time, then crawls.
-    // At 3.5s: shoots in for ~1.75s (the drift), creeps the last 6% for ~1.75s (tyres locking).
-    // y: 20 → 0 adds a vertical settle — word drifts in from left AND slightly below,
-    // then stabilises. Real 2D drift, zero GPU transition glitch.
     if (headlineVeslineRef.current) {
       const inner = headlineVeslineRef.current.querySelector('.vesline-inner');
       const lastE = headlineVeslineRef.current.querySelector('.vesline-last-e');
-
       if (inner) {
-        if (lastE) {
-          gsap.set(lastE, { opacity: 0, yPercent: -40 });
-        }
-
-        // Start off-screen left AND slightly below for the 2D drift
+        if (lastE) gsap.set(lastE, { opacity: 0, yPercent: -40 });
         gsap.set(inner, { xPercent: -100, y: 20 });
-
-        // Single smooth drift — power4.out IS the car braking
-        tl.to(inner, {
-          xPercent: 0,
-          y:        0,
-          duration: 3.5,
-          ease:     'power4.out',
-        }, 2.0);
-
-        // Last E snaps in after drift settles (2.0 + 3.5 = 5.5s)
-        if (lastE) {
-          tl.to(lastE, {
-            opacity:  1,
-            yPercent: 0,
-            duration: 0.6,
-            ease:     'back.out(2.5)',
-          }, 5.5);
-        }
+        tl.to(inner, { xPercent: 0, y: 0, duration: 3.5, ease: 'power4.out' }, 2.0);
+        if (lastE) tl.to(lastE, { opacity: 1, yPercent: 0, duration: 0.6, ease: 'back.out(2.5)' }, 5.5);
       }
     }
 
-    // ── Scroll-triggered photo strips ───────────────────────────────────────
-    // These are independent of the hero entrance — they fire when scrolled into view.
-    ABOUT_OFFSETS.forEach((offset, i) => {
-      const card = aboutCardsRef.current[i];
-      if (!card) return;
-      gsap.set(card, { y: offset });
-      gsap.to(card, {
-        y:        0,
-        duration: 0.9,
-        ease:     'power3.out',
-        delay:    i * 0.07,
-        scrollTrigger: { trigger: card, start: 'top 90%', once: true },
-      });
-    });
-
-    ROOTS_OFFSETS.forEach((offset, i) => {
-      const card = rootsCardsRef.current[i];
-      if (!card) return;
-      gsap.set(card, { y: offset });
-      gsap.to(card, {
-        y:        0,
-        duration: 0.9,
-        ease:     'power3.out',
-        delay:    i * 0.07,
-        scrollTrigger: { trigger: card, start: 'top 90%', once: true },
-      });
-    });
-
-  }, { scope: containerRef }); // ✅ FIX 3: GSAP context scoped → proper cleanup on HMR/unmount
+  }, { scope: containerRef, dependencies: [loaderDone] });
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className="page">
 
-      {/* LAYER 0: Sibling Fixed Background (Never gets trapped or clipped) */}
+      {/* ── Intro Loader ── */}
+      {!loaderDone && (
+        <IntroLoader
+          logoSrc="https://sirup.online/5th/asset/img/header/header-logo.svg"
+          onComplete={() => setLoaderDone(true)}
+        />
+      )}
+
+
+      {/* ── Fixed background ── */}
       <div className="bg-canvas-layer" style={{
-        position: 'fixed', top: 0, left: 0,
-        width: '100vw', height: '100vh',
-        zIndex: 0, pointerEvents: 'none'
+        position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+        zIndex: 0, pointerEvents: 'none',
       }}>
         <LivingBackground isPlaying={true} speed={1} colorA="#1a1a2e" colorB="#533483" />
       </div>
 
-      {/* SVG Filter: Alpha gamma sharpening — makes Glodok thin strokes crisper, simulates higher stroke contrast */}
+      {/* ── SVG Filter ── */}
       <svg style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }} aria-hidden="true">
         <defs>
           <filter id="sharpen-alpha" colorInterpolationFilters="sRGB">
@@ -332,8 +527,40 @@ export default function App() {
         </defs>
       </svg>
 
-      {/* SCROLL-AWARE HEADER — lives outside KineticScrollProvider so
-          position:fixed is real viewport-fixed, not transform-relative */}
+      {/* ── Custom Navigation Toggle (Burger) ── */}
+      {loaderDone && (
+        <div className={`page-toggle ${isMenuOpen ? 'is-active' : ''}`}>
+          <div data-insert>
+            <button
+              className={isMenuOpen ? 'is-active' : ''}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle Navigation Menu"
+            >
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Curtain Drawer Menu Overlay ── */}
+      <PageNav
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        onOpenPlayer={() => setIsPlayerOpen(true)}
+        onNavigate={handleNavigate}
+      />
+
+      {/* ── Floating Glassmorphic Music Player ── */}
+      <MusicPlayer
+        isOpen={isPlayerOpen}
+        onClose={() => setIsPlayerOpen(false)}
+      />
+
+      {/* ── Navbar ── */}
       <ScrollHeader
         logoSrc="https://sirup.online/5th/asset/img/header/header-logo.svg"
         socials={[
@@ -346,356 +573,261 @@ export default function App() {
         zIndex={100}
       />
 
-      {/* LAYER 1: THE PHYSICS ENGINE */}
+      {/* ── Kinetic Physics Engine ── */}
       <KineticScrollProvider>
 
-        {/* THE RUNWAY (Gives the scrollbar a massive track) */}
-        <div style={{ position: 'relative', minHeight: '350vw', width: '100%', zIndex: 30 }}>
-        {/* 👑 CROWN 1: Panel background — moves at 0.15, sits behind headlines */}
-        <ParallaxLayer speed={0.15} zIndex={10}>
-          <img
-            ref={panelRef}
-            src="https://sirup.online/5th/asset/img/header/pc/header-panel.webp"
-            alt=""
-            decoding="async"
-            style={{
-              position: 'absolute', left: '50%',
-              top: 'calc(40vh - 8vw)',
-              width: '75vw', height: '148vw',
-              pointerEvents: 'none',
-              objectFit: 'fill',
-              willChange: 'transform',
-            }}
-          />
-        </ParallaxLayer>
+        {/* ═══════════════════════════════════════════════════════════════════
+            SECTION: HEADER  (section-header)
+        ═══════════════════════════════════════════════════════════════════ */}
+        <div className="section-header" style={{ zIndex: 30 }}>
 
-        {/* 👑 CROWN 2: Character — outer speed=0.08 keeps clip locked to panel.
-            CharacterParallax adds inner drift (0.08) via gsap.quickSetter so
-            entrance animation (yPercent) and inner parallax (y) never conflict. */}
-        <ParallaxLayer speed={0.08} zIndex={30} skewFactor={0.05}>
-          <CharacterParallax
-            ref={characterRef}
-            src="/character.webp"
-            alt="SIRUP"
-            width="75vw"
-            height="148vw"
-            top="calc(40vh - 8vw)"
-            innerParallax={0.08}
-          />
-        </ParallaxLayer>
+          {/* Panel dome */}
+          <ParallaxLayer parallaxFactor={0} zIndex={10}>
+            <HoverParallaxCard
+              mode="global-tilt" maxTilt={-15} perspective={1920}
+              globalRate={0.1} transformOrigin="50% calc(1000 * var(--pv))"
+              className="header-panel"
+              style={{ width: 'calc(2880 * var(--pv))', height: 'auto' }}
+            >
+              <div className="panel-container" style={{ position: 'relative', width: '100%', height: 'auto', transformStyle: 'preserve-3d' }}>
+                <picture style={{ display: 'block', width: '100%', height: 'auto' }}>
+                  <source srcSet="https://sirup.online/5th/asset/img/header/sd/header-panel.webp" media="(max-width: 960px)" type="image/webp" />
+                  <img ref={panelRef} src="https://sirup.online/5th/asset/img/header/pc/header-panel.webp" alt=""
+                    decoding="async" style={{ width: '100%', height: 'auto', pointerEvents: 'none', willChange: 'transform' }} />
+                </picture>
+              </div>
+            </HoverParallaxCard>
+          </ParallaxLayer>
 
+          {/* Character */}
+          <ParallaxLayer parallaxFactor={0} zIndex={30}>
+            <CharacterParallax ref={characterRef} alt="SIRUP" />
+          </ParallaxLayer>
 
-
-        {/* VESLINE SVG — Element 3: floaty viewport shift, slow */}
-        {/* HoverParallaxCard is the outer positioner. headlineVeslineRef stays */}
-        {/* on the inner div so GSAP querySelector('.vesline-inner') still works. */}
-        <HoverParallaxCard
-          mode="shift"
-          shiftX={6}
-          shiftY={4}
-          shiftDuration={0.8}
-          style={{
-            position:      'absolute',
-            left:          '50%',
-            transform:     'translateX(calc(-50% - 22vw))',
-            top:           'calc(24vh + 15.2vw)',
-            zIndex:         20,
-            pointerEvents: 'none',
-          }}
-        >
-          <div
-            ref={headlineVeslineRef}
-            style={{ overflow: 'hidden', pointerEvents: 'none' }}
-          >
-            <div
-              className="vesline-inner"
+          {/* VESLINE logo */}
+          <ParallaxLayer parallaxFactor={-2} zIndex={20}>
+            <HoverParallaxCard
+              mode="global-tilt" maxTilt={-15} perspective={1920}
+              globalRate={0.1} transformOrigin="50% calc(800 * var(--pv))"
               style={{
-                display:      'block',
-                width:        '100%',
-                opacity:       0.92,
-                mixBlendMode: 'screen',
-                filter:       'drop-shadow(0 0 0 rgba(0,0,0,0.32)) drop-shadow(0 3px 10px rgba(0,0,0,0.45)) drop-shadow(0 12px 30px rgba(0,0,0,0.20))',
+                position: 'absolute', left: '50%',
+                transform: 'translateX(calc(-50% - 19vw))',
+                top: 'calc(27vh + 15.2vw)',
+                zIndex: 20, pointerEvents: 'none',
+                width: '55vw', maxWidth: '1160px', display: 'block', height: 'auto',
               }}
             >
-              <HeroLogo fill="#ffffff" width="55vw" maxWidth="1160px" />
+              <div className="text-3d-axis" style={{ pointerEvents: 'none', width: '100%', height: 'auto' }}>
+                <div ref={headlineVeslineRef} style={{ overflow: 'hidden', pointerEvents: 'none' }}>
+                  <div className="vesline-inner" style={{
+                    display: 'block', width: '100%', opacity: 0.92,
+                    mixBlendMode: 'screen', filter: HERO_SHADOW,
+                  }}>
+                    <HeroLogo fill="#ffffff" width="100%" maxWidth="none" />
+                  </div>
+                </div>
+              </div>
+            </HoverParallaxCard>
+          </ParallaxLayer>
+
+          {/* Date 2007-2012 */}
+          <ParallaxLayer parallaxFactor={-1.5} zIndex={20}>
+            <div style={{
+              position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '24vh',
+              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5vw',
+              zIndex: 20, pointerEvents: 'none',
+            }}>
+              <HoverParallaxCard
+                mode="global-tilt" maxTilt={-15} perspective={1920}
+                globalRate={0.1} transformOrigin="50% calc(800 * var(--pv))"
+                style={{ pointerEvents: 'none', width: '100%', display: 'block', height: 'auto' }}
+              >
+                <div className="text-3d-axis" style={{ pointerEvents: 'none', width: '100%', height: 'auto' }}>
+                  <div ref={headlineDateRef} style={{ display: 'flex', justifyContent: 'center' }}>
+                    <DateSVG date="2007-2012" height="6.5vw" style={{
+                      opacity: 0.92, transform: 'translateY(5.8vw) scaleY(1.04)',
+                      mixBlendMode: 'screen', filter: HERO_SHADOW,
+                    }} />
+                  </div>
+                </div>
+              </HoverParallaxCard>
+              {/* spacer for VESLINE */}
+              <div aria-hidden="true" style={{ width: '47vw', maxWidth: '1100px', height: '26.44vw', flexShrink: 0, transform: 'translateX(-10vw) translateY(-4.6vw)' }} />
             </div>
-          </div>
-        </HoverParallaxCard>
+          </ParallaxLayer>
 
-        {/* Background Layer (zIndex 5) - Behind Guy, In front of Panel */}
-        <div style={{
-          position: 'absolute', left: '50%',
-          transform: 'translateX(-50%)', top: '24vh',
-          display: 'flex', flexDirection: 'column', alignItems: 'center',
-          gap: '0.5vw',
-          zIndex: 20, pointerEvents: 'none',
-        }}>
-          {/* Element 5: 2007-2012 — inverse shift (moves OPPOSITE mouse) */}
-          {/* Counter-direction vs VESLINE creates real Z-depth separation */}
-          <HoverParallaxCard
-            mode="shift"
-            shiftX={3}
-            shiftY={2}
-            shiftDuration={1.2}
-            inverse={true}
-          >
-            <div ref={headlineDateRef} style={{ display: 'flex', justifyContent: 'center' }}>
-              <DateSVG 
-                date="2007-2012"
-                height="6.5vw"
-                style={{
-                  opacity: 0.92,
-                  transform: 'translateY(5.8vw) scaleY(1.04)',
-                  mixBlendMode: 'screen',
-                  filter: 'drop-shadow(0 0 0 rgba(0,0,0,0.32)) drop-shadow(0 3px 10px rgba(0,0,0,0.45)) drop-shadow(0 12px 30px rgba(0,0,0,0.20))',
-                }}
-              />
-            </div>
-          </HoverParallaxCard>
-
-          {/* Bottom: VESLINE spacer — plain div, correct dimensions, no duplicate SVG render */}
-          <div
-            aria-hidden="true"
-            style={{ width: '47vw', maxWidth: '1100px', height: '26.44vw', flexShrink: 0, transform: 'translateX(-10vw) translateY(-4.6vw)' }}
-          />
-        </div>
-
-        {/* Foreground Layer (zIndex 12) - In front of Guy */}
-        <div style={{
-          position: 'absolute', left: '50%',
-          transform: 'translateX(-50%)', top: '24vh',
-          display: 'flex', flexDirection: 'column', alignItems: 'center',
-          gap: '0.5vw',
-          zIndex: 40, pointerEvents: 'none',
-          isolation: 'isolate',
-        }}>
-          {/* Top: 2007-2012 spacer — plain div, no duplicate SVG render */}
-          <div
-            aria-hidden="true"
-            style={{ height: '6.5vw', width: '100%', flexShrink: 0, transform: 'translateY(5.8vw) scaleY(1.04)' }}
-          />
-
-          {/* Bottom: VESLINE spacer — plain div, correct dimensions, no duplicate SVG render */}
-          <div
-            aria-hidden="true"
-            style={{ width: '47vw', maxWidth: '1100px', height: '26.44vw', flexShrink: 0, transform: 'translateX(-10vw) translateY(-4.6vw)' }}
-          />
-        </div>
-
-        {/* Z 12 - ABOUT TITLE (Separated) */}
-        <div style={{
-          position: 'absolute', left: '50%',
-          transform: 'translateX(-50%)', top: '180vh',
-          display: 'flex', flexDirection: 'column', alignItems: 'center',
-          gap: '0.5vw',
-          zIndex: 40, pointerEvents: 'none',
-        }}>
-          {/* Top: ABOUT */}
-          <img src="/about_title (1).png" alt="ABOUT" style={{ width: '35vw', height: 'auto', opacity: 0.8, transform: 'translateX(36vw) translateY(-6vw) rotate(90deg)' }} />
-          {/* Bottom: VESLINE */}
-          <div style={{ width: '52vw', height: 'auto', opacity: 0.8, transform: 'translateX(29vw) translateY(0vw) rotate(90deg)' }}>
-            <HeroLogo fill="#ffffff" width="100%" maxWidth="none" />
-          </div>
-        </div>
-
-        {/* Element 4: "7th" — shift mode, forward direction, slightly slower */}
-        <HoverParallaxCard
-          mode="shift"
-          shiftX={4}
-          shiftY={3}
-          shiftDuration={1.0}
-          style={{
-            position:      'absolute',
-            right:          '10vw',
-            top:            '57vh',
-            zIndex:          20,
-            pointerEvents: 'none',
-          }}
-        >
-          <div ref={seventhRef}>
-            <DateSVG
-              date="7th"
-              height="12vw"
+          {/* 7th badge */}
+          <ParallaxLayer parallaxFactor={-2.5} zIndex={20}>
+            <HoverParallaxCard
+              mode="global-tilt" maxTilt={-15} perspective={1920}
+              globalRate={0.1} transformOrigin="50% calc(800 * var(--pv))"
               style={{
-                opacity: 0.92,
-                mixBlendMode: 'screen',
-                filter: 'drop-shadow(0 0 0 rgba(0,0,0,0.32)) drop-shadow(0 3px 10px rgba(0,0,0,0.45)) drop-shadow(0 12px 30px rgba(0,0,0,0.20)) blur(0.5px)',
+                position: 'absolute', right: '25vw', top: '57vh',
+                zIndex: 20, pointerEvents: 'none',
+                width: '12vw', display: 'block', height: 'auto',
               }}
-            />
-          </div>
-        </HoverParallaxCard>
+            >
+              <div className="text-3d-axis" style={{ pointerEvents: 'none', width: '100%', height: 'auto' }}>
+                <div ref={seventhRef}>
+                  <DateSVG date="7th" height="100%" style={{
+                    opacity: 0.92, width: '100%', mixBlendMode: 'screen', filter: HERO_SHADOW,
+                  }} />
+                </div>
+              </div>
+            </HoverParallaxCard>
+          </ParallaxLayer>
 
-        {/* Element 6: Anniversary SVG — gentle 4deg tilt like a framed photo */}
-        <HoverParallaxCard
-          maxTilt={4}
-          perspective={1200}
-          scaleOnHover={1.02}
-          glowOnHover={false}
-          style={{
-            position:  'absolute',
-            top:       '95vh',
-            left:      '50%',
-            transform: 'translateX(-50%)',
-            width:     '50vw',
-            zIndex:     20,
-          }}
-        >
-          <img
-            src="https://sirup.online/5th/asset/img/header/pc/header-title-24.svg"
-            alt="2017-2022 5th ANNIVERSARY"
-            style={{ width: '100%', height: 'auto', display: 'block' }}
-          />
-          {/* Z 15 - SYNAPSE PARAGRAPH (inside Anniversary container) */}
-          <div style={{ position: 'absolute', top: '35px', left: '620px', width: '200px', zIndex: 60 }}>
+          {/* Anniversary title + Synapse text */}
+          <ParallaxLayer parallaxFactor={-2} zIndex={20}>
+            <HoverParallaxCard
+              mode="global-tilt" maxTilt={-15} perspective={1920}
+              globalRate={0.1} transformOrigin="50% calc(800 * var(--pv))"
+              style={{
+                position: 'absolute', top: '95vh', left: '50%',
+                transform: 'translateX(-50%)', width: '50vw',
+                zIndex: 20, display: 'block', height: 'auto',
+              }}
+            >
+              <div className="text-3d-axis" style={{ pointerEvents: 'none', width: '100%', height: 'auto', position: 'relative' }}>
+                <img src="https://sirup.online/5th/asset/img/header/pc/header-title-24.svg" alt="2017-2022 5th ANNIVERSARY"
+                  style={{ width: '100%', height: 'auto', display: 'block' }} />
+                <div style={{ position: 'absolute', top: '35px', left: '620px', width: '200px', zIndex: 60 }}>
+                  <FocalText>
+                    <p style={{
+                      margin: 0, padding: 0,
+                      fontFamily: "'Noto Sans JP', sans-serif",
+                      fontSize: '12px', lineHeight: '18px', fontWeight: 400,
+                      textAlign: 'left', color: 'rgba(255,255,255,0.8)', letterSpacing: '0.498021px',
+                    }}>
+                      {'\u30672017\u5e74\u306b\u30c7\u30d3\u30e5\u30fc\u30b7\u30f3\u30b0\u30eb\u300cSynapse\u300d\u3092\u30ea\u30ea\u30fc\u30b9'}
+                      <br />
+                      {'\u3053\u308c\u307e\u3067\u306b2\u679a\u306e\u30d5\u30eb\u30a2\u30eb\u30d0\u30e0\u30683\u679a\u306eEP\u4f5c\u54c1\u3092'}
+                      <br />
+                      {'\u30ea\u30ea\u30fc\u30b9\u3057\u3066\u304d\u305fSIRUP\u304c2022\u5e74'}
+                      <br />
+                      {'\u30c7\u30d3\u30e5\u30fc5\u5468\u5e74\u3092\u8fce\u3048\u305f\u3002'}
+                    </p>
+                  </FocalText>
+                </div>
+              </div>
+            </HoverParallaxCard>
+          </ParallaxLayer>
+
+          {/* ABOUT title vertical */}
+          <div style={{
+            position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '180vh',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5vw',
+            zIndex: 40, pointerEvents: 'none',
+          }}>
+            <img src="/about_title (1).png" alt="ABOUT" style={{ width: '35vw', height: 'auto', opacity: 0.8, transform: 'translateX(36vw) translateY(-6vw) rotate(90deg)' }} />
+            <div style={{ width: '52vw', height: 'auto', opacity: 0.8, transform: 'translateX(29vw) translateY(0vw) rotate(90deg)' }}>
+              <HeroLogo fill="#ffffff" width="100%" maxWidth="none" />
+            </div>
+          </div>
+
+          {/* About Photo Strip */}
+          <AboutPhotoStrip />
+
+          {/* About Text */}
+          <div style={{ position: 'absolute', top: '170vh', left: '11.5vw', width: '280px', zIndex: 60 }}>
             <FocalText>
-              <p className="pc" style={{
-                margin: 0, padding: 0,
+              <StaggeredTextReveal startTrigger="top 90%" style={{
                 fontFamily: "'Noto Sans JP', sans-serif",
-                fontSize: '12px',
-                lineHeight: '18px',
-                fontWeight: 400,
-                textAlign: 'left',
-                color: 'rgba(255,255,255,0.8)',
-                letterSpacing: '0.498021px',
-              }}>
-                {'\u30672017\u5e74\u306b\u30c7\u30d3\u30e5\u30fc\u30b7\u30f3\u30b0\u30eb\u300cSynapse\u300d\u3092\u30ea\u30ea\u30fc\u30b9'}
-                <br />
-                {'\u3053\u308c\u307e\u3067\u306b2\u679a\u306e\u30d5\u30eb\u30a2\u30eb\u30d0\u30e0\u30683\u679a\u306eEP\u4f5c\u54c1\u3092'}
-                <br />
-                {'\u30ea\u30ea\u30fc\u30b9\u3057\u3066\u304d\u305fSIRUP\u304c2022\u5e74'}
-                <br />
-                {'\u30c7\u30d3\u30e5\u30fc5\u5468\u5e74\u3092\u8fce\u3048\u305f\u3002'}
-              </p>
+                fontSize: '10.5px', fontWeight: 400, lineHeight: 2.0,
+                textAlign: 'left', color: 'rgba(255,255,255,0.8)', letterSpacing: '0.05em', margin: 0,
+              }} lines={[
+                'ラップと歌を自由に行き来する',
+                'ボーカルスタイルと、',
+                '自身のルーツであるネオソウル、R&B、ゴスペルと',
+                'HIPHOPを融合したジャンルに捉われない音楽で、',
+                'イギリス出身の「Years & Years」や',
+                'アイリッシュウイスキー「JAMESON」と',
+                '国内外問わず様々なアーティストやクリエイターと',
+                'コラボレーションも果たすなど',
+                '日本を代表するR&Bシンガーとして',
+                '音楽のみならず様々な分野で活躍を広げている。'
+              ]} />
             </FocalText>
           </div>
-        </HoverParallaxCard>
 
-        {/* Z 15 - ABOUT PHOTO STRIP (Left) — scroll physics via AboutPhotoStrip */}
-        <AboutPhotoStrip cardsRef={aboutCardsRef} />
+          {/* Roots Photo Strip */}
+          <RootsPhotoStrip />
 
-        {/* Z 15 - ABOUT TEXT */}
-        <div style={{ position: 'absolute', top: '170vh', left: '11.5vw', width: '280px', zIndex: 60 }}>
-          <FocalText>
-            <StaggeredTextReveal
-              className="pc" 
-              startTrigger="top 90%"
-              style={{
+          {/* Roots Text */}
+          <div style={{ position: 'absolute', top: 'calc(180vw - 925px)', left: '10vw', width: '323px', zIndex: 60 }}>
+            <FocalText>
+              <StaggeredTextReveal style={{
                 fontFamily: "'Noto Sans JP', sans-serif",
-                fontSize: '10.5px', 
-                fontWeight: 400, lineHeight: 2.0,
-                textAlign: 'left', color: 'rgba(255,255,255,0.8)',
-                letterSpacing: '0.05em', margin: 0,
-              }}
-              lines={[
-                '\u30e9\u30c3\u30d7\u3068\u6b4c\u3092\u81ea\u7531\u306b\u884c\u304d\u6765\u3059\u308b',
-                '\u30dc\u30fc\u30ab\u30eb\u30b9\u30bf\u30a4\u30eb\u3068\u3001',
-                '\u81ea\u8eab\u306e\u30eb\u30fc\u30c4\u3067\u3042\u308b\u30cd\u30aa\u30bd\u30a6\u30eb\u3001R\uff06B\u3001\u30b4\u30b9\u30da\u30eb\u3068',
-                'HIPHOP\u3092\u878d\u5408\u3057\u305f\u30b8\u30e3\u30f3\u30eb\u306b\u6349\u308f\u308c\u306a\u3044\u97f3\u697d\u3067\u3001',
-                '\u30a4\u30ae\u30ea\u30b9\u51fa\u8eab\u306e\u300cYears & Years\u300d\u3084',
-                '\u30a2\u30a4\u30ea\u30c3\u30b7\u30e5\u30a6\u30a4\u30b9\u30ad\u30fc\u300cJAMESON\u300d\u3068',
-                '\u56fd\u5185\u5916\u554f\u308f\u305a\u69d8\u3005\u306a\u30a2\u30fc\u30c6\u30a3\u30b9\u30c8\u3084\u30af\u30ea\u30a8\u30a4\u30bf\u30fc\u3068',
-                '\u30b3\u30e9\u30dc\u30ec\u30fc\u30b7\u30e7\u30f3\u3082\u679c\u305f\u3059\u306a\u3069',
-                '\u65e5\u672c\u3092\u4ee3\u8868\u3059\u308bR&B\u30b7\u30f3\u30ac\u30fc\u3068\u3057\u3066',
-                '\u97f3\u697d\u306e\u307f\u306a\u3089\u305a\u69d8\u3005\u306a\u5206\u91ce\u3067\u6d3b\u8e8d\u3092\u5e83\u3052\u3066\u3044\u308b\u3002'
-              ]}
+                fontSize: '12.5px', fontWeight: 400, lineHeight: 2.2,
+                textAlign: 'left', color: 'rgba(255,255,255,0.8)', letterSpacing: '0.05em', margin: 0,
+              }} lines={[
+                'かつて掘り下げたネオソウルの楽曲から始まり',
+                '自身の "歌" のスタイルを確立する上で大きな影響を受けた',
+                '同時代のアーティストまで、',
+                'ラッパー、R&Bシンガー、バンドなど様々なジャンルのアーティストと',
+                '共演するSIRUPを理解するためのヒントとなる楽曲を',
+                'プレイリストとして振り返る。'
+              ]} />
+            </FocalText>
+          </div>
+
+          {/* Roots Playlist Button */}
+          <div style={{ position: 'absolute', top: 'calc(180vw - 640px)', left: '25vw', zIndex: 60 }}>
+            <MagneticBadge 
+              label={"KEEP IN TOUCH\nPLAYLIST"} 
+              onClick={() => setIsPlayerOpen(true)}
             />
-          </FocalText>
-        </div>
+          </div>
 
-        {/* Z 15 - ROOTS PHOTO STRIP (Right) — scroll physics via RootsPhotoStrip */}
-        <RootsPhotoStrip cardsRef={rootsCardsRef} />
-
-        {/* Z 15 - ROOTS TEXT */}
-        <div style={{ position: 'absolute', top: 'calc(180vw - 925px)', left: '10vw', width: '323px', zIndex: 60 }}>
-          <FocalText>
-            <StaggeredTextReveal 
-              className="pc" 
-              style={{
-                fontFamily: "'Noto Sans JP', sans-serif",
-                fontSize: '12.5px', 
-                fontWeight: 400, lineHeight: 2.2,
-                textAlign: 'left', color: 'rgba(255,255,255,0.8)',
-                letterSpacing: '0.05em', margin: 0,
-              }}
-              lines={[
-                '\u304b\u3064\u3066\u6398\u308a\u4e0b\u3052\u305f\u30cd\u30aa\u30bd\u30a6\u30eb\u306e\u697d\u66f2\u304b\u3089\u59cb\u307e\u308a',
-                '\u81ea\u8eab\u306e \u201c\u6b4c\u201d \u306e\u30b9\u30bf\u30a4\u30eb\u3092\u78ba\u7acb\u3059\u308b\u4e0a\u3067\u5927\u304d\u306a\u5f71\u97ff\u3092\u53d7\u3051\u305f',
-                '\u540c\u6642\u4ee3\u306e\u30a2\u30fc\u30c6\u30a3\u30b9\u30c8\u307e\u3067\u3001',
-                '\u30e9\u30c3\u30d1\u30fc\u3001R&B\u30b7\u30f3\u30ac\u30fc\u3001\u30d0\u30f3\u30c9\u306a\u3069\u69d8\u3005\u306a\u30b8\u30e3\u30f3\u30eb\u306e\u30a2\u30fc\u30c6\u30a3\u30b9\u30c8\u3068',
-                '\u5171\u6f14\u3059\u308bSIRUP\u3092\u7406\u89e3\u3059\u308b\u305f\u3081\u306e\u30d2\u30f3\u30c8\u3068\u306a\u308b\u697d\u66f2\u3092',
-                '\u30d7\u30ec\u30a4\u30ea\u30b9\u30c8\u3068\u3057\u3066\u632f\u308a\u8fd4\u308b\u3002'
-              ]}
-            />
-          </FocalText>
-        </div>
-
-        {/* Z 15 - ROOTS PLAYLIST BUTTON */}
-        <div style={{ position: 'absolute', top: 'calc(180vw - 640px)', left: '25vw', zIndex: 60 }}>
-          <MagneticBadge label={"ROOTS\nPLAYLIST"} />
-        </div>
-
-        {/* Z 12 - ROOTS TITLE */}
-        <img
-          src="/roots_title.png"
-          alt="ROOTS"
-          style={{
-            position: 'absolute', left: '-5vw',
-            transform: 'translateX(0)', top: '195vh',
-            width: '60vw', height: 'auto',
-            opacity: 0.8,
+          {/* ROOTS title */}
+          <img src="/roots_title.png" alt="ROOTS" style={{
+            position: 'absolute', left: '-5vw', top: '195vh',
+            width: '60vw', height: 'auto', opacity: 0.8,
             zIndex: 20, pointerEvents: 'none',
-          }}
-        />
+          }} />
 
-        {/* ── MARQUEE — Footer / Below Roots ─────────────────── */}
-        <div style={{
-          position: 'absolute',
-          top: '360vh',
-          width: '100%',
-          zIndex: 60,
-        }}>
-          <MarqueeStrip
-            items={['SIRUP', '7TH ANNIVERSARY', 'VESUVINE', '2026', 'ROOTS PLAYLIST']}
-            speed={0.4}
-          />
-        </div>
+          {/* Marquee strips */}
+          <div style={{ position: 'absolute', top: '360vh', width: '100%', zIndex: 60 }}>
+            <MarqueeStrip items={['SIRUP', '7TH ANNIVERSARY', 'VESUVINE', '2026', 'ROOTS PLAYLIST']} speed={0.4} />
+          </div>
+          <div style={{ position: 'absolute', top: 'calc(360vh + 56px)', width: '100%', zIndex: 60 }}>
+            <MarqueeStrip items={['SYNAPSE', 'NEO SOUL', 'R&B', 'JAZZ', 'POP', 'ELECTRONIC']} speed={0.28} reverse={true} color="rgba(255,255,255,0.15)" />
+          </div>
 
-        <div style={{
-          position: 'absolute',
-          top: 'calc(360vh + 56px)',
-          width: '100%',
-          zIndex: 60,
-        }}>
-          <MarqueeStrip
-            items={['SYNAPSE', 'NEO SOUL', 'R&B', 'JAZZ', 'POP', 'ELECTRONIC']}
-            speed={0.28}
-            reverse={true}
-            color="rgba(255,255,255,0.15)"
-          />
-        </div>
+        </div>{/* end section-header */}
 
-        <style>{`
-          #bg-wrapper, #bg-wrapper > div, #bg-wrapper canvas { width:100%!important; height:100%!important; display:block!important; }
-          #bg-wrapper > div { flex:1!important; }
-          .burger { background:none; border:none; cursor:pointer; display:flex; flex-direction:column; gap:5px; padding:4px; opacity:.85; transition:opacity .2s; }
-          .burger:hover { opacity:1; }
-          .bar { display:block; width:24px; height:2px; background:#fff; border-radius:1px; }
-          .logo { position:absolute; left:50%; transform:translateX(-50%); font-family:'Great Vibes',cursive; font-weight:400; font-size:46px; color:#fff; pointer-events:none; }
-          .socials { display:flex; align-items:center; gap:18px; }
-          .si { color:rgba(255,255,255,0.55); display:flex; transition:color .2s; }
-          .si:hover { color:#fff; }
-          .thumb { width:130px; height:167px; overflow:hidden; flex-shrink:0; box-shadow:2px 0 10px rgba(0,0,0,0.6); }
-          .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
-          .roots-btn { position:absolute; z-index:60; width:115px; height:115px; border-radius:50%; background:#1a1a2e; border:1.5px solid rgba(255,255,255,0.22); color:#fff; font-family:'DM Sans',sans-serif; font-weight:700; font-size:9.5px; letter-spacing:0.18em; text-transform:uppercase; text-align:center; line-height:1.5; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 36px rgba(0,0,0,0.7); transition:transform .2s,box-shadow .2s,background .2s; }
-          .roots-btn:hover { background:#26195e; transform:scale(1.07); box-shadow:0 16px 48px rgba(0,0,0,0.8); }
-          @media (max-width:768px) { .logo { font-size:32px; } .thumb { width:80px; height:103px; } }
-        `}</style>
-        </div>
+        {/* ═══════════════════════════════════════════════════════════════════
+            SECTION: MAIN LIVE (ticker banners)
+        ═══════════════════════════════════════════════════════════════════ */}
+        <MainLiveSection />
+
+        {/* ═══════════════════════════════════════════════════════════════════
+            SECTION: FOOTER
+        ═══════════════════════════════════════════════════════════════════ */}
+        <FooterSection />
+
       </KineticScrollProvider>
 
-      {/* 🚨 INJECT THE NOISE OVERLAY HERE 🚨 */}
-      {/* Must be the absolute last child! */}
+      {/* Noise overlay — always last */}
       <NoiseOverlay />
+
+      {/* Keyframe animations injected globally */}
+      <style>{`
+        @keyframes footer-tickerL { 0% { transform: translate(0,0); } 100% { transform: translate(-50%,0); } }
+        @keyframes footer-tickerR { 0% { transform: translate(0,0); } 100% { transform: translate(50%,0); } }
+        @keyframes footer-rotateY { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
+        @keyframes footer-panelF  { 0%{opacity:0;transform:rotateY(0deg)} 24%{opacity:0} 25%{opacity:1} 75%{opacity:1} 76%{opacity:0} 100%{opacity:0;transform:rotateY(360deg)} }
+        @keyframes footer-panelB  { 0%{opacity:1;transform:rotateY(0deg)} 24%{opacity:1} 25%{opacity:0} 75%{opacity:0} 76%{opacity:1} 100%{opacity:1;transform:rotateY(360deg)} }
+        #bg-wrapper, #bg-wrapper > div, #bg-wrapper canvas { width:100%!important; height:100%!important; display:block!important; }
+        #bg-wrapper > div { flex:1!important; }
+        .burger { background:none; border:none; cursor:pointer; display:flex; flex-direction:column; gap:5px; padding:4px; opacity:.85; transition:opacity .2s; }
+        .burger:hover { opacity:1; }
+        .bar { display:block; width:24px; height:2px; background:#fff; border-radius:1px; }
+        .logo { position:absolute; left:50%; transform:translateX(-50%); font-family:'Great Vibes',cursive; font-weight:400; font-size:46px; color:#fff; pointer-events:none; }
+        .socials { display:flex; align-items:center; gap:18px; }
+        .si { color:rgba(255,255,255,0.55); display:flex; transition:color .2s; }
+        .si:hover { color:#fff; }
+      `}</style>
 
     </div>
   );

@@ -4,7 +4,7 @@ import { useKineticScroll } from './KineticScrollProvider.jsx'; // Corrected imp
 
 export function ParallaxLayer({ 
   children, 
-  speed = 0.1, 
+  parallaxFactor = 0, 
   zIndex = 10, 
   skewFactor = 0,
   limit = null // 🚨 THE BRAKE PEDAL: Tell it exactly when to freeze (in pixels)
@@ -17,8 +17,10 @@ export function ParallaxLayer({
     const tick = () => {
       if (!layerRef.current) return;
 
-      // 1. Calculate the normal parallax movement
-      let yOffset = -(lerpY.current * speed);
+      // 1. Calculate the normal parallax movement matching the real site's GSAP equations:
+      // data-parallax * (window.innerWidth / 1920) * 50 / scrollHeight
+      // where scrollHeight / 50 is exactly 65 on all screens.
+      let yOffset = lerpY.current * (parallaxFactor / 65);
 
       // 2. 🚨 THE HARD STOP MATH
       // If the character moves too far up or down, we clamp the math and freeze him in place!
@@ -43,7 +45,7 @@ export function ParallaxLayer({
 
     gsap.ticker.add(tick);
     return () => gsap.ticker.remove(tick);
-  }, [speed, skewFactor, limit, lerpY, velocity]);
+  }, [parallaxFactor, skewFactor, limit, lerpY, velocity]);
 
   return (
     <div 

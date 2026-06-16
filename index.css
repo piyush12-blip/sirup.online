@@ -1,8 +1,13 @@
-/* ─── Google Fonts — only families actually used in the app ──────────────── */
-/* Great Vibes → .logo in header                                              */
-/* DM Sans     → .roots-btn                                                   */
-/* Noto Sans JP → all Japanese body text                                      */
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=DM+Sans:wght@400;700&family=Noto+Sans+JP:wght@400&display=swap');
+/* Fonts loaded via <link> in index.html (DM Sans + Noto Sans JP) */
+
+:root {
+  --pv: calc(100vw / 3840);
+}
+@media screen and (min-width: 1920px) {
+  :root {
+    --pv: calc(1px / 2);
+  }
+}
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -27,4 +32,815 @@ body {
 }
 html {
   scrollbar-width: none;
+}
+
+/* Header Container */
+.section-header {
+  position: relative;
+  height: calc(6500 * var(--pv));
+  margin: 0 0 calc(1200 * var(--pv)) 0;
+}
+@media screen and (max-width: 959px) {
+  .section-header {
+    height: calc(2200 * (100vw / 828));
+    margin: 0 0 calc(600 * (100vw / 828)) 0;
+  }
+}
+
+/* Header Logo */
+.header-logo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(40 * var(--pv));
+  width: calc(595 * var(--pv));
+  margin: auto;
+}
+@media screen and (max-width: 959px) {
+  .header-logo {
+    top: calc(30 * (100vw / 828));
+    width: calc(240 * (100vw / 828));
+  }
+}
+
+/* Header Panel */
+.header-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(335 * var(--pv));
+  width: calc(2880 * var(--pv));
+  margin: auto;
+}
+@media screen and (max-width: 959px) {
+  .header-panel {
+    top: calc(200 * (100vw / 828));
+    width: calc(730 * (100vw / 828));
+  }
+}
+
+/* Header Artist */
+.header-artist {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(700 * var(--pv));
+  width: calc(2880 * var(--pv));
+  margin: auto;
+  z-index: 1;
+  transform: scale(0.85, 0.85) translate(0, calc(-350 * var(--pv))) !important;
+  transform-origin: center center;
+}
+@media screen and (max-width: 959px) {
+  .header-artist {
+    top: calc(200 * (100vw / 828));
+    width: calc(730 * (100vw / 828));
+    transform: scale(1, 1) translate(0, 0) !important;
+  }
+}
+
+/* Character 3D depth axis (floats forward in 3D space by 300px) */
+.character-3d-axis {
+  transform: translate3d(0, 0, 300px);
+  transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+}
+@media screen and (max-width: 959px) {
+  .character-3d-axis {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Text/Logo 3D depth axis (floats forward in 3D space by 75px) */
+.text-3d-axis {
+  transform: translate3d(0, 0, 75px);
+  transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+}
+@media screen and (max-width: 959px) {
+  .text-3d-axis {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Text/Logo 3D depth axis (floats forward in 3D space by 150px) */
+.text-3d-axis-150 {
+  transform: translate3d(0, 0, 150px);
+  transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+}
+@media screen and (max-width: 959px) {
+  .text-3d-axis-150 {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Header Title */
+.header-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(635 * var(--pv));
+  width: calc(3440 * var(--pv));
+  margin: auto;
+}
+@media screen and (max-width: 959px) {
+  .header-title {
+    top: calc(300 * (100vw / 828));
+    width: 100%;
+  }
+}
+
+/* Header Text */
+.header-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(1820 * var(--pv));
+  width: calc(2880 * var(--pv));
+  margin: auto;
+  transform: translate(calc(-100 * var(--pv)), 0);
+}
+@media screen and (max-width: 959px) {
+  .header-text {
+    top: calc(670 * (100vw / 828));
+    width: 100%;
+    transform: translate(0, 0);
+    z-index: 2;
+  }
+}
+
+/* Header About */
+.header-about {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(2300 * var(--pv));
+  width: calc(2880 * var(--pv));
+  margin: auto;
+}
+@media screen and (max-width: 959px) {
+  .header-about {
+    top: calc(970 * (100vw / 828));
+    width: 100%;
+  }
+}
+
+/* ── Photo Strips ────────────────────────────────────────────────────────────
+   Real-site sizes: each card = 420×560 --pv units, gap 1px, 4 cards total.
+   About strip: left edge at calc(-480 * var(--pv))   top: calc(2300 * var(--pv))
+   Roots strip: right edge at calc(-250 * var(--pv))  top: calc(3860 * var(--pv))
+   The strip container just holds the cards; GSAP controls reveal & skew.
+───────────────────────────────────────────────────────────────────────────── */
+
+.about-photo,
+.roots-photo {
+  will-change: transform;
+}
+
+/* ── Main Live Section ────────────────────────────────────────────────────── */
+.section-main-live {
+  position: relative;
+  height: calc(1500 * var(--pv));
+}
+@media screen and (max-width: 959px) {
+  .section-main-live {
+    height: calc(650 * (100vw / 828));
+  }
+}
+
+/* ── Footer Section ───────────────────────────────────────────────────────── */
+.section-footer-wrap {
+  position: relative;
+  height: calc(3350 * var(--pv));
+}
+@media screen and (max-width: 959px) {
+  .section-footer-wrap {
+    height: calc(1600 * (100vw / 828));
+  }
+}
+
+/* ── Intro Loader (Page Loading Curtain) ─────────────────────────────────── */
+.page-loading {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 10000; /* Must cover everything */
+  top: 0;
+  transition: top 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.page-loading.is-inactive {
+  top: -100%;
+}
+
+.page-loading .loading-curtain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.page-loading .loading-curtain span {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  border-radius: 100%;
+  transform: translate(0, -50%);
+  transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.page-loading .loading-curtain span:nth-of-type(1) {
+  background: rgba(255, 255, 255, 0.4);
+  height: 150%;
+}
+
+.page-loading .loading-curtain span:nth-of-type(2) {
+  background: rgba(226, 52, 2, 0.4);
+  height: 100%;
+}
+
+.page-loading .loading-curtain span:nth-of-type(3) {
+  background: #000000;
+  height: 50%;
+}
+
+.page-loading.is-inactive .loading-curtain span {
+  height: 0%;
+}
+
+/* Loading container - holds the spinning logo */
+.page-loading .loading-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+}
+
+.page-loading .loading-container div {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: calc(1000 * var(--pv));
+  height: calc(1000 * var(--pv));
+  margin: auto;
+  opacity: 0;
+  transform: translate(0, 50%);
+}
+
+@media screen and (max-width: 959px) {
+  .page-loading .loading-container div {
+    width: calc(600 * (100vw / 828));
+    height: calc(600 * (100vw / 828));
+  }
+}
+
+.page-loading .loading-container.is-enter div {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+}
+
+.page-loading .loading-container.is-exit div {
+  opacity: 0;
+  transform: translate(0, -50%);
+  transition: all 0.5s cubic-bezier(0.55, 0.055, 0.675, 0.19) 0.25s;
+}
+
+.page-loading .loading-container div span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: rotate(0deg);
+}
+
+.page-loading .loading-container div span img {
+  width: 100%;
+  height: 100%;
+  animation: rotateZ 10s linear infinite;
+}
+
+.page-loading .loading-container.is-exit div span {
+  transform: rotate(720deg);
+  transition: all 0.75s cubic-bezier(0.55, 0.055, 0.675, 0.19) 0s;
+}
+
+@keyframes rotateZ {
+  0% { transform: rotateZ(0deg); }
+  100% { transform: rotateZ(360deg); }
+}
+
+.page-rumble {
+  position: fixed;
+  left: calc((100% + 100px) / -2);
+  top: calc((100% + 100px) / -2);
+  width: calc(100% + 100px);
+  height: calc(100% + 100px);
+  background: url("/rumble.webp");
+  background-size: 700px 700px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@media screen and (max-width: 959px) {
+  .page-rumble {
+    display: none;
+    background: none;
+  }
+}
+
+/* ── Custom Navigation Toggle (Burger) ── */
+.page-toggle {
+  position: fixed;
+  left: calc(80 * var(--pv));
+  top: calc(80 * var(--pv));
+  width: calc(235 * var(--pv) / 2);
+  height: calc(235 * var(--pv) / 2);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+@media screen and (max-width: 959px) {
+  .page-toggle {
+    left: 20px;
+    top: 20px;
+    width: 65px;
+    height: 65px;
+  }
+}
+
+.page-toggle div[data-insert] {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.page-toggle div[data-insert] button {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.page-toggle div[data-insert] button span {
+  display: block;
+  width: 100%;
+  height: calc(5 * var(--pv) / 2);
+  background: #ffffff;
+  border-radius: calc(5 * var(--pv) / 2);
+  position: absolute;
+  left: 0;
+  transition: all 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+@media screen and (max-width: 959px) {
+  .page-toggle div[data-insert] button span {
+    height: 2px;
+    border-radius: 2px;
+  }
+}
+
+.page-toggle div[data-insert] button span:nth-of-type(1) { top: calc(75 * var(--pv) / 2); }
+.page-toggle div[data-insert] button span:nth-of-type(2) { top: calc(95 * var(--pv) / 2); }
+.page-toggle div[data-insert] button span:nth-of-type(3) { top: calc(115 * var(--pv) / 2); }
+.page-toggle div[data-insert] button span:nth-of-type(4) { top: calc(135 * var(--pv) / 2); }
+.page-toggle div[data-insert] button span:nth-of-type(5) { top: calc(155 * var(--pv) / 2); }
+
+@media screen and (max-width: 959px) {
+  .page-toggle div[data-insert] button span:nth-of-type(1) { top: 15px; }
+  .page-toggle div[data-insert] button span:nth-of-type(2) { top: 22.5px; }
+  .page-toggle div[data-insert] button span:nth-of-type(3) { top: 30px; }
+  .page-toggle div[data-insert] button span:nth-of-type(4) { top: 37.5px; }
+  .page-toggle div[data-insert] button span:nth-of-type(5) { top: 45px; }
+}
+
+/* Hover Scaling Effect */
+.page-toggle div[data-insert] button:hover span:nth-of-type(1) { transform: scale(1, 1); }
+.page-toggle div[data-insert] button:hover span:nth-of-type(2) { transform: scale(0.75, 1); }
+.page-toggle div[data-insert] button:hover span:nth-of-type(3) { transform: scale(0.5, 1); }
+.page-toggle div[data-insert] button:hover span:nth-of-type(4) { transform: scale(0.75, 1); }
+.page-toggle div[data-insert] button:hover span:nth-of-type(5) { transform: scale(1, 1); }
+
+/* Active Folding State (Morphic to X) */
+.page-toggle div[data-insert] button.is-active span:nth-of-type(1) {
+  transform: translate(0, calc(40 * var(--pv) / 2)) rotate(-225deg);
+}
+.page-toggle div[data-insert] button.is-active span:nth-of-type(2) {
+  transform: translate(0, calc(20 * var(--pv) / 2)) rotate(-45deg);
+}
+.page-toggle div[data-insert] button.is-active span:nth-of-type(3) {
+  transform: translate(0, 0) scale(0, 1);
+}
+.page-toggle div[data-insert] button.is-active span:nth-of-type(4) {
+  transform: translate(0, calc(-20 * var(--pv) / 2)) rotate(225deg);
+}
+.page-toggle div[data-insert] button.is-active span:nth-of-type(5) {
+  transform: translate(0, calc(-40 * var(--pv) / 2)) rotate(45deg);
+}
+
+@media screen and (max-width: 959px) {
+  .page-toggle div[data-insert] button.is-active span:nth-of-type(1) { transform: translate(0, 15px) rotate(-225deg); }
+  .page-toggle div[data-insert] button.is-active span:nth-of-type(2) { transform: translate(0, 7.5px) rotate(-45deg); }
+  .page-toggle div[data-insert] button.is-active span:nth-of-type(3) { transform: translate(0, 0) scale(0, 1); }
+  .page-toggle div[data-insert] button.is-active span:nth-of-type(4) { transform: translate(0, -7.5px) rotate(225deg); }
+  .page-toggle div[data-insert] button.is-active span:nth-of-type(5) { transform: translate(0, -15px) rotate(45deg); }
+}
+
+/* ── Curtain Drawer Menu Overlay ── */
+.page-nav {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 998;
+  top: -100%;
+  transition: top 1s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
+  overflow: hidden;
+}
+.page-nav.is-active {
+  top: 0;
+}
+
+.page-nav .nav-curtain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-nav .nav-curtain span {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  border-radius: 100%;
+  transform: translate(0, -50%);
+  transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
+}
+
+.page-nav .nav-curtain span:nth-of-type(1) {
+  background: rgba(255, 255, 255, 0.15);
+  height: 0%;
+}
+.page-nav .nav-curtain span:nth-of-type(2) {
+  background: rgba(224, 50, 0, 0.3);
+  height: 0%;
+}
+.page-nav .nav-curtain span:nth-of-type(3) {
+  background: #05050a;
+  height: 0%;
+}
+
+.page-nav.is-active .nav-curtain span:nth-of-type(1) { height: 150%; }
+.page-nav.is-active .nav-curtain span:nth-of-type(2) { height: 100%; }
+.page-nav.is-active .nav-curtain span:nth-of-type(3) { height: 50%; }
+
+.page-nav.is-inactive .nav-curtain span { height: 0% !important; }
+
+.page-nav .nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Menu Contents Layout */
+.nav-menu-wrapper {
+  text-align: center;
+  max-width: 90%;
+  z-index: 2;
+}
+
+.nav-menu-header {
+  font-family: 'DM Sans', sans-serif;
+  font-size: calc(30 * var(--pv));
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.25em;
+  margin-bottom: calc(80 * var(--pv));
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s;
+}
+.page-nav.is-active .nav-menu-header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-menu-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: calc(40 * var(--pv));
+}
+
+.nav-menu-item {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* Stagger entrance delays */
+.page-nav.is-active .nav-menu-item:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.65s; }
+.page-nav.is-active .nav-menu-item:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.75s; }
+.page-nav.is-active .nav-menu-item:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.85s; }
+.page-nav.is-active .nav-menu-item:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.95s; }
+
+.nav-menu-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: calc(85 * var(--pv));
+  font-weight: 900;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-block;
+  position: relative;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-menu-link:hover {
+  color: #e03200;
+  text-shadow: 0 0 20px rgba(224, 50, 0, 0.6);
+}
+
+.nav-menu-link span {
+  display: block;
+}
+
+/* ── Interactive Glassmorphic Music Player ── */
+.glass-player {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  width: 380px;
+  background: rgba(10, 10, 20, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(224, 50, 0, 0.05);
+  padding: 24px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transform: translateY(120%) scale(0.9);
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: auto;
+}
+
+.glass-player.is-open {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+@media screen and (max-width: 959px) {
+  .glass-player {
+    right: 20px;
+    bottom: 20px;
+    width: calc(100% - 40px);
+    max-width: 380px;
+  }
+}
+
+.player-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+.player-close:hover {
+  color: #e03200;
+}
+
+.player-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.player-cover {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #111;
+  position: relative;
+}
+
+.player-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.player-cover.playing img {
+  animation: slow-spin 20s linear infinite;
+}
+
+@keyframes slow-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.player-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.player-title {
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.player-artist {
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* Visualizer mini component */
+.mini-visualizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 12px;
+  margin-top: 4px;
+}
+.vis-bar {
+  width: 3px;
+  height: 3px;
+  background: #e03200;
+  border-radius: 1px;
+}
+.playing .vis-bar:nth-child(1) { animation: bounce-vis 0.8s ease-in-out infinite alternate; }
+.playing .vis-bar:nth-child(2) { animation: bounce-vis 0.5s ease-in-out infinite alternate 0.15s; }
+.playing .vis-bar:nth-child(3) { animation: bounce-vis 0.9s ease-in-out infinite alternate 0.05s; }
+.playing .vis-bar:nth-child(4) { animation: bounce-vis 0.6s ease-in-out infinite alternate 0.2s; }
+
+@keyframes bounce-vis {
+  0% { height: 3px; }
+  100% { height: 12px; }
+}
+
+.player-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-time {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  width: 35px;
+}
+
+.progress-bar-bg {
+  flex-grow: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: #e03200;
+  border-radius: 2px;
+  position: relative;
+  width: 0%;
+}
+
+.control-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.btn-ctrl {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-ctrl:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.btn-play {
+  width: 48px;
+  height: 48px;
+  background: #ffffff;
+  color: #000;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+.btn-play:hover {
+  background: #e03200;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(224, 50, 0, 0.4);
+}
+
+.playlist-container {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 16px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.playlist-container::-webkit-scrollbar {
+  width: 4px;
+}
+.playlist-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.playlist-track {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.playlist-track:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+.playlist-track.active {
+  background: rgba(224, 50, 0, 0.1);
+}
+.playlist-track.active .track-name {
+  color: #e03200;
+  font-weight: 700;
+}
+
+.track-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+}
+.track-duration {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
 }
