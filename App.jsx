@@ -306,18 +306,18 @@ function FooterSection() {
     window.addEventListener('mousemove', onMouseMove, { passive: true });
     rafId = requestAnimationFrame(update);
 
-    const panelEl = panelRef.current;
-    if (panelEl) {
-      panelEl.addEventListener('mouseenter', onMouseEnter);
-      panelEl.addEventListener('mouseleave', onMouseLeave);
+    const linkEl = panelRef.current ? panelRef.current.querySelector('.footer-panel-link') : null;
+    if (linkEl) {
+      linkEl.addEventListener('mouseenter', onMouseEnter);
+      linkEl.addEventListener('mouseleave', onMouseLeave);
     }
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       cancelAnimationFrame(rafId);
-      if (panelEl) {
-        panelEl.removeEventListener('mouseenter', onMouseEnter);
-        panelEl.removeEventListener('mouseleave', onMouseLeave);
+      if (linkEl) {
+        linkEl.removeEventListener('mouseenter', onMouseEnter);
+        linkEl.removeEventListener('mouseleave', onMouseLeave);
       }
     };
   }, []);
@@ -452,6 +452,24 @@ function FooterSection() {
             </div>
           </div>
         </div>
+        {/* Transparent rounded overlay to restrict pointer/hover events to the exact semi-circle */}
+        <a
+          href="#"
+          onClick={(e) => e.preventDefault()}
+          className="footer-panel-link"
+          style={{
+            display: 'block',
+            position: 'absolute',
+            left: 0,
+            bottom: 0,
+            width: '100%',
+            height: '100%',
+            borderRadius: '100vw 100vw 0 0',
+            overflow: 'hidden',
+            zIndex: 10,
+            cursor: 'pointer'
+          }}
+        />
       </div>
 
       {/* Footer Links (bottom left) */}
