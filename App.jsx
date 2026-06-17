@@ -249,10 +249,42 @@ function RootsPhotoStrip() {
 
 // ─── Footer Section ────────────────────────────────────────────────────────────
 function FooterSection() {
+  const containerRef = useRef(null);
   const debutRef  = useRef(null);
   const sepRef    = useRef(null);
   const nextRef   = useRef(null);
   const panelRef  = useRef(null);
+
+  useEffect(() => {
+    let dest = 0;
+    let value = 0;
+    const rate = 0.1;
+
+    const onMouseMove = (e) => {
+      // Amount matches the global tilt, which ranges up to -15deg (or 15deg).
+      dest = (e.clientX / window.innerWidth - 0.5) * 15;
+    };
+
+    let rafId;
+    const update = () => {
+      value += (dest - value) * rate;
+      if (panelRef.current) {
+        const targets = panelRef.current.querySelectorAll('[data-preserve-r]');
+        targets.forEach(el => {
+          el.style.transform = `perspective(480px) rotateY(${value}deg)`;
+        });
+      }
+      rafId = requestAnimationFrame(update);
+    };
+
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    rafId = requestAnimationFrame(update);
+
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   useGSAP(() => {
     // Debut SVGs stagger reveal
@@ -280,18 +312,38 @@ function FooterSection() {
         onEnter: () => gsap.to(nextRef.current, { opacity: 0.9, y: 0, duration: 0.5, ease: 'power3.out' }),
       });
     }
-    // Panel reveal
+    // Panel reveal and parallax
     if (panelRef.current) {
-      gsap.set(panelRef.current, { opacity: 0, y: '25vh' });
       ScrollTrigger.create({
-        trigger: panelRef.current, start: 'top 90%', once: true,
-        onEnter: () => gsap.to(panelRef.current, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }),
+        trigger: panelRef.current,
+        start: 'top 95%',
+        once: true,
+        onEnter: () => {
+          panelRef.current.classList.add('is-trigger', 'is-active');
+        },
       });
+
+      const parallaxTarget = panelRef.current.querySelector('[data-parallax]');
+      if (parallaxTarget) {
+        const factor = parseFloat(parallaxTarget.getAttribute('data-parallax') || '27');
+        gsap.from(parallaxTarget, {
+          y: () => window.innerWidth < 1920 
+            ? factor * (window.innerWidth / 1920) * 50 
+            : factor * 50,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top bottom',
+            end: 'bottom bottom',
+            scrub: true,
+            invalidateOnRefresh: true,
+          }
+        });
+      }
     }
   });
 
   return (
-    <div style={{ position: 'relative', height: 'calc(3350 * var(--pv))', marginTop: '4vh' }}>
+    <div ref={containerRef} className="section-footer-wrap" style={{ marginTop: '4vh' }}>
 
       {/* Debut SVGs — 2017.9.27 / SIRUP / DEBUT */}
       <div ref={debutRef} style={{
@@ -339,27 +391,29 @@ function FooterSection() {
       </div>
 
       {/* Footer Panel — rotating 3D card */}
-      <div ref={panelRef} style={{
-        position: 'absolute', left: 0, right: 0, bottom: 0,
-        width: 'calc(1440 * var(--pv))', height: 'calc(1300 * var(--pv))',
-        margin: 'auto', opacity: 0,
-      }}>
-        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-          {/* Front panel */}
-          <div style={{
-            position: 'absolute', left: 0, bottom: 0, width: '100%', height: '100%',
-            borderRadius: '100vw 100vw 0 0', overflow: 'hidden',
-            animation: 'footer-panelF 2.0s linear infinite',
-          }}>
-            <img src="/asset/img/footer/footer-panel-1.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(2.5)', transformOrigin: 'center center' }} />
-          </div>
-          {/* Back panel */}
-          <div style={{
-            position: 'absolute', left: 0, bottom: 0, width: '100%', height: '100%',
-            borderRadius: '100vw 100vw 0 0', overflow: 'hidden',
-            animation: 'footer-panelB 2.0s linear infinite',
-          }}>
-            <img src="/asset/img/footer/pc/footer-panel-2.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(2.5)', transformOrigin: 'center center' }} />
+      <div ref={panelRef} className="footer-panel">
+        <div data-insert>
+          <div data-parallax="27" style={{ width: '100%', height: '100%' }}>
+            {/* Front panel */}
+            <div className="panel">
+              <div data-preserve-r>
+                <div data-preserve-axis className="preserve-axis">
+                  <span>
+                    <img src="/asset/img/footer/footer-panel-1.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </span>
+                </div>
+              </div>
+            </div>
+            {/* Back panel */}
+            <div className="panel">
+              <div data-preserve-r>
+                <div data-preserve-axis className="preserve-axis">
+                  <span>
+                    <img src="/asset/img/footer/pc/footer-panel-2.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -402,7 +456,7 @@ function FooterSection() {
 // ─── Main Live Ticker Section ──────────────────────────────────────────────────
 function MainLiveSection() {
   return (
-    <div style={{ position: 'relative', height: 'calc(1500 * var(--pv))', marginBottom: '4vh' }}>
+    <div className="section-main-live" style={{ marginBottom: '4vh' }}>
       {/* Ticker 1 — moves right, dim */}
       <div style={{ position: 'absolute', left: 0, top: 'calc(-442 * var(--pv))', width: '100%', height: 'calc(235 * var(--pv))', overflow: 'hidden', mixBlendMode: 'overlay' }}>
         <div style={{ display: 'block', position: 'absolute', right: 0, top: 0, width: 'calc(17932 * var(--pv))', height: 'calc(415 * var(--pv))', backgroundImage: 'url(https://sirup.online/5th/asset/img/ticker.svg)', backgroundRepeat: 'repeat-x', backgroundPosition: 'left center', backgroundSize: 'contain', opacity: 0.4, animation: 'footer-tickerR 60s linear infinite' }} />
@@ -816,8 +870,6 @@ export default function App() {
         @keyframes footer-tickerL { 0% { transform: translate(0,0); } 100% { transform: translate(-50%,0); } }
         @keyframes footer-tickerR { 0% { transform: translate(0,0); } 100% { transform: translate(50%,0); } }
         @keyframes footer-rotateY { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
-        @keyframes footer-panelF  { 0%{opacity:0;transform:rotateY(0deg)} 24%{opacity:0} 25%{opacity:1} 75%{opacity:1} 76%{opacity:0} 100%{opacity:0;transform:rotateY(360deg)} }
-        @keyframes footer-panelB  { 0%{opacity:1;transform:rotateY(0deg)} 24%{opacity:1} 25%{opacity:0} 75%{opacity:0} 76%{opacity:1} 100%{opacity:1;transform:rotateY(360deg)} }
         #bg-wrapper, #bg-wrapper > div, #bg-wrapper canvas { width:100%!important; height:100%!important; display:block!important; }
         #bg-wrapper > div { flex:1!important; }
         .burger { background:none; border:none; cursor:pointer; display:flex; flex-direction:column; gap:5px; padding:4px; opacity:.85; transition:opacity .2s; }
