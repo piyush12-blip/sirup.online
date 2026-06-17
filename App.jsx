@@ -260,9 +260,35 @@ function FooterSection() {
     let value = 0;
     const rate = 0.1;
 
+    let isInitialActive = true;
+    let isHoveringPanel = false;
+
     const onMouseMove = (e) => {
       // Amount matches the global tilt, which ranges up to -15deg (or 15deg).
       dest = (e.clientX / window.innerWidth - 0.5) * 15;
+
+      // If the mouse starts moving/hovering outside the panel, stop the initial automatic rotation
+      if (isInitialActive && !isHoveringPanel) {
+        isInitialActive = false;
+        if (panelRef.current) {
+          panelRef.current.classList.remove('is-active');
+        }
+      }
+    };
+
+    const onMouseEnter = () => {
+      isHoveringPanel = true;
+      isInitialActive = false;
+      if (panelRef.current) {
+        panelRef.current.classList.add('is-active');
+      }
+    };
+
+    const onMouseLeave = () => {
+      isHoveringPanel = false;
+      if (panelRef.current) {
+        panelRef.current.classList.remove('is-active');
+      }
     };
 
     let rafId;
@@ -280,9 +306,19 @@ function FooterSection() {
     window.addEventListener('mousemove', onMouseMove, { passive: true });
     rafId = requestAnimationFrame(update);
 
+    const panelEl = panelRef.current;
+    if (panelEl) {
+      panelEl.addEventListener('mouseenter', onMouseEnter);
+      panelEl.addEventListener('mouseleave', onMouseLeave);
+    }
+
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       cancelAnimationFrame(rafId);
+      if (panelEl) {
+        panelEl.removeEventListener('mouseenter', onMouseEnter);
+        panelEl.removeEventListener('mouseleave', onMouseLeave);
+      }
     };
   }, []);
 
