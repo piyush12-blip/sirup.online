@@ -360,10 +360,10 @@ html {
 /* ── Custom Navigation Toggle (Burger) ── */
 .page-toggle {
   position: fixed;
-  left: calc(80 * var(--pv));
-  top: calc(80 * var(--pv));
-  width: calc(235 * var(--pv) / 2);
-  height: calc(235 * var(--pv) / 2);
+  left: 20px;
+  top: 20px;
+  width: 117.5px;
+  height: 117.5px;
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -376,8 +376,8 @@ html {
 }
 @media screen and (max-width: 959px) {
   .page-toggle {
-    left: 20px;
-    top: 20px;
+    left: 10px;
+    top: 10px;
     width: 65px;
     height: 65px;
   }
@@ -402,9 +402,9 @@ html {
 .page-toggle div[data-insert] button span {
   display: block;
   width: 100%;
-  height: calc(5 * var(--pv) / 2);
+  height: 2.5px;
   background: #ffffff;
-  border-radius: calc(5 * var(--pv) / 2);
+  border-radius: 2.5px;
   position: absolute;
   left: 0;
   transition: all 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -416,11 +416,11 @@ html {
   }
 }
 
-.page-toggle div[data-insert] button span:nth-of-type(1) { top: calc(75 * var(--pv) / 2); }
-.page-toggle div[data-insert] button span:nth-of-type(2) { top: calc(95 * var(--pv) / 2); }
-.page-toggle div[data-insert] button span:nth-of-type(3) { top: calc(115 * var(--pv) / 2); }
-.page-toggle div[data-insert] button span:nth-of-type(4) { top: calc(135 * var(--pv) / 2); }
-.page-toggle div[data-insert] button span:nth-of-type(5) { top: calc(155 * var(--pv) / 2); }
+.page-toggle div[data-insert] button span:nth-of-type(1) { top: 37.5px; }
+.page-toggle div[data-insert] button span:nth-of-type(2) { top: 47.5px; }
+.page-toggle div[data-insert] button span:nth-of-type(3) { top: 57.5px; }
+.page-toggle div[data-insert] button span:nth-of-type(4) { top: 67.5px; }
+.page-toggle div[data-insert] button span:nth-of-type(5) { top: 77.5px; }
 
 @media screen and (max-width: 959px) {
   .page-toggle div[data-insert] button span:nth-of-type(1) { top: 15px; }
@@ -439,19 +439,19 @@ html {
 
 /* Active Folding State (Morphic to X) */
 .page-toggle div[data-insert] button.is-active span:nth-of-type(1) {
-  transform: translate(0, calc(40 * var(--pv) / 2)) rotate(-225deg);
+  transform: translate(0, 20px) rotate(-225deg);
 }
 .page-toggle div[data-insert] button.is-active span:nth-of-type(2) {
-  transform: translate(0, calc(20 * var(--pv) / 2)) rotate(-45deg);
+  transform: translate(0, 10px) rotate(-45deg);
 }
 .page-toggle div[data-insert] button.is-active span:nth-of-type(3) {
   transform: translate(0, 0) scale(0, 1);
 }
 .page-toggle div[data-insert] button.is-active span:nth-of-type(4) {
-  transform: translate(0, calc(-20 * var(--pv) / 2)) rotate(225deg);
+  transform: translate(0, -10px) rotate(225deg);
 }
 .page-toggle div[data-insert] button.is-active span:nth-of-type(5) {
-  transform: translate(0, calc(-40 * var(--pv) / 2)) rotate(45deg);
+  transform: translate(0, -20px) rotate(45deg);
 }
 
 @media screen and (max-width: 959px) {
@@ -523,9 +523,19 @@ html {
   top: 0;
   width: 100%;
   height: 100%;
-  background: transparent;
+  background: rgba(5, 5, 10, 0.92);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
   overflow: hidden;
   z-index: 1;
+}
+
+.page-nav.is-active .nav-container {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Menu Contents Layout */
@@ -923,4 +933,128 @@ html {
   font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Footer Panel 3D rotating card ── */
+.footer-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: calc(1440 * var(--pv));
+  height: calc(1300 * var(--pv));
+  margin: auto;
+  animation: fadein 0.5s linear;
+}
+@media screen and (max-width: 959px) {
+  .footer-panel {
+    width: calc(440 * (100vw / 828));
+    height: calc(490 * (100vw / 828));
+  }
+}
+
+.footer-panel div[data-insert] {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: translate(0, 25vh);
+}
+@media screen and (max-width: 959px) {
+  .footer-panel div[data-insert] {
+    border-radius: 100vw 100vw 0 0;
+    overflow: hidden;
+  }
+}
+
+.footer-panel.is-trigger div[data-insert] {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+}
+
+.footer-panel.is-active {
+  animation: none;
+}
+
+.footer-panel div[data-insert] div[data-parallax] {
+  width: 100%;
+  height: 100%;
+}
+
+.footer-panel div[data-insert] div[data-parallax] .panel {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 100vw 100vw 0 0;
+  overflow: hidden;
+}
+
+.footer-panel div[data-insert] div[data-parallax] .panel div[data-preserve-r] {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+}
+@media screen and (max-width: 959px) {
+  .footer-panel div[data-insert] div[data-parallax] .panel div[data-preserve-r] {
+    transform-style: flat;
+  }
+}
+
+.footer-panel div[data-insert] div[data-parallax] .panel div[data-preserve-r] div[data-preserve-axis] {
+  width: 100%;
+  height: 100%;
+  transform: translate3d(0, 0, -450px);
+  transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+@media screen and (max-width: 959px) {
+  .footer-panel div[data-insert] div[data-parallax] .panel div[data-preserve-r] div[data-preserve-axis] {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.footer-panel div[data-insert] div[data-parallax] .panel div[data-preserve-r] div[data-preserve-axis] span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scale(2.5, 2.5);
+  transform-origin: center center;
+}
+@media screen and (max-width: 959px) {
+  .footer-panel div[data-insert] div[data-parallax] .panel div[data-preserve-r] div[data-preserve-axis] span {
+    transform: scale(1, 1);
+  }
+}
+
+.footer-panel.is-active div[data-insert] div[data-parallax] .panel:nth-of-type(1) {
+  animation: panelF 2.0s linear infinite;
+}
+
+.footer-panel.is-active div[data-insert] div[data-parallax] .panel:nth-of-type(2) {
+  animation: panelB 2.0s linear infinite;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes panelF {
+  0% { opacity: 0; transform: rotateY(0deg); }
+  24% { opacity: 0; }
+  25% { opacity: 1; }
+  75% { opacity: 1; }
+  76% { opacity: 0; }
+  100% { opacity: 0; transform: rotateY(360deg); }
+}
+
+@keyframes panelB {
+  0% { opacity: 1; transform: rotateY(0deg); }
+  24% { opacity: 1; }
+  25% { opacity: 0; }
+  75% { opacity: 0; }
+  76% { opacity: 1; }
+  100% { opacity: 1; transform: rotateY(360deg); }
 }

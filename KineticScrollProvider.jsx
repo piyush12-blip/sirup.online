@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useRef, useCallback } from 'react';
+import { createContext, useContext, useEffect, useRef, useCallback, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
@@ -33,14 +33,31 @@ export function KineticScrollProvider({ children }) {
   const velocity       = useRef(0);
   const lastTime       = useRef(performance.now());
   const rafId          = useRef(null);
-  // ✅ FIX 5: Registry for child tick callbacks — called inside our RAF after velocity is written
   const tickCallbacks  = useRef(new Set());
 
   const addTick    = useCallback((fn) => { tickCallbacks.current.add(fn); },    []);
   const removeTick = useCallback((fn) => { tickCallbacks.current.delete(fn); }, []);
 
-  // 1. Sync Native Body Height to Virtual Content Height
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Monitor screen width to toggle native scroll vs virtual scroll
   useEffect(() => {
+    const media = window.matchMedia('(max-width: 959px)');
+    const listener = (e) => setIsMobile(e.matches);
+    setIsMobile(media.matches);
+
+    if (media.addEventListener) {
+      media.addEventListener('change', listener);
+      return () => media.removeEventListener('change', listener);
+    } else {
+      media.addListener(listener);
+      return () => media.removeListener(listener);
+    }
+  }, []);
+
+  // 1. Sync Native Body Height to Virtual Content Height (Desktop only)
+  useEffect(() => {
+    if (isMobile) return;
     const content = contentRef.current;
     if (!content) return;
 
@@ -54,19 +71,29 @@ export function KineticScrollProvider({ children }) {
       observer.disconnect();
       document.body.style.height = '';
     };
-  }, []);
+  }, [isMobile]);
 
   // 2. Capture Native Scroll Velocity smoothly
   useEffect(() => {
     const handleScroll = () => {
-      targetY.current = window.scrollY;
+      if (isMobile) {
+        lerpY.current = window.scrollY;
+        targetY.current = window.scrollY;
+      } else {
+        targetY.current = window.scrollY;
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMobile]);
 
-  // 3. The Pure Math Render Loop (Zero GSAP Dependency)
+  // 3. The Pure Math Render Loop (Zero GSAP Dependency) (Desktop only)
   useEffect(() => {
+    if (isMobile) {
+      ScrollTrigger.defaults({ scroller: window });
+      return;
+    }
+
     const tick = (now) => {
       const dt = Math.min(now - lastTime.current, 50);
       lastTime.current = now;
@@ -75,9 +102,6 @@ export function KineticScrollProvider({ children }) {
       const next = lerpDT(prev, targetY.current, dt);
       lerpY.current = next;
 
-      // ✅ FIX 1: Normalize velocity by dt so it's FRAME-RATE INDEPENDENT.
-      // Before: velocity = next - prev  → 2.4x weaker on 144Hz than 60Hz.
-      // After:  divide by (dt / FRAME_BASE) → identical skew on all devices.
       velocity.current = (next - prev) / (dt / FRAME_BASE);
 
       if (Math.abs(lerpY.current - targetY.current) < SNAP_THRESH) {
@@ -86,23 +110,15 @@ export function KineticScrollProvider({ children }) {
       }
 
       if (contentRef.current) {
-        // GPU-Accelerated 3D Translation
         contentRef.current.style.transform = `translate3d(0, ${-lerpY.current}px, 0)`;
       }
 
-      // ✅ FIX 5: Call all registered child ticks AFTER velocity is final for this frame.
-      // Photo strips, ParallaxLayer skews, etc. all read fresh velocity here.
       tickCallbacks.current.forEach(fn => fn());
-
-      // Keep ScrollTrigger in sync with lerpY every frame
       ScrollTrigger.update();
 
       rafId.current = requestAnimationFrame(tick);
     };
 
-    // Tell ScrollTrigger to read lerpY.current instead of window.scrollY.
-    // Without this, triggers fire against the native scroll target (ahead of
-    // the visual position), causing reveals to fire too early or never.
     ScrollTrigger.scrollerProxy(document.body, {
       scrollTop() {
         return lerpY.current;
@@ -113,17 +129,11 @@ export function KineticScrollProvider({ children }) {
     });
     ScrollTrigger.defaults({ scroller: document.body });
 
-    // ✅ FIX 2A: When ScrollTrigger is about to refresh (e.g. on resize),
-    // snap lerpY to targetY so trigger positions are calculated against
-    // the real visual position, not a stale lerped one.
     const onRefreshInit = () => {
       lerpY.current = targetY.current;
     };
     ScrollTrigger.addEventListener('refreshInit', onRefreshInit);
 
-    // ✅ FIX 2B: Call refresh() once after fonts + layout settle.
-    // Great Vibes and DM Sans reflow the layout after the first frame.
-    // Without this, every trigger fires at the wrong pixel position.
     document.fonts.ready.then(() => {
       ScrollTrigger.refresh();
     });
@@ -134,25 +144,30 @@ export function KineticScrollProvider({ children }) {
       ScrollTrigger.removeEventListener('refreshInit', onRefreshInit);
       ScrollTrigger.scrollerProxy(document.body, null);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <KineticScrollContext.Provider value={{ lerpY, targetY, velocity, addTick, removeTick }}>
-      {/* THE FIXED VIEWPORT SHELL */}
+      {/* Viewport shell: fixed on desktop, static/flow on mobile */}
       <div
         ref={viewportRef}
-        style={{
+        style={isMobile ? {
+          position: 'static',
+          width: '100%',
+          height: 'auto',
+          overflow: 'visible',
+        } : {
           position: 'fixed',
           top: 0,
           left: 0,
           width: '100%',
           height: '100vh',
           overflow: 'hidden',
-          zIndex: 1, // Sits exactly 1 layer above the background canvas
+          zIndex: 1,
         }}
       >
-        {/* THE MOVING TRACK */}
-        <div ref={contentRef} style={{ willChange: 'transform' }}>
+        {/* Moving track: translate3d on desktop, flat on mobile */}
+        <div ref={contentRef} style={isMobile ? {} : { willChange: 'transform' }}>
           {children}
         </div>
       </div>

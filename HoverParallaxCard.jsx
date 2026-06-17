@@ -188,6 +188,8 @@ export function HoverParallaxCard({
   // GLOBAL-TILT: Decoupled Stage -> Pivot -> Content layers
   //              Uses Flexbox centering and translate3d(0,0,0) for GPU rendering
   if (mode === 'global-tilt') {
+    const heightStyle = style && style.height ? style.height : '100%';
+    const isAuto = heightStyle === 'auto';
     return (
       <div
         ref={outerRef}
@@ -196,7 +198,7 @@ export function HoverParallaxCard({
           pointerEvents:     'none',   // background — never intercepts clicks
           width:             '100%',
           height:            '100%',
-          display:           'flex',
+          display:           isAuto ? 'block' : 'flex',
           justifyContent:    'center',
           alignItems:        'center',
           overflow:          'visible',
@@ -207,9 +209,9 @@ export function HoverParallaxCard({
           ref={innerRef}
           style={{
             width:          '100%',
-            height:         '100%',
+            height:         isAuto ? 'auto' : '100%',
             transformStyle: 'preserve-3d',
-            display:        'flex',
+            display:        isAuto ? 'block' : 'flex',
             justifyContent: 'center',
             alignItems:     'center',
             willChange:     'transform',
@@ -220,10 +222,10 @@ export function HoverParallaxCard({
             ref={contentRef}
             style={{
               width:          '100%',
-              height:         '100%',
+              height:         isAuto ? 'auto' : '100%',
               transformStyle: 'preserve-3d',
               transform:      'translate3d(0, 0, 0)', // GPU rendering cache
-              display:        'flex',
+              display:        isAuto ? 'block' : 'flex',
               justifyContent: 'center',
               alignItems:     'center',
             }}
