@@ -18,6 +18,8 @@ import HoverParallaxCard from './HoverParallaxCard';
 import IntroLoader from './IntroLoader';
 import PageNav from './PageNav';
 import MusicPlayer from './MusicPlayer';
+import SetlistSection from './SetlistSection';
+import BeTheGrooveSection from './BeTheGrooveSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,7 +52,7 @@ const SVGS = {
   ),
   tk: (
     <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15">
-      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 2.23-1 4.54-2.73 6.08-1.57 1.4-3.69 2.11-5.83 2-2.12-.11-4.14-1.08-5.5-2.65-1.55-1.78-2.22-4.18-1.85-6.49.27-1.68 1.07-3.26 2.3-4.4 1.53-1.44 3.64-2.16 5.75-2.09.11 0 .22.01.32.02v4.22c-.11-.01-.21-.01-.32-.01-1.39-.1-2.82.4-3.77 1.43-.88.94-1.21 2.3-1 3.59.18 1.1.84 2.1 1.75 2.74 1.07.75 2.45 1.01 3.73.74 1.25-.26 2.35-1 3-2.09.61-1.01.88-2.19.86-3.37.04-4.8.01-9.6.02-14.41z"/>
+      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 2.23-1 4.54-2.73 6.08-1.57 1.4-3.69 2.11-5.83 2-2.12-.11-4.14-1.08-5.5-2.65-1.55-1.78-2.22-4.18-1.85-6.49.27-1.68 1.07-3.26 2.3-4.4 1.53-1.44 3.64-2.16 5.75-2.09.11 0 .22.01.32.02v4.22c-.11-.01-.21-.01-.32-.01-1.39-.1-2.82.4-3.77 1.43-.88.94-1.21 2.3-1 3.59.18 1.1.84 2.1 1.75 2.74 1.07.75 2.45 1.01 3.73.74 1.25-.26 2.35-1 3-2.09.61-1.01.88-2.19.86-3.37.04-4.8.01-9.6.02-14.41z" />
     </svg>
   ),
 };
@@ -67,7 +69,7 @@ function AboutPhotoStrip() {
     let lastSkew = null;
     const tick = () => {
       if (!stripRef.current) return;
-      const v    = velocity.current * 0.04;
+      const v = velocity.current * 0.04;
       const skew = Math.abs(v) < 0.01 ? 0 : v;
       if (skew !== lastSkew) { setSkew(skew); lastSkew = skew; }
     };
@@ -85,8 +87,8 @@ function AboutPhotoStrip() {
     });
     ScrollTrigger.create({
       trigger: stripRef.current,
-      start:   'top 88%',
-      once:    true,
+      start: 'top 88%',
+      once: true,
       onEnter: () => {
         cards.forEach((card, i) => {
           const delay = i * 0.07;
@@ -163,7 +165,7 @@ function RootsPhotoStrip() {
     let lastSkew = null;
     const tick = () => {
       if (!stripRef.current) return;
-      const v    = velocity.current * 0.04;
+      const v = velocity.current * 0.04;
       const skew = Math.abs(v) < 0.01 ? 0 : v;
       if (skew !== lastSkew) { setSkew(skew); lastSkew = skew; }
     };
@@ -181,8 +183,8 @@ function RootsPhotoStrip() {
     });
     ScrollTrigger.create({
       trigger: stripRef.current,
-      start:   'top 88%',
-      once:    true,
+      start: 'top 88%',
+      once: true,
       onEnter: () => {
         cards.forEach((card, i) => {
           const delay = i * 0.07;
@@ -250,10 +252,10 @@ function RootsPhotoStrip() {
 // ─── Footer Section ────────────────────────────────────────────────────────────
 function FooterSection() {
   const containerRef = useRef(null);
-  const debutRef  = useRef(null);
-  const sepRef    = useRef(null);
-  const nextRef   = useRef(null);
-  const panelRef  = useRef(null);
+  const debutRef = useRef(null);
+  const sepRef = useRef(null);
+  const nextRef = useRef(null);
+  const panelRef = useRef(null);
 
   useEffect(() => {
     let dest = 0;
@@ -363,8 +365,8 @@ function FooterSection() {
       if (parallaxTarget) {
         const factor = parseFloat(parallaxTarget.getAttribute('data-parallax') || '27');
         gsap.from(parallaxTarget, {
-          y: () => window.innerWidth < 1920 
-            ? factor * (window.innerWidth / 1920) * 50 
+          y: () => window.innerWidth < 1920
+            ? factor * (window.innerWidth / 1920) * 50
             : factor * 50,
           scrollTrigger: {
             trigger: containerRef.current,
@@ -492,11 +494,11 @@ function FooterSection() {
       {/* Social icons (bottom right) */}
       <div style={{ position: 'absolute', right: 'calc(110 * var(--pv))', bottom: 'calc(85 * var(--pv))', display: 'flex', gap: 'calc(65 * var(--pv))' }}>
         {[
-          { alt: 'Twitter/X',   src: '/asset/img/icon-twitter.svg',   href: 'https://twitter.com/IamSIRUP' },
-          { alt: 'Instagram',   src: '/asset/img/icon-instagram.svg', href: 'https://www.instagram.com/sirup_insta/' },
-          { alt: 'YouTube',     src: '/asset/img/icon-youtube.svg',   href: 'https://www.youtube.com/channel/UCT0DEDLRQmlcBE93gLzWJ5A/featured' },
-          { alt: 'Apple Music', src: '/asset/img/icon-apple.svg',     href: 'https://music.apple.com/jp/artist/sirup/1281420386' },
-          { alt: 'Spotify',     src: '/asset/img/icon-spotify.svg',   href: 'https://open.spotify.com/artist/1HzcHe0WFm4koBalCEOkVh' },
+          { alt: 'Twitter/X', src: '/asset/img/icon-twitter.svg', href: 'https://twitter.com/IamSIRUP' },
+          { alt: 'Instagram', src: '/asset/img/icon-instagram.svg', href: 'https://www.instagram.com/sirup_insta/' },
+          { alt: 'YouTube', src: '/asset/img/icon-youtube.svg', href: 'https://www.youtube.com/channel/UCT0DEDLRQmlcBE93gLzWJ5A/featured' },
+          { alt: 'Apple Music', src: '/asset/img/icon-apple.svg', href: 'https://music.apple.com/jp/artist/sirup/1281420386' },
+          { alt: 'Spotify', src: '/asset/img/icon-spotify.svg', href: 'https://open.spotify.com/artist/1HzcHe0WFm4koBalCEOkVh' },
         ].map(({ alt, src, href }) => (
           <a key={alt} href={href} target="_blank" rel="noopener noreferrer" style={{ display: 'block', height: 'calc(20 * var(--pv))' }}>
             <img src={src} alt={alt} style={{ width: 'auto', height: '100%', filter: 'invert(1)' }} />
@@ -529,12 +531,12 @@ function MainLiveSection() {
 
 // ─── App ───────────────────────────────────────────────────────────────────────
 export default function App() {
-  const containerRef       = useRef(null);
-  const characterRef       = useRef(null);
-  const panelRef           = useRef(null);
+  const containerRef = useRef(null);
+  const characterRef = useRef(null);
+  const panelRef = useRef(null);
   const headlineVeslineRef = useRef(null);
-  const headlineDateRef    = useRef(null);
-  const seventhRef         = useRef(null);
+  const headlineDateRef = useRef(null);
+  const seventhRef = useRef(null);
   const [loaderDone, setLoaderDone] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPlayerOpen, setIsPlayerOpen] = useState(false);
@@ -605,7 +607,7 @@ export default function App() {
   }, { scope: containerRef, dependencies: [loaderDone] });
 
   return (
-    <div ref={containerRef} className="page">
+    <div ref={containerRef} className="page page--live">
 
       {/* ── Intro Loader ── */}
       {!loaderDone && (
@@ -629,7 +631,7 @@ export default function App() {
         <defs>
           <filter id="sharpen-alpha" colorInterpolationFilters="sRGB">
             <feComponentTransfer>
-              <feFuncA type="gamma" amplitude="1" exponent="1.6" offset="0"/>
+              <feFuncA type="gamma" amplitude="1" exponent="1.6" offset="0" />
             </feComponentTransfer>
           </filter>
         </defs>
@@ -672,7 +674,7 @@ export default function App() {
       <ScrollHeader
         logoSrc="https://sirup.online/5th/asset/img/header/header-logo.svg"
         socials={[
-          { key: 'x',  href: '#', svg: SVGS.x  },
+          { key: 'x', href: '#', svg: SVGS.x },
           { key: 'ig', href: '#', svg: SVGS.ig },
           { key: 'yt', href: '#', svg: SVGS.yt },
           { key: 'sp', href: '#', svg: SVGS.sp },
@@ -881,8 +883,8 @@ export default function App() {
 
           {/* Roots Playlist Button */}
           <div style={{ position: 'absolute', top: 'calc(180vw - 640px)', left: '25vw', zIndex: 60 }}>
-            <MagneticBadge 
-              label={"KEEP IN TOUCH\nPLAYLIST"} 
+            <MagneticBadge
+              label={"KEEP IN TOUCH\nPLAYLIST"}
               onClick={() => setIsPlayerOpen(true)}
             />
           </div>
@@ -908,6 +910,12 @@ export default function App() {
             SECTION: MAIN LIVE (ticker banners)
         ═══════════════════════════════════════════════════════════════════ */}
         <MainLiveSection />
+
+        {/* Be The Groove Section */}
+        <BeTheGrooveSection />
+
+        {/* Setlist Section */}
+        <SetlistSection />
 
         {/* ═══════════════════════════════════════════════════════════════════
             SECTION: FOOTER

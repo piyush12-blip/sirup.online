@@ -151,6 +151,7 @@ export function KineticScrollProvider({ children }) {
       {/* Viewport shell: fixed on desktop, static/flow on mobile */}
       <div
         ref={viewportRef}
+        className="page-scroll"
         style={isMobile ? {
           position: 'static',
           width: '100%',
@@ -167,7 +168,7 @@ export function KineticScrollProvider({ children }) {
         }}
       >
         {/* Moving track: translate3d on desktop, flat on mobile */}
-        <div ref={contentRef} style={isMobile ? {} : { willChange: 'transform' }}>
+        <div ref={contentRef} className="scroll-container" style={isMobile ? {} : { willChange: 'transform' }}>
           {children}
         </div>
       </div>
