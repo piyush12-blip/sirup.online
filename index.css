@@ -1887,84 +1887,206 @@ html {
 }
 
 /* ── Blu-ray & DVD Section ── */
-.page--live .page-scroll .scroll-container .container-dvd {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  margin-top: 60px;
-}
+.page--live .page-scroll .scroll-container .container-dvd {position:relative;width:860px;margin:100px auto 200px auto}
 
-.page--live .page-scroll .scroll-container .container-dvd .dvd-content-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 40px;
-  gap: 60px;
-}
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd{width:100%;margin:0;padding:12.07729vw 0 24.15459vw 0}}
 
-.page--live .page-scroll .scroll-container .container-dvd .dvd-title-col {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: flex-start;
-  margin-right: auto;
-  padding-left: 40px;
-}
+.page--live .page-scroll .scroll-container .container-dvd::before {content:'';position:absolute;left:0;top:0;width:100%;height:100%;background:rgba(255,255,255,0.75);filter:blur(100px)}
 
-.page--live .page-scroll .scroll-container .container-dvd .dvd-title-line {
-  display: flex;
-  gap: 2px;
-}
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd::before{background:rgba(255,255,255,0.5);filter:blur(6.03865vw)}}
 
-.page--live .page-scroll .scroll-container .container-dvd .dvd-title-line span {
-  display: block;
-  height: 130px;
-}
+.page--live .page-scroll .scroll-container .container-dvd .dvd-title {position:absolute;left:0;top:0;z-index:1}
 
-.page--live .page-scroll .scroll-container .container-dvd .dvd-title-line span img {
-  height: 100%;
-  width: auto;
-  display: block;
-}
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-title{position:relative;left:auto;top:auto;padding:2.41546vw 0 6.03865vw 2.41546vw}}
 
-.page--live .page-scroll .scroll-container .container-dvd .dvd-poster-col {
-  width: 560px;
-  height: 780px;
-  overflow: hidden;
-  margin-right: 120px;
-}
+.page--live .page-scroll .scroll-container .container-dvd .dvd-title h2 {position:relative;width:221px}
 
-.page--live .page-scroll .scroll-container .container-dvd .dvd-poster-col img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-title h2{width:95.16908vw}}
 
-@media screen and (max-width: 960px) {
-  .page--live .page-scroll .scroll-container .container-dvd .dvd-content-wrap {
-    flex-direction: column;
-    padding: 12vw 6vw;
-    gap: 8vw;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .page--live .page-scroll .scroll-container .container-dvd .dvd-title-col {
-    align-items: center;
-    padding-left: 0;
-    margin-right: 0;
-  }
-  
-  .page--live .page-scroll .scroll-container .container-dvd .dvd-title-line span {
-    height: 14vw;
-  }
-  
-  .page--live .page-scroll .scroll-container .container-dvd .dvd-poster-col {
-    width: 80%;
-  }
-}
+.page--live .page-scroll .scroll-container .container-dvd .dvd-title h2 span {display:block;width:100%}
 
+.page--live .page-scroll .scroll-container .container-dvd .dvd-title h2 span:not(:first-child) {position:absolute;left:0;top:0}
 
+.page--live .page-scroll .scroll-container .container-dvd .dvd-photo {position:relative;width:550px;margin:0 0 0 auto;padding:90px 0 75px 0}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-photo{width:70%;margin:0 auto;padding:0 0 6.03865vw 0}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-roll {position:relative}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-roll p {padding:0 0 50px 0;font-family:'Termina', sans-serif;font-size:44px;line-height:1;font-weight:700;color:#FF3900}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-roll p{padding:0 6.03865vw 3.62319vw 6.03865vw;font-size:7.24638vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-roll p span {font-weight:300}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-catch {position:relative}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-catch p {padding:0 0 50px 0;font-family:'source-han-sans-japanese', sans-serif;font-size:30px;line-height:1.5;font-weight:700;color:#FF3900}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-catch p{padding:0 6.03865vw 3.62319vw 6.03865vw;font-size:3.62319vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-lead {position:relative}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-lead p {padding:0 0 25px 0;font-family:'source-han-sans-japanese', sans-serif;font-size:18px;line-height:1.75;font-weight:400;color:#FF3900}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-lead p{font-size:3.1401vw;padding:0 6.03865vw 3.62319vw 6.03865vw;line-height:2}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-lead p a {color:#FF3900;text-decoration:underline}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-lead p a:hover {text-decoration:none}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta {position:relative}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta{padding:0 6.03865vw 0 6.03865vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul {display:flex;justify-content:space-between;flex-wrap:wrap;padding:0 0 25px 0}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul{padding:0 0 4.83092vw 0}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li {display:flex;justify-content:space-between;padding:50px 0 20px 0;border-bottom:solid 1px #FF3900}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li{padding:6.03865vw 0 4.22705vw 0}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p {line-height:1}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p{line-height:1}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span {display:inline-block;white-space:nowrap}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.x-large {font-family:'Termina', sans-serif;font-size:23px;line-height:1;font-weight:700;color:#FF3900}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.x-large{font-size:4.83092vw}}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.x-large.ex{font-size:4.10628vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.large {font-family:'source-han-sans-japanese', sans-serif;font-size:19px;line-height:1;font-weight:700;color:#FF3900}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.large{font-size:2.89855vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.medium {font-family:'source-han-sans-japanese', sans-serif;font-size:17px;line-height:1;font-weight:700;color:#FF3900}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.medium{font-size:2.89855vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.medium2 {font-family:'source-han-sans-japanese', sans-serif;font-size:17px;line-height:1;font-weight:400;color:#FF3900}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.medium2{font-size:2.89855vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.smallx {font-family:'Termina', sans-serif;font-size:20px;line-height:1;font-weight:700;color:#FF3900;letter-spacing:0.04em}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.smallx{font-size:2.657vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.smallx2 {font-family:'Termina', sans-serif;font-size:18px;line-height:1;font-weight:700;color:#FF3900;letter-spacing:0.04em}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.smallx2{font-size:2.657vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.smallxx {font-family:'Termina', sans-serif;font-size:15px;line-height:1;font-weight:400;color:#FF3900;letter-spacing:0.04em}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.smallxx{font-size:2.657vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.smallxxx {font-family:'source-han-sans-japanese', sans-serif;font-size:18px;line-height:1;font-weight:400;color:#FF3900;letter-spacing:0.04em}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.smallxxx{font-size:2.657vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.small {font-family:'source-han-sans-japanese', sans-serif;font-size:13px;line-height:1;font-weight:400;color:#FF3900;letter-spacing:0.04em}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.small{font-size:2.657vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.margin {padding:0 2.5px 0 0}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.margin{padding:0 1.20773vw 0 0}}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p span.margin.ex{padding:0 0 0 0}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p:nth-of-type(1) {text-align:left}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li p:nth-of-type(2) {text-align:right}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li.c1 {width:100%}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta ul li.c1{width:100%}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-meta small {display:block;font-family:'source-han-sans-japanese', sans-serif;font-size:12px;line-height:2;font-weight:400;color:#FF3900}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-meta small{font-size:2.89855vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton {position:relative;margin:50px 0 90px 0}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton{margin:4.83092vw 0 12.07729vw 0}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a {position:relative;display:flex;justify-content:center;align-items:center;width:480px;height:95px;border-radius:95px;margin:auto}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a{position:relative;left:auto;right:auto;top:auto;width:76.08696vw;height:16.90821vw;margin:0 auto;border-radius:16.90821vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a::before {content:'';position:absolute;left:0;top:0;width:100%;height:100%;background:#FF3900;border-radius:95px}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a::before{border-radius:16.90821vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a::after {content:'';position:absolute;right:60px;top:40px;width:18px;height:17px;background:url(../img/live/goods-blank.svg) center center no-repeat;background-size:contain}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a::after{right:5.7971vw;top:6.03865vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a span {display:inline-block;position:relative;font-family:'source-han-sans-japanese', sans-serif;text-align:center;font-size:18px;line-height:1.25;font-weight:700;color:#ffffff}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a span{font-size:2.89855vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a span strong {font-size:20px}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a span strong{font-size:3.38164vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a {transition:all 0.25s cubic-bezier(0.215, 0.61, 0.355, 1) 0.125s}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a{transition:all 0s linear 0s}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a:hover {width:575px;transition:all 0.25s cubic-bezier(0.215, 0.61, 0.355, 1) 0s}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-sbutton a:hover{width:76.08696vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-button {position:relative;margin:0 0 10px 0}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-button{margin:0 0 2.41546vw 0}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-button a {position:relative;display:flex;justify-content:center;align-items:center;width:480px;height:95px;border-radius:95px;margin:auto}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-button a{position:relative;left:auto;right:auto;top:auto;width:76.08696vw;height:16.90821vw;margin:0 auto;border-radius:16.90821vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-button a::before {content:'';position:absolute;left:0;top:0;width:100%;height:100%;background:#FF3900;border-radius:95px}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-button a::before{border-radius:16.90821vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-button a::after {content:'';position:absolute;right:60px;top:40px;width:18px;height:17px;background:url(../img/live/goods-blank.svg) center center no-repeat;background-size:contain}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-button a::after{right:5.7971vw;top:6.03865vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-button a span {display:inline-block;position:relative;font-family:'Termina', 'source-han-sans-japanese', sans-serif;text-align:center;font-size:18px;line-height:1.25;letter-spacing:0.1em;font-weight:700;color:#ffffff}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-button a span{font-size:2.89855vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-button a span strong {font-size:20px}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-button a span strong{font-size:3.38164vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-button a {transition:all 0.25s cubic-bezier(0.215, 0.61, 0.355, 1) 0.125s}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-button a{transition:all 0s linear 0s}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-button a:hover {width:575px;transition:all 0.25s cubic-bezier(0.215, 0.61, 0.355, 1) 0s}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-button a:hover{width:76.08696vw}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-note1 {position:relative;margin:0 0 40px 0}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-note1{margin:0 0 6.03865vw 0}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-note1 ul li {text-align:center;font-family:'source-han-sans-japanese', sans-serif;font-size:14px;line-height:2.0;font-weight:400;color:#FF3900}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-note1 ul li{font-size:2.89855vw;line-height:1.75}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-note2 {display:flex;justify-content:space-between;position:relative;padding:0 0 40px 0}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-note2{display:block;padding:0 4.83092vw 4.83092vw 4.83092vw}}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-note2 ul{width:100%}}
+
+.page--live .page-scroll .scroll-container .container-dvd .dvd-note2 ul li {padding:0 0 0 1em;text-indent:-1em;font-family:'source-han-sans-japanese', sans-serif;font-size:12px;line-height:2;font-weight:400;color:#FF3900}
+
+@media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-note2 ul li{font-size:2.89855vw}}

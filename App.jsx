@@ -20,6 +20,8 @@ import PageNav from './PageNav';
 import MusicPlayer from './MusicPlayer';
 import SetlistSection from './SetlistSection';
 import BeTheGrooveSection from './BeTheGrooveSection';
+import DvdSection from './DvdSection';
+import RotatingAlbum from './RotatingAlbum';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -509,21 +511,142 @@ function FooterSection() {
   );
 }
 
+// ─── Velocity Ticker Component ────────────────────────────────────────────────
+function VelocityTicker({ baseSpeed = 0.4, direction = 1, opacity = 1, children }) {
+  const trackRef = useRef(null);
+  const xPos = useRef(0);
+  const { velocity } = useKineticScroll();
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    let oneWidth = 0;
+
+    // Use ResizeObserver to measure repeating segment width dynamically
+    const observer = new ResizeObserver(() => {
+      oneWidth = track.scrollWidth / 3;
+    });
+    observer.observe(track);
+
+    // Also monitor image loading to recalculate
+    const imgs = track.querySelectorAll('img');
+    imgs.forEach(img => {
+      if (img.complete) {
+        oneWidth = track.scrollWidth / 3;
+      } else {
+        img.addEventListener('load', () => {
+          oneWidth = track.scrollWidth / 3;
+        }, { once: true });
+      }
+    });
+
+    function tick() {
+      if (oneWidth === 0) {
+        oneWidth = track.scrollWidth / 3;
+        return;
+      }
+
+      // Velocity adds urgency — magnitude only (abs), direction from prop
+      const scrollBoost = Math.abs(velocity.current) * 0.6;
+      const advance = (baseSpeed + scrollBoost) * direction;
+
+      xPos.current += advance;
+
+      // Seamless loop
+      if (direction < 0 && xPos.current <= -oneWidth) xPos.current += oneWidth;
+      if (direction > 0 && xPos.current >= 0)        xPos.current -= oneWidth;
+
+      track.style.transform = `translate3d(${xPos.current}px, 0, 0)`;
+    }
+
+    gsap.ticker.add(tick);
+    return () => {
+      observer.disconnect();
+      gsap.ticker.remove(tick);
+    };
+  }, [baseSpeed, direction, velocity]);
+
+  return (
+    <div style={{ overflow: 'hidden', width: '100%', opacity, display: 'flex', alignItems: 'center', height: '100%' }}>
+      <div ref={trackRef} style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap', willChange: 'transform' }}>
+        {/* 3 copies — covers any viewport without seam */}
+        {[0, 1, 2].map(i => (
+          <span key={i} style={{ flexShrink: 0, display: 'flex', alignItems: 'center' }}>{children}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── Main Live Ticker Section ──────────────────────────────────────────────────
 function MainLiveSection() {
+  const [btnHovered, setBtnHovered] = useState(false);
+
   return (
     <div className="section-main-live" style={{ marginBottom: '4vh' }}>
       {/* Ticker 1 — moves right, dim */}
       <div style={{ position: 'absolute', left: 0, top: 'calc(-442 * var(--pv))', width: '100%', height: 'calc(235 * var(--pv))', overflow: 'hidden', mixBlendMode: 'overlay' }}>
-        <div style={{ display: 'block', position: 'absolute', right: 0, top: 0, width: 'calc(17932 * var(--pv))', height: 'calc(415 * var(--pv))', backgroundImage: 'url(https://sirup.online/5th/asset/img/ticker.svg)', backgroundRepeat: 'repeat-x', backgroundPosition: 'left center', backgroundSize: 'contain', opacity: 0.4, animation: 'footer-tickerR 60s linear infinite' }} />
+        <VelocityTicker baseSpeed={0.35} direction={1} opacity={0.4}>
+          <img
+            src="https://sirup.online/5th/asset/img/ticker.svg"
+            alt="SIRUP LIVE"
+            style={{ height: 'calc(415 * var(--pv))', pointerEvents: 'none' }}
+          />
+        </VelocityTicker>
       </div>
+
       {/* Ticker 2 — moves left, bright */}
       <div style={{ position: 'absolute', left: 0, top: 'calc(-207 * var(--pv))', width: '100%', height: 'calc(415 * var(--pv))', overflow: 'hidden', mixBlendMode: 'overlay' }}>
-        <div style={{ display: 'block', position: 'absolute', left: 0, top: 0, width: 'calc(17932 * var(--pv))', height: 'calc(415 * var(--pv))', backgroundImage: 'url(https://sirup.online/5th/asset/img/ticker.svg)', backgroundRepeat: 'repeat-x', backgroundPosition: 'left center', backgroundSize: 'contain', opacity: 1.0, animation: 'footer-tickerL 40s linear infinite' }} />
+        <VelocityTicker baseSpeed={0.5} direction={-1} opacity={1.0}>
+          <img
+            src="https://sirup.online/5th/asset/img/ticker.svg"
+            alt="SIRUP LIVE"
+            style={{ height: 'calc(415 * var(--pv))', pointerEvents: 'none' }}
+          />
+        </VelocityTicker>
       </div>
+
       {/* Ticker 3 — moves right, semi */}
       <div style={{ position: 'absolute', left: 0, top: 'calc(208 * var(--pv))', width: '100%', height: 'calc(235 * var(--pv))', overflow: 'hidden', mixBlendMode: 'overlay' }}>
-        <div style={{ display: 'block', position: 'absolute', right: 0, bottom: 0, width: 'calc(17932 * var(--pv))', height: 'calc(415 * var(--pv))', backgroundImage: 'url(https://sirup.online/5th/asset/img/ticker.svg)', backgroundRepeat: 'repeat-x', backgroundPosition: 'left center', backgroundSize: 'contain', opacity: 0.7, animation: 'footer-tickerR 50s linear infinite' }} />
+        <VelocityTicker baseSpeed={0.4} direction={1} opacity={0.7}>
+          <img
+            src="https://sirup.online/5th/asset/img/ticker.svg"
+            alt="SIRUP LIVE"
+            style={{ height: 'calc(415 * var(--pv))', pointerEvents: 'none' }}
+          />
+        </VelocityTicker>
+      </div>
+
+      {/* Central CTA Button — exactly between Row 2 and Row 3 */}
+      <div style={{
+        position: 'absolute',
+        top: 'calc(208 * var(--pv))', left: '50%',
+        transform: 'translate(-50%, -50%)',
+        zIndex: 10,
+        pointerEvents: 'auto',
+      }}>
+        <button
+          data-cursor="hover"
+          onMouseEnter={() => setBtnHovered(true)}
+          onMouseLeave={() => setBtnHovered(false)}
+          style={{
+            background: btnHovered ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+            border: '1px solid rgba(255,255,255,0.4)',
+            color: '#fff',
+            fontFamily: "'Termina', sans-serif",
+            fontSize: '11px',
+            letterSpacing: '0.3em',
+            textTransform: 'uppercase',
+            padding: '14px 32px',
+            cursor: 'none',
+            backdropFilter: 'blur(8px)',
+            transition: 'background 0.3s ease, border-color 0.3s ease, transform 0.3s ease',
+            transform: btnHovered ? 'scale(1.05)' : 'scale(1)',
+          }}
+        >
+          LIVE ARCHIVE
+        </button>
       </div>
     </div>
   );
@@ -896,20 +1019,20 @@ export default function App() {
             zIndex: 20, pointerEvents: 'none',
           }} />
 
-          {/* Marquee strips */}
-          <div style={{ position: 'absolute', top: '360vh', width: '100%', zIndex: 60 }}>
-            <MarqueeStrip items={['SIRUP', '7TH ANNIVERSARY', 'VESUVINE', '2026', 'ROOTS PLAYLIST']} speed={0.4} />
-          </div>
-          <div style={{ position: 'absolute', top: 'calc(360vh + 56px)', width: '100%', zIndex: 60 }}>
-            <MarqueeStrip items={['SYNAPSE', 'NEO SOUL', 'R&B', 'JAZZ', 'POP', 'ELECTRONIC']} speed={0.28} reverse={true} color="rgba(255,255,255,0.15)" />
-          </div>
+
 
         </div>{/* end section-header */}
+
+        {/* Rotating Album Showcase Section */}
+        <RotatingAlbum />
 
         {/* ═══════════════════════════════════════════════════════════════════
             SECTION: MAIN LIVE (ticker banners)
         ═══════════════════════════════════════════════════════════════════ */}
         <MainLiveSection />
+
+        {/* DVD Section */}
+        <DvdSection />
 
         {/* Be The Groove Section */}
         <BeTheGrooveSection />
