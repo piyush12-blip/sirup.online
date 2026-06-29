@@ -381,6 +381,18 @@ function FooterSection() {
         });
       }
     }
+
+    // Blackout overlay triggered by Budokan Album section
+    ScrollTrigger.create({
+      trigger: '.section-main-live',
+      endTrigger: '.budokan-album-scroll',
+      start: 'top 60%',
+      end: 'bottom 40%',
+      onEnter: () => gsap.to('.vanta-front', { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
+      onLeave: () => gsap.to('.vanta-front', { opacity: 0, duration: 1.0, ease: 'power2.out' }),
+      onEnterBack: () => gsap.to('.vanta-front', { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
+      onLeaveBack: () => gsap.to('.vanta-front', { opacity: 0, duration: 1.0, ease: 'power2.out' }),
+    });
   });
 
   return (
@@ -743,11 +755,14 @@ export default function App() {
 
 
       {/* ── Fixed background ── */}
-      <div className="bg-canvas-layer" style={{
+      <div className="page-vanta bg-canvas-layer" style={{
         position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
         zIndex: 0, pointerEvents: 'none',
       }}>
-        <LivingBackground isPlaying={true} speed={1} colorA="#1a1a2e" colorB="#533483" />
+        <div className="vanta-back" style={{ position: 'absolute', inset: 0 }}>
+          <LivingBackground isPlaying={true} speed={1} colorA="#1a1a2e" colorB="#533483" />
+        </div>
+        <div className="vanta-front blackout-overlay" style={{ position: 'absolute', inset: 0, backgroundColor: '#000', opacity: 0 }} />
       </div>
 
       {/* ── SVG Filter ── */}
