@@ -22,6 +22,7 @@ import SetlistSection from './SetlistSection';
 import BeTheGrooveSection from './BeTheGrooveSection';
 import DvdSection from './DvdSection';
 import RotatingAlbum from './RotatingAlbum';
+import BudokanAlbumScroll from './BudokanAlbumScroll';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -1030,6 +1031,9 @@ export default function App() {
             SECTION: MAIN LIVE (ticker banners)
         ═══════════════════════════════════════════════════════════════════ */}
         <MainLiveSection />
+
+        {/* Budokan 3D Box Album Scroll Showcase */}
+        <BudokanAlbumScroll />
 
         {/* DVD Section */}
         <DvdSection />
