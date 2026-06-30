@@ -161,6 +161,9 @@ export function HoverParallaxCard({
       <div
         ref={outerRef}
         className={className}
+        tabIndex={enabled ? 0 : -1}
+        role="region"
+        aria-label="Interactive 3D Card"
         style={{
           perspective:   `${perspective}px`,
           pointerEvents: 'auto',

@@ -80,7 +80,7 @@ export default function HeroLogo({ fill = '#ffffff', width = '80vw', maxWidth = 
 
   return (
     <div style={{ width, maxWidth, margin: '0 auto' }}>
-      <svg
+      <svg aria-hidden="true"
         viewBox="0 0 3440 1935"
         xmlns="http://www.w3.org/2000/svg"
         style={{ width: '100%', height: 'auto', display: 'block' }}

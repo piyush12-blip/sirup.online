@@ -3,7 +3,7 @@ import React from 'react';
 export default function AnniversaryLogo({ fill = '#ffffff', width = '80vw', maxWidth = '1200px' }) {
   return (
     <div style={{ width, maxWidth, margin: '0 auto' }}>
-      <svg
+      <svg aria-hidden="true"
         viewBox="0 0 3440 1100"
         xmlns="http://www.w3.org/2000/svg"
         style={{ width: '100%', height: 'auto', display: 'block' }}

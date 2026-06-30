@@ -71,7 +71,7 @@ export default function MusicPlayer({ isOpen, onClose }) {
   return (
     <div className={`glass-player ${isOpen ? 'is-open' : ''}`}>
       {/* Close Button */}
-      <button className="player-close" onClick={onClose}>
+      <button className="player-close" onClick={onClose} aria-label="Close Music Player">
         ✕
       </button>
 
@@ -122,26 +122,26 @@ export default function MusicPlayer({ isOpen, onClose }) {
         </div>
 
         <div className="control-buttons">
-          <button className="btn-ctrl" onClick={handlePrev}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <button className="btn-ctrl" onClick={handlePrev} aria-label="Previous Track">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
             </svg>
           </button>
           
-          <button className="btn-ctrl btn-play" onClick={handlePlayPause}>
+          <button className="btn-ctrl btn-play" onClick={handlePlayPause} aria-label={isPlaying ? "Pause" : "Play"}>
             {isPlaying ? (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
               </svg>
             ) : (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style={{ marginLeft: '2px' }}>
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style={{ marginLeft: '2px' }}>
                 <path d="M8 5v14l11-7z"/>
               </svg>
             )}
           </button>
 
-          <button className="btn-ctrl" onClick={handleNext}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <button className="btn-ctrl" onClick={handleNext} aria-label="Next Track">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
             </svg>
           </button>

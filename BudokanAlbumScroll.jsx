@@ -169,7 +169,7 @@ export default function BudokanAlbumScroll() {
   }, []);
 
   return (
-    <div className="budokan-album-scroll" style={{
+    <div className="budokan-album-scroll" tabIndex={0} role="region" aria-label="3D Budokan Live Stage Animation" style={{
       position: 'relative',
       width: '100%',
       height: '140vh', /* Makes the screen "big" so bounds push off monitor edge */

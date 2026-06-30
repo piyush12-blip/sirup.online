@@ -93,7 +93,7 @@ export default function DateSVG({
         const aspect = (glyph.w / glyph.h).toFixed(4);
 
         return (
-          <svg
+          <svg aria-hidden="true"
             key={index}
             className={charClass}
             xmlns="http://www.w3.org/2000/svg"

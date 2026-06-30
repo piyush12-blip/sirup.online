@@ -56,9 +56,18 @@ export function MagneticBadge({ label = "ROOTS\nPLAYLIST", onClick }) {
     // THE GRAVITY FIELD (The invisible area that tracks your mouse)
     <div 
       ref={wrapperRef}
+      className="magnetic-badge"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick(e);
+        }
+      }}
       style={{
         position: 'absolute',
         width: '180px', // Larger than the button to catch the mouse early

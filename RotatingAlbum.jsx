@@ -93,7 +93,7 @@ export default function RotatingAlbum() {
   }, [activeAlbum]);
 
   return (
-    <div ref={sectionRef} className="container-album-showcase" style={{
+    <div ref={sectionRef} className="container-album-showcase" tabIndex={0} role="region" aria-label="Rotating Album Showcase" style={{
       position: 'relative',
       width: '100%',
       backgroundColor: 'transparent',

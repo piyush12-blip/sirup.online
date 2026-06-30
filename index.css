@@ -2090,3 +2090,324 @@ html {
 .page--live .page-scroll .scroll-container .container-dvd .dvd-note2 ul li {padding:0 0 0 1em;text-indent:-1em;font-family:'source-han-sans-japanese', sans-serif;font-size:12px;line-height:2;font-weight:400;color:#FF3900}
 
 @media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-note2 ul li{font-size:2.89855vw}}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE CLASSES — migrated from inline JSX styles
+   Desktop: var(--pv) = calc(100vw / 3840)
+   Mobile:  calc(N * (100vw / 828))
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Photo Strip Cards (About + Roots) ───────────────────────────────────── */
+.photo-strip-card {
+  position: relative;
+  width: calc(420 * var(--pv));
+  height: calc(560 * var(--pv));
+  overflow: hidden;
+  flex-shrink: 0;
+  transform-origin: bottom center;
+}
+@media screen and (max-width: 959px) {
+  .photo-strip-card {
+    width: calc(200 * (100vw / 828));
+    height: calc(267 * (100vw / 828));
+  }
+}
+
+/* ── Main Live Ticker Rows ───────────────────────────────────────────────── */
+.live-ticker-row-1 {
+  position: absolute;
+  left: 0;
+  top: calc(-442 * var(--pv));
+  width: 100%;
+  height: calc(235 * var(--pv));
+  overflow: hidden;
+  mix-blend-mode: overlay;
+}
+@media screen and (max-width: 959px) {
+  .live-ticker-row-1 {
+    top: calc(-221 * (100vw / 828));
+    height: calc(118 * (100vw / 828));
+  }
+}
+
+.live-ticker-row-2 {
+  position: absolute;
+  left: 0;
+  top: calc(-207 * var(--pv));
+  width: 100%;
+  height: calc(415 * var(--pv));
+  overflow: hidden;
+  mix-blend-mode: overlay;
+}
+@media screen and (max-width: 959px) {
+  .live-ticker-row-2 {
+    top: calc(-104 * (100vw / 828));
+    height: calc(208 * (100vw / 828));
+  }
+}
+
+.live-ticker-row-3 {
+  position: absolute;
+  left: 0;
+  top: calc(208 * var(--pv));
+  width: 100%;
+  height: calc(235 * var(--pv));
+  overflow: hidden;
+  mix-blend-mode: overlay;
+}
+@media screen and (max-width: 959px) {
+  .live-ticker-row-3 {
+    top: calc(104 * (100vw / 828));
+    height: calc(118 * (100vw / 828));
+  }
+}
+
+.live-ticker-img {
+  height: calc(415 * var(--pv));
+  pointer-events: none;
+}
+@media screen and (max-width: 959px) {
+  .live-ticker-img {
+    height: calc(208 * (100vw / 828));
+  }
+}
+
+.live-cta-wrap {
+  position: absolute;
+  top: calc(208 * var(--pv));
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  pointer-events: auto;
+}
+@media screen and (max-width: 959px) {
+  .live-cta-wrap {
+    top: calc(104 * (100vw / 828));
+  }
+}
+
+/* ── Footer: Debut SVGs ──────────────────────────────────────────────────── */
+.footer-debut-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(2400 * var(--pv));
+  width: calc(1465 * var(--pv));
+  margin: auto;
+  opacity: 0.9;
+  mix-blend-mode: overlay;
+}
+@media screen and (max-width: 959px) {
+  .footer-debut-wrap {
+    bottom: calc(1200 * (100vw / 828));
+    width: calc(700 * (100vw / 828));
+  }
+}
+
+/* ── Footer: Separate Spinner ────────────────────────────────────────────── */
+.footer-sep-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(1900 * var(--pv));
+  width: calc(450 * var(--pv));
+  margin: auto;
+  opacity: 0;
+  mix-blend-mode: overlay;
+}
+@media screen and (max-width: 959px) {
+  .footer-sep-wrap {
+    bottom: calc(950 * (100vw / 828));
+    width: calc(220 * (100vw / 828));
+  }
+}
+
+/* ── Footer: Next Arrow ──────────────────────────────────────────────────── */
+.footer-next-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(1400 * var(--pv));
+  width: calc(85 * var(--pv));
+  margin: auto;
+  opacity: 0;
+  mix-blend-mode: overlay;
+}
+@media screen and (max-width: 959px) {
+  .footer-next-wrap {
+    bottom: calc(700 * (100vw / 828));
+    width: calc(42 * (100vw / 828));
+  }
+}
+
+/* ── Footer: Ticker Rows ─────────────────────────────────────────────────── */
+.footer-ticker-row-1 {
+  mix-blend-mode: overlay;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(455 * var(--pv));
+  width: 100%;
+  height: calc(290 * var(--pv));
+  overflow: hidden;
+}
+@media screen and (max-width: 959px) {
+  .footer-ticker-row-1 {
+    bottom: calc(230 * (100vw / 828));
+    height: calc(145 * (100vw / 828));
+  }
+}
+
+.footer-ticker-track-1 {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(12532 * var(--pv));
+  height: 100%;
+  background-image: url(https://sirup.online/5th/asset/img/ticker.svg);
+  background-repeat: repeat-x;
+  background-position: left center;
+  background-size: contain;
+  opacity: 1.0;
+  animation: footer-tickerL 30s linear infinite;
+}
+@media screen and (max-width: 959px) {
+  .footer-ticker-track-1 {
+    width: calc(6266 * (100vw / 828));
+  }
+}
+
+.footer-ticker-row-2 {
+  mix-blend-mode: overlay;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(300 * var(--pv));
+  width: 100%;
+  height: calc(155 * var(--pv));
+  overflow: hidden;
+}
+@media screen and (max-width: 959px) {
+  .footer-ticker-row-2 {
+    bottom: calc(150 * (100vw / 828));
+    height: calc(78 * (100vw / 828));
+  }
+}
+
+.footer-ticker-track-2 {
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: calc(12532 * var(--pv));
+  height: calc(290 * var(--pv));
+  background-image: url(https://sirup.online/5th/asset/img/ticker.svg);
+  background-repeat: repeat-x;
+  background-position: left center;
+  background-size: contain;
+  opacity: 0.7;
+  animation: footer-tickerR 45s linear infinite;
+}
+@media screen and (max-width: 959px) {
+  .footer-ticker-track-2 {
+    width: calc(6266 * (100vw / 828));
+    height: calc(145 * (100vw / 828));
+  }
+}
+
+/* ── Footer: Links ───────────────────────────────────────────────────────── */
+.footer-links {
+  position: absolute;
+  left: calc(110 * var(--pv));
+  bottom: calc(85 * var(--pv));
+  display: flex;
+  gap: calc(85 * var(--pv));
+}
+@media screen and (max-width: 959px) {
+  .footer-links {
+    left: calc(40 * (100vw / 828));
+    bottom: calc(40 * (100vw / 828));
+    gap: calc(40 * (100vw / 828));
+    flex-direction: column;
+  }
+}
+
+.footer-link-text {
+  font-family: 'Termina', 'DM Sans', sans-serif;
+  font-size: calc(11 * var(--pv));
+  line-height: 1;
+  font-weight: 200;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  text-decoration: none;
+}
+@media screen and (max-width: 959px) {
+  .footer-link-text {
+    font-size: calc(9 * (100vw / 828));
+  }
+}
+
+/* ── Footer: Copyright ───────────────────────────────────────────────────── */
+.footer-copyright {
+  position: absolute;
+  right: calc(720 * var(--pv));
+  bottom: calc(85 * var(--pv));
+  font-family: 'Termina', 'DM Sans', sans-serif;
+  font-size: calc(11 * var(--pv));
+  line-height: 1;
+  font-weight: 200;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+}
+@media screen and (max-width: 959px) {
+  .footer-copyright {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(80 * (100vw / 828));
+    font-size: calc(9 * (100vw / 828));
+  }
+}
+
+/* ── Footer: Social Icons ────────────────────────────────────────────────── */
+.footer-socials {
+  position: absolute;
+  right: calc(110 * var(--pv));
+  bottom: calc(85 * var(--pv));
+  display: flex;
+  gap: calc(65 * var(--pv));
+}
+@media screen and (max-width: 959px) {
+  .footer-socials {
+    right: calc(40 * (100vw / 828));
+    bottom: calc(40 * (100vw / 828));
+    gap: calc(30 * (100vw / 828));
+  }
+}
+
+.footer-social-link {
+  display: block;
+  height: calc(20 * var(--pv));
+}
+@media screen and (max-width: 959px) {
+  .footer-social-link {
+    height: calc(16 * (100vw / 828));
+  }
+}
+
+/* Accessibility Focus States */
+.magnetic-badge:focus-visible > div {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
+
+
+/* Global Accessibility Focus States */
+a:focus-visible,
+button:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 2px solid white !important;
+  outline-offset: 4px !important;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
+}
