@@ -2091,316 +2091,378 @@ html {
 
 @media screen and (max-width: 960px) {.page--live .page-scroll .scroll-container .container-dvd .dvd-note2 ul li{font-size:2.89855vw}}
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   RESPONSIVE CLASSES — migrated from inline JSX styles
-   Desktop: var(--pv) = calc(100vw / 3840)
-   Mobile:  calc(N * (100vw / 828))
-═══════════════════════════════════════════════════════════════════════════ */
-
-/* ── Photo Strip Cards (About + Roots) ───────────────────────────────────── */
-.photo-strip-card {
-  position: relative;
-  width: calc(420 * var(--pv));
-  height: calc(560 * var(--pv));
-  overflow: hidden;
-  flex-shrink: 0;
-  transform-origin: bottom center;
-}
-@media screen and (max-width: 959px) {
-  .photo-strip-card {
-    width: calc(200 * (100vw / 828));
-    height: calc(267 * (100vw / 828));
-  }
-}
-
-/* ── Main Live Ticker Rows ───────────────────────────────────────────────── */
-.live-ticker-row-1 {
-  position: absolute;
-  left: 0;
-  top: calc(-442 * var(--pv));
-  width: 100%;
-  height: calc(235 * var(--pv));
-  overflow: hidden;
-  mix-blend-mode: overlay;
-}
-@media screen and (max-width: 959px) {
-  .live-ticker-row-1 {
-    top: calc(-221 * (100vw / 828));
-    height: calc(118 * (100vw / 828));
-  }
-}
-
-.live-ticker-row-2 {
-  position: absolute;
-  left: 0;
-  top: calc(-207 * var(--pv));
-  width: 100%;
-  height: calc(415 * var(--pv));
-  overflow: hidden;
-  mix-blend-mode: overlay;
-}
-@media screen and (max-width: 959px) {
-  .live-ticker-row-2 {
-    top: calc(-104 * (100vw / 828));
-    height: calc(208 * (100vw / 828));
-  }
-}
-
-.live-ticker-row-3 {
-  position: absolute;
-  left: 0;
-  top: calc(208 * var(--pv));
-  width: 100%;
-  height: calc(235 * var(--pv));
-  overflow: hidden;
-  mix-blend-mode: overlay;
-}
-@media screen and (max-width: 959px) {
-  .live-ticker-row-3 {
-    top: calc(104 * (100vw / 828));
-    height: calc(118 * (100vw / 828));
-  }
-}
-
-.live-ticker-img {
-  height: calc(415 * var(--pv));
-  pointer-events: none;
-}
-@media screen and (max-width: 959px) {
-  .live-ticker-img {
-    height: calc(208 * (100vw / 828));
-  }
-}
-
-.live-cta-wrap {
-  position: absolute;
-  top: calc(208 * var(--pv));
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  pointer-events: auto;
-}
-@media screen and (max-width: 959px) {
-  .live-cta-wrap {
-    top: calc(104 * (100vw / 828));
-  }
-}
-
-/* ── Footer: Debut SVGs ──────────────────────────────────────────────────── */
-.footer-debut-wrap {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(2400 * var(--pv));
-  width: calc(1465 * var(--pv));
-  margin: auto;
-  opacity: 0.9;
-  mix-blend-mode: overlay;
-}
-@media screen and (max-width: 959px) {
-  .footer-debut-wrap {
-    bottom: calc(1200 * (100vw / 828));
-    width: calc(700 * (100vw / 828));
-  }
-}
-
-/* ── Footer: Separate Spinner ────────────────────────────────────────────── */
-.footer-sep-wrap {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(1900 * var(--pv));
-  width: calc(450 * var(--pv));
-  margin: auto;
-  opacity: 0;
-  mix-blend-mode: overlay;
-}
-@media screen and (max-width: 959px) {
-  .footer-sep-wrap {
-    bottom: calc(950 * (100vw / 828));
-    width: calc(220 * (100vw / 828));
-  }
-}
-
-/* ── Footer: Next Arrow ──────────────────────────────────────────────────── */
-.footer-next-wrap {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(1400 * var(--pv));
-  width: calc(85 * var(--pv));
-  margin: auto;
-  opacity: 0;
-  mix-blend-mode: overlay;
-}
-@media screen and (max-width: 959px) {
-  .footer-next-wrap {
-    bottom: calc(700 * (100vw / 828));
-    width: calc(42 * (100vw / 828));
-  }
-}
-
-/* ── Footer: Ticker Rows ─────────────────────────────────────────────────── */
-.footer-ticker-row-1 {
-  mix-blend-mode: overlay;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(455 * var(--pv));
-  width: 100%;
-  height: calc(290 * var(--pv));
-  overflow: hidden;
-}
-@media screen and (max-width: 959px) {
-  .footer-ticker-row-1 {
-    bottom: calc(230 * (100vw / 828));
-    height: calc(145 * (100vw / 828));
-  }
-}
-
-.footer-ticker-track-1 {
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: calc(12532 * var(--pv));
-  height: 100%;
-  background-image: url(https://sirup.online/5th/asset/img/ticker.svg);
-  background-repeat: repeat-x;
-  background-position: left center;
-  background-size: contain;
-  opacity: 1.0;
-  animation: footer-tickerL 30s linear infinite;
-}
-@media screen and (max-width: 959px) {
-  .footer-ticker-track-1 {
-    width: calc(6266 * (100vw / 828));
-  }
-}
-
-.footer-ticker-row-2 {
-  mix-blend-mode: overlay;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(300 * var(--pv));
-  width: 100%;
-  height: calc(155 * var(--pv));
-  overflow: hidden;
-}
-@media screen and (max-width: 959px) {
-  .footer-ticker-row-2 {
-    bottom: calc(150 * (100vw / 828));
-    height: calc(78 * (100vw / 828));
-  }
-}
-
-.footer-ticker-track-2 {
-  display: block;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: calc(12532 * var(--pv));
-  height: calc(290 * var(--pv));
-  background-image: url(https://sirup.online/5th/asset/img/ticker.svg);
-  background-repeat: repeat-x;
-  background-position: left center;
-  background-size: contain;
-  opacity: 0.7;
-  animation: footer-tickerR 45s linear infinite;
-}
-@media screen and (max-width: 959px) {
-  .footer-ticker-track-2 {
-    width: calc(6266 * (100vw / 828));
-    height: calc(145 * (100vw / 828));
-  }
-}
-
-/* ── Footer: Links ───────────────────────────────────────────────────────── */
-.footer-links {
-  position: absolute;
-  left: calc(110 * var(--pv));
-  bottom: calc(85 * var(--pv));
-  display: flex;
-  gap: calc(85 * var(--pv));
-}
-@media screen and (max-width: 959px) {
-  .footer-links {
-    left: calc(40 * (100vw / 828));
-    bottom: calc(40 * (100vw / 828));
-    gap: calc(40 * (100vw / 828));
-    flex-direction: column;
-  }
-}
-
-.footer-link-text {
-  font-family: 'Termina', 'DM Sans', sans-serif;
-  font-size: calc(11 * var(--pv));
-  line-height: 1;
-  font-weight: 200;
-  letter-spacing: 0.1em;
-  color: #ffffff;
-  text-decoration: none;
-}
-@media screen and (max-width: 959px) {
-  .footer-link-text {
-    font-size: calc(9 * (100vw / 828));
-  }
-}
-
-/* ── Footer: Copyright ───────────────────────────────────────────────────── */
-.footer-copyright {
-  position: absolute;
-  right: calc(720 * var(--pv));
-  bottom: calc(85 * var(--pv));
-  font-family: 'Termina', 'DM Sans', sans-serif;
-  font-size: calc(11 * var(--pv));
-  line-height: 1;
-  font-weight: 200;
-  letter-spacing: 0.1em;
-  color: #ffffff;
-}
-@media screen and (max-width: 959px) {
-  .footer-copyright {
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: calc(80 * (100vw / 828));
-    font-size: calc(9 * (100vw / 828));
-  }
-}
-
-/* ── Footer: Social Icons ────────────────────────────────────────────────── */
-.footer-socials {
-  position: absolute;
-  right: calc(110 * var(--pv));
-  bottom: calc(85 * var(--pv));
-  display: flex;
-  gap: calc(65 * var(--pv));
-}
-@media screen and (max-width: 959px) {
-  .footer-socials {
-    right: calc(40 * (100vw / 828));
-    bottom: calc(40 * (100vw / 828));
-    gap: calc(30 * (100vw / 828));
-  }
-}
-
-.footer-social-link {
-  display: block;
-  height: calc(20 * var(--pv));
-}
-@media screen and (max-width: 959px) {
-  .footer-social-link {
-    height: calc(16 * (100vw / 828));
-  }
-}
-
-/* Accessibility Focus States */
-.magnetic-badge:focus-visible > div {
-  outline: 2px solid white;
-  outline-offset: 4px;
-}
+/* REAL SITE MOBILE OVERRIDES */
+@media screen and (max-width: 959px){.pc{display:none !important}}
+@media screen and (max-width: 959px){.sd{display:block !important}}
+@media screen and (max-width: 959px){.page .page-loading .loading-container div{width:calc(600 * (100vw / 828)) !important;height:calc(600 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main{position:static !important;left:auto !important;top:auto !important;width:auto !important;height:auto !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background{position:fixed !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker{height:calc(300 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker div:nth-of-type(1){top:calc(-4 * (100vw / 828)) !important;height:calc(80 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker div:nth-of-type(1) span{height:calc(140 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker div:nth-of-type(2){top:calc(80 * (100vw / 828)) !important;height:calc(140 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker div:nth-of-type(2) span{height:calc(140 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker div:nth-of-type(3){top:calc(224 * (100vw / 828)) !important;height:calc(80 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker div:nth-of-type(3) span{height:calc(140 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20221012"] div span{width:calc(6450 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20220912"] div span{width:calc(3582 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20220720"] div span{width:calc(6126 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20220525"] div span{width:calc(3818 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20220420"] div span{width:calc(5856 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20220309"] div span{width:calc(6126 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20220216"] div span{width:calc(5734 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20220119"] div span{width:calc(4203 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20211203"] div span{width:calc(4291 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20211022"] div span{width:calc(5107 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20210929"] div span{width:calc(3832 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20210928"] div span{width:calc(3589 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20210723"] div span{width:calc(6274 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20210317"] div span{width:calc(4776 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20210127"] div span{width:calc(6585 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20201218"] div span{width:calc(3994 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20200930"] div span{width:calc(3980 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20200722"] div span{width:calc(6261 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20200630"] div span{width:calc(4938 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20200527"] div span{width:calc(4506 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20200325"] div span{width:calc(6477 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20200212"] div span{width:calc(3467 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20191122"] div span{width:calc(5289 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20190920"] div span{width:calc(4169 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20190626"] div span{width:calc(3832 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20190529"] div span{width:calc(4628 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20190410"] div span{width:calc(4587 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20190313"] div span{width:calc(4479 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20190306"] div span{width:calc(6490 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20190227"] div span{width:calc(4351 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20190126"] div span{width:calc(6099 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20190109"] div span{width:calc(3724 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20181116"] div span{width:calc(4075 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20180831"] div span{width:calc(4115 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20180801"] div span{width:calc(4399 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20180718"] div span{width:calc(3778 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20180701"] div span{width:calc(3535 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20180516"] div span{width:calc(4911 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20171101"] div span{width:calc(3872 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker[data-index="20170927"] div span{width:calc(4115 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker.is-active div:nth-of-type(1){transition:opacity 1.0s linear 0s !important;will-change:auto !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker.is-active div:nth-of-type(2){transition:opacity 1.0s linear 0s !important;will-change:auto !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-background .background-music .music-ticker.is-active div:nth-of-type(3){transition:opacity 1.0s linear 0s !important;will-change:auto !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header{height:calc(2200 * (100vw / 828)) !important;margin:0 0 calc(600 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-logo{top:calc(30 * (100vw / 828)) !important;width:calc(240 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-service{display:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-panel{top:calc(200 * (100vw / 828)) !important;width:calc(730 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-panel div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title{top:calc(300 * (100vw / 828)) !important;width:100% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(1){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(1) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(1) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(2){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(2) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(2) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(3){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(3) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(3) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(4){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(4) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(4) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(5){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(5) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(5) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(6){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(6) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(6) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(7){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(7) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(7) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(8){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(8) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(8) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(9){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(9) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(9) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(10){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(10) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(10) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(11){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(11) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(11) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(12){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(12) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(12) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(13){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(13) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(13) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(14){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(14) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(14) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(15){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(15) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(15) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(16){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(16) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(16) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(17){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(17) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(17) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(18){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(18) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(18) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(19){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(19) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(19) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(20){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(20) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(20) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(21){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(21) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(21) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(22){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(22) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(22) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(23){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(23) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(23) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(24){transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(24) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-title .title:nth-of-type(24) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-text{top:calc(670 * (100vw / 828)) !important;width:100% !important;transform:translate(0, 0) !important;z-index:2 !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-text div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-text div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-text div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis] p{right:calc(20 * (100vw / 828)) !important;width:calc(330 * (100vw / 828)) !important;font-size:calc(24 * (100vw / 828)) !important;line-height:1.75 !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-artist{top:calc(200 * (100vw / 828)) !important;width:calc(730 * (100vw / 828)) !important;transform:scale(1, 1) translate(0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-artist div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-artist div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about{top:calc(970 * (100vw / 828)) !important;width:100% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title{right:calc(30 * (100vw / 828)) !important;width:calc(160 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title .title:nth-of-type(1){transform:scale(1, 1) translate(0, calc(150 * (100vw / 828))) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title .title:nth-of-type(1) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title .title:nth-of-type(1) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title .title:nth-of-type(2){transform:scale(1, 1) translate(0, calc(100 * (100vw / 828))) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title .title:nth-of-type(2) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title .title:nth-of-type(2) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title .title:nth-of-type(3){transform:scale(1, 1) translate(0, calc(75 * (100vw / 828))) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title .title:nth-of-type(3) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title .title:nth-of-type(3) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-text{left:calc(20 * (100vw / 828)) !important;top:calc(60 * (100vw / 828)) !important;width:calc(330 * (100vw / 828)) !important;transform:translate(0, calc(50 * (100vw / 828))) !important;z-index:1 !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-text div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-text div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-text div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis] p{font-size:calc(24 * (100vw / 828)) !important;line-height:1.75 !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo{left:0 !important;top:calc(-170 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo .photo{width:calc(140 * (100vw / 828)) !important;height:calc(190 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo .photo:nth-of-type(1) div[data-insert] div[data-parallax-ex] span{bottom:calc(-20 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo .photo:nth-of-type(2) div[data-insert] div[data-parallax-ex] span{bottom:calc(-20 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo .photo:nth-of-type(3){display:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo .photo:nth-of-type(4){display:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo .photo div[data-insert]{opacity:1 !important;transform:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo .photo div[data-insert] div[data-parallax-ex] span::after{transform:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo.is-trigger .photo:nth-of-type(1) div[data-insert]{opacity:1 !important;transform:none !important;transition:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo.is-trigger .photo:nth-of-type(1) div[data-insert] div[data-parallax-ex] span::after{opacity:1 !important;transform:none !important;transition:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo.is-trigger .photo:nth-of-type(2) div[data-insert]{opacity:1 !important;transform:none !important;transition:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo.is-trigger .photo:nth-of-type(2) div[data-insert] div[data-parallax-ex] span::after{opacity:1 !important;transform:none !important;transition:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo.is-trigger .photo:nth-of-type(3) div[data-insert]{opacity:1 !important;transform:none !important;transition:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo.is-trigger .photo:nth-of-type(3) div[data-insert] div[data-parallax-ex] span::after{opacity:1 !important;transform:none !important;transition:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo.is-trigger .photo:nth-of-type(4) div[data-insert]{opacity:1 !important;transform:none !important;transition:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo.is-trigger .photo:nth-of-type(4) div[data-insert] div[data-parallax-ex] span::after{opacity:1 !important;transform:none !important;transition:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots{top:calc(1570 * (100vw / 828)) !important;width:100% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-title{left:0 !important;width:calc(390 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-title .title:nth-of-type(1){transform:scale(1, 1) translate(0, calc(50 * (100vw / 828))) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-title .title:nth-of-type(1) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-title .title:nth-of-type(1) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-title .title:nth-of-type(2){transform:scale(1, 1) translate(0, calc(50 * (100vw / 828))) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-title .title:nth-of-type(2) div[data-insert] div[data-parallax] div[data-preserve]{transform-origin:50% 50% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-title .title:nth-of-type(2) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-text{left:calc(20 * (100vw / 828)) !important;top:calc(180 * (100vw / 828)) !important;width:calc(330 * (100vw / 828)) !important;transform:translate(0, 0) !important;z-index:2 !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-text div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis] p{font-size:calc(24 * (100vw / 828)) !important;line-height:1.75 !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo{right:0 !important;top:calc(110 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo .photo{width:calc(140 * (100vw / 828)) !important;height:calc(190 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo .photo:nth-of-type(1) div[data-insert] div[data-parallax-ex] span{bottom:calc(-20 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo .photo:nth-of-type(2) div[data-insert] div[data-parallax-ex] span{bottom:calc(-20 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo .photo:nth-of-type(3) div[data-insert] div[data-parallax-ex] span{bottom:calc(-20 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo .photo:nth-of-type(4){display:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-playlist{left:calc(30 * (100vw / 828)) !important;top:calc(410 * (100vw / 828)) !important;width:calc(200 * (100vw / 828)) !important;height:calc(200 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-playlist div[data-insert] div[data-parallax] button{width:calc(200 * (100vw / 828)) !important;height:calc(200 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-playlist div[data-insert] div[data-parallax] button span{font-size:calc(22 * (100vw / 828)) !important;line-height:1.25 !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-topic{display:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-live{height:calc(650 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-live .live-ticker div:nth-of-type(1){top:calc(-154 * (100vw / 828)) !important;height:calc(80 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-live .live-ticker div:nth-of-type(1) span{width:calc(6050 * (100vw / 828)) !important;height:calc(140 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-live .live-ticker div:nth-of-type(2){top:calc(-70 * (100vw / 828)) !important;height:calc(140 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-live .live-ticker div:nth-of-type(2) span{width:calc(6050 * (100vw / 828)) !important;height:calc(140 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-live .live-ticker div:nth-of-type(3){top:calc(74 * (100vw / 828)) !important;height:calc(80 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-live .live-ticker div:nth-of-type(3) span{width:calc(6050 * (100vw / 828)) !important;height:calc(140 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-live .live-button{display:block !important;position:absolute !important;left:50% !important;top:0 !important;z-index:1 !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-live .live-button button{position:absolute !important;left:calc(194 * (100vw / 828)) !important;top:calc(194 * (100vw / 828)) !important;width:calc(180 * (100vw / 828)) !important;height:calc(180 * (100vw / 828)) !important;border-radius:100% !important;pointer-events:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-live .live-button button::before{content:'' !important;position:absolute !important;left:0 !important;top:0 !important;width:100% !important;height:100% !important;background:rgba(255,255,255,0.88) !important;border-radius:100% !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-live .live-button button span{position:relative !important;display:flex !important;justify-content:center !important;align-items:center !important;width:100% !important;height:100% !important;border-radius:100% !important;font-family:'Termina', sans-serif !important;font-size:calc(20 * (100vw / 828)) !important;line-height:1.75 !important;font-weight:500 !important;color:#4554ac !important;pointer-events:auto !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-live .live-button button{transform:scale(0, 0) !important;transition:transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-live.is-active .live-button button{transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-main .main-music{height:calc(7000 * (100vw / 828)) !important;margin:0 0 calc(250 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer{height:calc(1600 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-debut{bottom:calc(1140 * (100vw / 828)) !important;width:calc(500 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-debut .debut:nth-of-type(1){transform:translate(0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-debut .debut:nth-of-type(1) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-debut .debut:nth-of-type(2){transform:translate(0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-debut .debut:nth-of-type(2) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-debut .debut:nth-of-type(3){transform:translate(0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-debut .debut:nth-of-type(3) div[data-insert] div[data-parallax] div[data-preserve] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-separate{bottom:calc(740 * (100vw / 828)) !important;width:calc(230 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-next{bottom:calc(530 * (100vw / 828)) !important;width:calc(45 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-next div[data-insert] div[data-parallax] div[data-preserve-r] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-ticker div:nth-of-type(1){bottom:calc(275 * (100vw / 828)) !important;height:calc(80 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-ticker div:nth-of-type(1) span{width:calc(6050 * (100vw / 828)) !important;height:calc(140 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-ticker div:nth-of-type(2){bottom:calc(135 * (100vw / 828)) !important;height:calc(140 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-ticker div:nth-of-type(2) span{width:calc(6050 * (100vw / 828)) !important;height:calc(140 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-ticker div:nth-of-type(3){bottom:calc(55 * (100vw / 828)) !important;height:calc(80 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-ticker div:nth-of-type(3) span{width:calc(6050 * (100vw / 828)) !important;height:calc(140 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-panel{width:calc(440 * (100vw / 828)) !important;height:calc(490 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-panel div[data-insert]{border-radius:100vw 100vw 0 0 !important;overflow:hidden !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-panel div[data-insert] div[data-parallax] .panel div[data-preserve-r]{transform-style:flat !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-panel div[data-insert] div[data-parallax] .panel div[data-preserve-r] div[data-preserve-axis]{transform:translate3d(0, 0, 0) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-panel div[data-insert] div[data-parallax] .panel div[data-preserve-r] div[data-preserve-axis] span{transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-link{display:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-copyright{display:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-footer .footer-service{display:none !important}}
+@media screen and (max-width: 959px){.page .page-arrow{display:none !important}}
+@media screen and (max-width: 959px){.page .page-view button{left:calc(200 * (100vw / 828)) !important;top:calc(180 * (100vw / 828)) !important;width:calc(180 * (100vw / 828)) !important;height:calc(180 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-view button span{font-size:calc(20 * (100vw / 828)) !important;line-height:1.75 !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll{width:100% !important;overflow:auto !important;overscroll-behavior:contain !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main{padding:calc(150 * (100vw / 828)) calc(40 * (100vw / 828)) calc(90 * (100vw / 828)) calc(40 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-title div{padding:0 0 calc(60 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-service{padding:0 0 calc(30 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-service ul{gap:calc(10 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-service ul li{height:calc(90 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-service ul li a img{width:calc(80 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-lead{padding:0 0 calc(60 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-lead p{font-size:calc(24 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-lead p em{padding:0 calc(10 * (100vw / 828)) 0 calc(10 * (100vw / 828)) !important;font-size:calc(24 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-lead p em a{font-size:calc(24 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-list{padding:0 0 calc(60 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-list ul li{gap:calc(20 * (100vw / 828)) !important;padding:calc(30 * (100vw / 828)) 0 calc(30 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(1){width:calc(190 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(1) strong{width:calc(90 * (100vw / 828)) !important;padding:calc(4 * (100vw / 828)) calc(20 * (100vw / 828)) 0 0 !important;font-size:calc(32 * (100vw / 828)) !important;line-height:calc(48 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(1) a{width:calc(100 * (100vw / 828)) !important;height:calc(50 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(1) a span{font-size:calc(24 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(2) span{padding:calc(12 * (100vw / 828)) calc(20 * (100vw / 828)) 0 0 !important;font-size:calc(26 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(2) small{padding:calc(12 * (100vw / 828)) calc(20 * (100vw / 828)) 0 0 !important;font-size:calc(22 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(2) em{padding:calc(12 * (100vw / 828)) calc(20 * (100vw / 828)) 0 0 !important;font-size:calc(22 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(2) em a{font-size:calc(22 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-close button{left:calc(40 * (100vw / 828)) !important;top:calc(40 * (100vw / 828)) !important;font-size:calc(30 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-roots .roots-close button:after{bottom:calc(5 * (100vw / 828)) !important;width:calc(18 * (100vw / 828)) !important;height:calc(18 * (100vw / 828)) !important;border-top:solid calc(5 * (100vw / 828)) #4554ac !important;border-left:solid calc(5 * (100vw / 828)) #4554ac !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll{width:100% !important;overflow:auto !important;overscroll-behavior:contain !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container{min-height:101vh !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main{padding:calc(150 * (100vw / 828)) calc(40 * (100vw / 828)) calc(150 * (100vw / 828)) calc(40 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-title div{padding:0 0 calc(60 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-meta{padding:0 0 calc(30 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-meta span:nth-of-type(1){font-size:calc(34 * (100vw / 828)) !important;padding:0 calc(10 * (100vw / 828)) 0 0 !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-meta span:nth-of-type(2){font-size:calc(34 * (100vw / 828)) !important;padding:0 calc(10 * (100vw / 828)) 0 0 !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-service{padding:0 0 calc(30 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-service ul{gap:calc(10 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-service ul li{height:calc(90 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-service ul li a img{width:calc(80 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-lead{padding:0 0 calc(60 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-lead p{font-size:calc(24 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-lead p em{padding:0 calc(10 * (100vw / 828)) 0 calc(10 * (100vw / 828)) !important;font-size:calc(24 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-lead p em a{font-size:calc(24 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-list{padding:0 0 calc(60 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-list ul li{gap:calc(20 * (100vw / 828)) !important;padding:calc(30 * (100vw / 828)) 0 calc(30 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(1){width:calc(190 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(1) strong{width:calc(90 * (100vw / 828)) !important;padding:calc(4 * (100vw / 828)) calc(20 * (100vw / 828)) 0 0 !important;text-align:center !important;font-size:calc(32 * (100vw / 828)) !important;line-height:calc(48 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(1) a{width:calc(100 * (100vw / 828)) !important;height:calc(50 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(1) a span{padding:calc(6 * (100vw / 828)) 0 0 0 !important;font-size:calc(24 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(2) span{padding:calc(12 * (100vw / 828)) calc(20 * (100vw / 828)) 0 0 !important;font-size:calc(26 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(2) small{padding:calc(12 * (100vw / 828)) calc(20 * (100vw / 828)) 0 0 !important;font-size:calc(22 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(2) em{padding:calc(12 * (100vw / 828)) calc(20 * (100vw / 828)) 0 0 !important;font-size:calc(22 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-list ul li div:nth-of-type(2) em a{font-size:calc(22 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-artist{padding:0 0 calc(30 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-artist ul li{width:100% !important;padding:0 0 calc(30 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-artist ul li div:nth-of-type(1) span{padding:calc(8 * (100vw / 828)) 0 0 0 !important;font-size:calc(24 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-artist ul li div:nth-of-type(2){width:calc(280 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-artist ul li div:nth-of-type(2) a{width:calc(80 * (100vw / 828)) !important;height:calc(48 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-artist ul li div:nth-of-type(2) a span{padding:calc(4 * (100vw / 828)) 0 0 0 !important;font-size:calc(24 * (100vw / 828)) !important;line-height:calc(48 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-comment{gap:calc(40 * (100vw / 828)) !important;margin:calc(120 * (100vw / 828)) 0 0 0 !important;padding:calc(230 * (100vw / 828)) calc(40 * (100vw / 828)) calc(40 * (100vw / 828)) calc(40 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-comment div:nth-of-type(1){position:absolute !important;left:0 !important;right:0 !important;top:calc(-130 * (100vw / 828)) !important;width:calc(245 * (100vw / 828)) !important;margin:auto !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-comment div:nth-of-type(2){font-size:calc(24 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-close button{right:calc(40 * (100vw / 828)) !important;top:calc(40 * (100vw / 828)) !important;font-size:calc(30 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-close button:after{bottom:calc(5 * (100vw / 828)) !important;width:calc(18 * (100vw / 828)) !important;height:calc(18 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-modal .modal-container .container-scroll .scroll-container .container-main .main-title div{transform:translate(calc(414 * (100vw / 828)), 0) !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main{justify-content:center !important;flex-wrap:wrap !important;width:100% !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main .main-contents{width:calc(690 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main .main-contents strong{top:calc(-60 * (100vw / 828)) !important;width:calc(140 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main .main-contents ul{margin:0 0 calc(50 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main .main-contents ul li{margin:0 0 calc(30 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main .main-contents ul li a{width:calc(690 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main .main-contents ul li a span:nth-of-type(1){display:none !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main .main-link{width:calc(690 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main .main-link ul{margin:0 !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main .main-link ul li{margin:0 0 calc(20 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main .main-link ul li a{width:calc(420 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main .main-link ul li a span:nth-of-type(1){display:none !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main .main-link ul li:last-of-type{padding:calc(40 * (100vw / 828)) 0 0 0 !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-main .main-link ul li:last-of-type a{width:calc(690 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-service{right:calc(1px * 50 / 2) !important;top:calc(1px * 65 / 2) !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-service ul{gap:calc(1px * 55 / 2) !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-service ul li a::before{display:none !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-topic{height:calc(135 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-topic .topic-ticker{padding:0 0 0 calc(300 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-topic .topic-ticker .ticker-title{width:calc(300 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-topic .topic-ticker .ticker-title span{padding:0 calc(10 * (100vw / 828)) 0 calc(10 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-topic .topic-ticker .ticker-sprite .sprite-news{animation:topic1 10.0s linear infinite !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-topic .topic-ticker .ticker-sprite .sprite-news a{animation:topic2 10.0s linear infinite !important}}
+@media screen and (max-width: 959px){.page .page-nav .nav-container .container-topic .topic-ticker .ticker-sprite .sprite-news a span{font-size:calc(30 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-toggle{top:calc(1px * 30 / 2) !important;width:calc(1px * 130 / 2) !important;height:calc(1px * 130 / 2) !important}}
+@media screen and (max-width: 959px){.page .page-toggle div[data-insert] button{width:calc(1px * 130 / 2) !important;height:calc(1px * 130 / 2) !important}}
+@media screen and (max-width: 959px){.page .page-toggle div[data-insert] button span:nth-of-type(1){top:calc(1px * 30 / 2) !important}}
+@media screen and (max-width: 959px){.page .page-toggle div[data-insert] button span:nth-of-type(2){top:calc(1px * 45 / 2) !important}}
+@media screen and (max-width: 959px){.page .page-toggle div[data-insert] button span:nth-of-type(3){top:calc(1px * 60 / 2) !important}}
+@media screen and (max-width: 959px){.page .page-toggle div[data-insert] button span:nth-of-type(4){top:calc(1px * 75 / 2) !important}}
+@media screen and (max-width: 959px){.page .page-toggle div[data-insert] button span:nth-of-type(5){top:calc(1px * 90 / 2) !important}}
+@media screen and (max-width: 959px){.page .page-toggle div[data-insert] button.is-active span:nth-of-type(1){transform:translate(0, calc(1px * 32 / 2)) rotate(-225deg) !important}}
+@media screen and (max-width: 959px){.page .page-toggle div[data-insert] button.is-active span:nth-of-type(2){transform:translate(0, calc(1px * 16 / 2)) rotate(-45deg) !important}}
+@media screen and (max-width: 959px){.page .page-toggle div[data-insert] button.is-active span:nth-of-type(4){transform:translate(0, calc(1px * -16 / 2)) rotate(225deg) !important}}
+@media screen and (max-width: 959px){.page .page-toggle div[data-insert] button.is-active span:nth-of-type(5){transform:translate(0, calc(1px * -32 / 2)) rotate(45deg) !important}}
+@media screen and (max-width: 959px){.page .page-popup{width:100% !important;background:rgba(26,22,41,0.9) !important;overflow:auto !important;overscroll-behavior:contain !important}}
+@media screen and (max-width: 959px){.page .page-popup .popup-scroll .scroll-container{padding:calc(100 * (100vw / 828)) 0 calc(100 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-popup .popup-scroll .scroll-container .container-box{width:calc(728 * (100vw / 828)) !important;padding:calc(480 * (100vw / 828)) 0 calc(200 * (100vw / 828)) 0 !important;border-radius:calc(788 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-popup .popup-scroll .scroll-container .container-box h2{top:calc(-40 * (100vw / 828)) !important;width:calc(640 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-popup .popup-scroll .scroll-container .container-box .box-item:nth-of-type(1){width:calc(628 * (100vw / 828)) !important;padding:calc(70 * (100vw / 828)) 0 calc(90 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-popup .popup-scroll .scroll-container .container-box .box-item:nth-of-type(1) strong{width:calc(300 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-popup .popup-scroll .scroll-container .container-box .box-item:nth-of-type(1) p{font-size:calc(24 * (100vw / 828)) !important;line-height:1.75 !important;text-align:justify !important}}
+@media screen and (max-width: 959px){.page .page-popup .popup-scroll .scroll-container .container-box .box-item:nth-of-type(2){width:calc(628 * (100vw / 828)) !important;padding:calc(70 * (100vw / 828)) 0 calc(90 * (100vw / 828)) 0 !important}}
+@media screen and (max-width: 959px){.page .page-popup .popup-scroll .scroll-container .container-box .box-item:nth-of-type(2) strong{left:0 !important;right:auto !important;width:calc(270 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-popup .popup-scroll .scroll-container .container-box .box-item:nth-of-type(2) p{font-size:calc(24 * (100vw / 828)) !important;line-height:1.75 !important;text-align:justify !important}}
+@media screen and (max-width: 959px){.page .page-popup .popup-scroll .scroll-container .container-box .box-close{bottom:calc(120 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-popup .popup-scroll .scroll-container .container-box .box-close button{padding:0 0 0 calc(70 * (100vw / 828)) !important;font-size:calc(24 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-popup .popup-scroll .scroll-container .container-box .box-close button::after{top:calc(-15 * (100vw / 828)) !important;width:calc(50 * (100vw / 828)) !important;height:calc(50 * (100vw / 828)) !important;background-size:calc(15 * (100vw / 828)) calc(15 * (100vw / 828)) !important}}
+@media screen and (max-width: 959px){.page .page-popup .popup-scroll .scroll-container .container-box .box-close button:hover::after{transform:scale(1, 1) !important}}
+@media screen and (max-width: 959px){.page .page-popup .container-box{transform:translate(0, calc(200 * (100vw / 828))) !important}}
+@media screen and (max-width: 959px){.page .page-rumble{display:none !important;background:none !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title .title div[data-insert]{opacity:0 !important;transform:translate(0, 12.5vh) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-text div[data-insert]{opacity:0 !important;transform:translate(0, 12.5vh) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo .photo div[data-insert]{opacity:0 !important;transform:translate(0, 12.5vh) scale(1, 0) !important;transform-origin:center bottom !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo .photo div[data-insert] div[data-parallax-ex] span::after{opacity:1 !important;transform:scale(1, 0) !important;transform-origin:center bottom !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-title .title div[data-insert]{opacity:0 !important;transform:translate(0, 12.5vh) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-text div[data-insert]{opacity:0 !important;transform:translate(0, 12.5vh) !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo .photo div[data-insert]{opacity:0 !important;transform:translate(0, 12.5vh) scale(1, 0) !important;transform-origin:center bottom !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo .photo div[data-insert] div[data-parallax-ex] span::after{opacity:1 !important;transform:scale(1, 0) !important;transform-origin:center bottom !important}}
+@media screen and (max-width: 959px){.page .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-playlist div[data-insert]{opacity:0 !important;transform:translate(0, 12.5vh) scale(1, 0) !important;transform-origin:center bottom !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title .title:nth-of-type(1) div[data-insert]{opacity:1 !important;transform:translate(0, 0) !important;transition:all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.35s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title .title:nth-of-type(2) div[data-insert]{opacity:1 !important;transform:translate(0, 0) !important;transition:all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.45s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-title .title:nth-of-type(3) div[data-insert]{opacity:1 !important;transform:translate(0, 0) !important;transition:all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.55s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-text div[data-insert]{opacity:1 !important;transform:translate(0, 0) !important;transition:all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.5s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo .photo:nth-of-type(1) div[data-insert]{opacity:1 !important;transform:translate(0, 0) scale(1, 1) !important;transition:all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.35s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo .photo:nth-of-type(1) div[data-insert] div[data-parallax-ex] span::after{opacity:0 !important;transform:scale(1, 1) !important;transition:opacity 0.5s linear 2s,transform 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.35s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo .photo:nth-of-type(2) div[data-insert]{opacity:1 !important;transform:translate(0, 0) scale(1, 1) !important;transition:all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.45s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-about .about-photo .photo:nth-of-type(2) div[data-insert] div[data-parallax-ex] span::after{opacity:0 !important;transform:scale(1, 1) !important;transition:opacity 0.5s linear 2s,transform 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.45s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-title .title:nth-of-type(1) div[data-insert]{opacity:1 !important;transform:translate(0, 0) !important;transition:all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.3s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-title .title:nth-of-type(2) div[data-insert]{opacity:1 !important;transform:translate(0, 0) !important;transition:all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.35s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-text div[data-insert]{opacity:1 !important;transform:translate(0, 0) !important;transition:all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.25s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo .photo:nth-of-type(1) div[data-insert]{opacity:1 !important;transform:translate(0, 0) scale(1, 1) !important;transition:all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.3s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo .photo:nth-of-type(1) div[data-insert] div[data-parallax-ex] span::after{opacity:0 !important;transform:scale(1, 1) !important;transition:opacity 0.5s linear 1s,transform 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.3s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo .photo:nth-of-type(2) div[data-insert]{opacity:1 !important;transform:translate(0, 0) scale(1, 1) !important;transition:all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.35s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo .photo:nth-of-type(2) div[data-insert] div[data-parallax-ex] span::after{opacity:0 !important;transform:scale(1, 1) !important;transition:opacity 0.5s linear 1s,transform 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.35s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo .photo:nth-of-type(3) div[data-insert]{opacity:1 !important;transform:translate(0, 0) scale(1, 1) !important;transition:all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.4s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-photo .photo:nth-of-type(3) div[data-insert] div[data-parallax-ex] span::after{opacity:0 !important;transform:scale(1, 1) !important;transition:opacity 0.5s linear 1s,transform 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.4s !important}}
+@media screen and (max-width: 959px){.page.is-active .page-main .main-scroll .scroll-container .container-section .section-header .header-roots .roots-playlist div[data-insert]{opacity:1 !important;transform:translate(0, 0) scale(1, 1) !important;transition:all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.25s !important}}
 
 
 /* Global Accessibility Focus States */
