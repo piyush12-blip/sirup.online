@@ -31,7 +31,7 @@ export default function BudokanAlbumScroll() {
       alpha: true
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(window.innerWidth < 960 ? 1 : Math.min(window.devicePixelRatio, 2));
 
     textureLoader = new THREE.TextureLoader();
     frontTexture = textureLoader.load('/asset/img/canvas/front/00000000.jpg');
@@ -164,6 +164,7 @@ export default function BudokanAlbumScroll() {
       sideMat.dispose();
       frontTexture.dispose();
       sideTexture.dispose();
+      renderer.forceContextLoss();
       renderer.dispose();
     };
   }, []);
