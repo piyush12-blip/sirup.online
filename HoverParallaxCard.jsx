@@ -44,7 +44,9 @@ export function HoverParallaxCard({
   useLayoutEffect(() => {
     const outer = outerRef.current;
     const inner = innerRef.current;
-    if (!outer || !enabled) return;
+    // Disable all tilt/parallax effects on mobile — no mouse events on touch
+    const isMobile = window.matchMedia('(max-width: 959px)').matches;
+    if (!outer || !enabled || isMobile) return;
 
     // ── TILT MODE ────────────────────────────────────────────────────────────
     // HORIZONTAL-ONLY TILT — rotateY only, no rotateX.

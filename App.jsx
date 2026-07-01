@@ -398,7 +398,7 @@ function FooterSection() {
     <div ref={containerRef} className="section-footer-wrap" style={{ marginTop: '4vh' }}>
 
       {/* Debut SVGs — 2017.9.27 / SIRUP / DEBUT */}
-      <div ref={debutRef} style={{
+      <div ref={debutRef} className="footer-debut-box" style={{
         position: 'absolute', left: 0, right: 0,
         bottom: 'calc(2400 * var(--pv))',
         width: 'calc(1465 * var(--pv))', margin: 'auto',
@@ -412,7 +412,7 @@ function FooterSection() {
       </div>
 
       {/* Separate spinning icon */}
-      <div ref={sepRef} style={{
+      <div ref={sepRef} className="footer-sep-box" style={{
         position: 'absolute', left: 0, right: 0,
         bottom: 'calc(1900 * var(--pv))',
         width: 'calc(450 * var(--pv))', margin: 'auto',
@@ -425,7 +425,7 @@ function FooterSection() {
       </div>
 
       {/* NEXT arrow */}
-      <div ref={nextRef} style={{
+      <div ref={nextRef} className="footer-next-box" style={{
         position: 'absolute', left: 0, right: 0,
         bottom: 'calc(1400 * var(--pv))',
         width: 'calc(85 * var(--pv))', margin: 'auto',
@@ -435,10 +435,10 @@ function FooterSection() {
       </div>
 
       {/* Footer Tickers */}
-      <div style={{ mixBlendMode: 'overlay', position: 'absolute', left: 0, right: 0, bottom: 'calc(455 * var(--pv))', width: '100%', height: 'calc(290 * var(--pv))', overflow: 'hidden' }}>
+      <div className="footer-ticker-top" style={{ mixBlendMode: 'overlay', position: 'absolute', left: 0, right: 0, bottom: 'calc(455 * var(--pv))', width: '100%', height: 'calc(290 * var(--pv))', overflow: 'hidden' }}>
         <div style={{ display: 'block', position: 'absolute', left: 0, top: 0, width: 'calc(12532 * var(--pv))', height: '100%', backgroundImage: 'url(https://sirup.online/5th/asset/img/ticker.svg)', backgroundRepeat: 'repeat-x', backgroundPosition: 'left center', backgroundSize: 'contain', opacity: 1.0, animation: 'footer-tickerL 30s linear infinite' }} />
       </div>
-      <div style={{ mixBlendMode: 'overlay', position: 'absolute', left: 0, right: 0, bottom: 'calc(300 * var(--pv))', width: '100%', height: 'calc(155 * var(--pv))', overflow: 'hidden' }}>
+      <div className="footer-ticker-bottom" style={{ mixBlendMode: 'overlay', position: 'absolute', left: 0, right: 0, bottom: 'calc(300 * var(--pv))', width: '100%', height: 'calc(155 * var(--pv))', overflow: 'hidden' }}>
         <div style={{ display: 'block', position: 'absolute', right: 0, bottom: 0, width: 'calc(12532 * var(--pv))', height: 'calc(290 * var(--pv))', backgroundImage: 'url(https://sirup.online/5th/asset/img/ticker.svg)', backgroundRepeat: 'repeat-x', backgroundPosition: 'left center', backgroundSize: 'contain', opacity: 0.7, animation: 'footer-tickerR 45s linear infinite' }} />
       </div>
 
@@ -489,7 +489,7 @@ function FooterSection() {
       </div>
 
       {/* Footer Links (bottom left) */}
-      <div style={{ position: 'absolute', left: 'calc(110 * var(--pv))', bottom: 'calc(85 * var(--pv))', display: 'flex', gap: 'calc(85 * var(--pv))' }}>
+      <div className="footer-links-row" style={{ position: 'absolute', left: 'calc(110 * var(--pv))', bottom: 'calc(85 * var(--pv))', display: 'flex', gap: 'calc(85 * var(--pv))' }}>
         {[
           { label: 'SIRUP OFFICIAL SITE', href: 'https://sirup.online' },
           { label: 'CHANNEL SRP', href: 'https://subscription.app.c-rayon.com/app/sirup/home' },
@@ -501,12 +501,12 @@ function FooterSection() {
       </div>
 
       {/* Copyright (bottom center-right) */}
-      <div style={{ position: 'absolute', right: 'calc(720 * var(--pv))', bottom: 'calc(85 * var(--pv))', fontFamily: "'Termina', 'DM Sans', sans-serif", fontSize: 'calc(11 * var(--pv))', lineHeight: 1, fontWeight: 200, letterSpacing: '0.1em', color: '#ffffff' }}>
+      <div className="footer-copyright-box" style={{ position: 'absolute', right: 'calc(720 * var(--pv))', bottom: 'calc(85 * var(--pv))', fontFamily: "'Termina', 'DM Sans', sans-serif", fontSize: 'calc(11 * var(--pv))', lineHeight: 1, fontWeight: 200, letterSpacing: '0.1em', color: '#ffffff' }}>
         © SIRUP {new Date().getFullYear()}
       </div>
 
       {/* Social icons (bottom right) */}
-      <div style={{ position: 'absolute', right: 'calc(110 * var(--pv))', bottom: 'calc(85 * var(--pv))', display: 'flex', gap: 'calc(65 * var(--pv))' }}>
+      <div className="footer-socials-row" style={{ position: 'absolute', right: 'calc(110 * var(--pv))', bottom: 'calc(85 * var(--pv))', display: 'flex', gap: 'calc(65 * var(--pv))' }}>
         {[
           { alt: 'Twitter/X', src: '/asset/img/icon-twitter.svg', href: 'https://twitter.com/IamSIRUP' },
           { alt: 'Instagram', src: '/asset/img/icon-instagram.svg', href: 'https://www.instagram.com/sirup_insta/' },
@@ -598,7 +598,7 @@ function MainLiveSection() {
   return (
     <div className="section-main-live" style={{ marginBottom: '4vh' }}>
       {/* Ticker 1 — moves right, dim */}
-      <div style={{ position: 'absolute', left: 0, top: 'calc(-442 * var(--pv))', width: '100%', height: 'calc(235 * var(--pv))', overflow: 'hidden', mixBlendMode: 'overlay' }}>
+      <div className="main-live-ticker-1" style={{ position: 'absolute', left: 0, top: 'calc(-442 * var(--pv))', width: '100%', height: 'calc(235 * var(--pv))', overflow: 'hidden', mixBlendMode: 'overlay' }}>
         <VelocityTicker baseSpeed={0.35} direction={1} opacity={0.4}>
           <img
             src="https://sirup.online/5th/asset/img/ticker.svg"
@@ -609,7 +609,7 @@ function MainLiveSection() {
       </div>
 
       {/* Ticker 2 — moves left, bright */}
-      <div style={{ position: 'absolute', left: 0, top: 'calc(-207 * var(--pv))', width: '100%', height: 'calc(415 * var(--pv))', overflow: 'hidden', mixBlendMode: 'overlay' }}>
+      <div className="main-live-ticker-2" style={{ position: 'absolute', left: 0, top: 'calc(-207 * var(--pv))', width: '100%', height: 'calc(415 * var(--pv))', overflow: 'hidden', mixBlendMode: 'overlay' }}>
         <VelocityTicker baseSpeed={0.5} direction={-1} opacity={1.0}>
           <img
             src="https://sirup.online/5th/asset/img/ticker.svg"
@@ -620,7 +620,7 @@ function MainLiveSection() {
       </div>
 
       {/* Ticker 3 — moves right, semi */}
-      <div style={{ position: 'absolute', left: 0, top: 'calc(208 * var(--pv))', width: '100%', height: 'calc(235 * var(--pv))', overflow: 'hidden', mixBlendMode: 'overlay' }}>
+      <div className="main-live-ticker-3" style={{ position: 'absolute', left: 0, top: 'calc(208 * var(--pv))', width: '100%', height: 'calc(235 * var(--pv))', overflow: 'hidden', mixBlendMode: 'overlay' }}>
         <VelocityTicker baseSpeed={0.4} direction={1} opacity={0.7}>
           <img
             src="https://sirup.online/5th/asset/img/ticker.svg"
@@ -631,7 +631,7 @@ function MainLiveSection() {
       </div>
 
       {/* Central CTA Button — exactly between Row 2 and Row 3 */}
-      <div style={{
+      <div className="main-live-btn-box" style={{
         position: 'absolute',
         top: 'calc(208 * var(--pv))', left: '50%',
         transform: 'translate(-50%, -50%)',
@@ -857,6 +857,7 @@ export default function App() {
             <HoverParallaxCard
               mode="global-tilt" maxTilt={-15} perspective={1920}
               globalRate={0.1} transformOrigin="50% calc(800 * var(--pv))"
+              className="hero-vesline-card"
               style={{
                 position: 'absolute', left: '50%',
                 transform: 'translateX(calc(-50% - 19vw))',
@@ -880,7 +881,7 @@ export default function App() {
 
           {/* Date 2007-2012 */}
           <ParallaxLayer parallaxFactor={-1.5} zIndex={20}>
-            <div style={{
+            <div className="hero-date-box" style={{
               position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '24vh',
               display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5vw',
               zIndex: 20, pointerEvents: 'none',
@@ -909,6 +910,7 @@ export default function App() {
             <HoverParallaxCard
               mode="global-tilt" maxTilt={-15} perspective={1920}
               globalRate={0.1} transformOrigin="50% calc(800 * var(--pv))"
+              className="hero-seventh-card"
               style={{
                 position: 'absolute', right: '25vw', top: '57vh',
                 zIndex: 20, pointerEvents: 'none',
@@ -930,6 +932,7 @@ export default function App() {
             <HoverParallaxCard
               mode="global-tilt" maxTilt={-15} perspective={1920}
               globalRate={0.1} transformOrigin="50% calc(800 * var(--pv))"
+              className="hero-anniversary-card"
               style={{
                 position: 'absolute', top: '95vh', left: '50%',
                 transform: 'translateX(-50%)', width: '50vw',
@@ -939,7 +942,7 @@ export default function App() {
               <div className="text-3d-axis" style={{ pointerEvents: 'none', width: '100%', height: 'auto', position: 'relative' }}>
                 <img src="https://sirup.online/5th/asset/img/header/pc/header-title-24.svg" alt="2017-2022 5th ANNIVERSARY"
                   style={{ width: '100%', height: 'auto', display: 'block' }} />
-                <div style={{ position: 'absolute', top: '35px', left: '620px', width: '200px', zIndex: 60 }}>
+                <div className="hero-synapse-text" style={{ position: 'absolute', top: '35px', left: '620px', width: '200px', zIndex: 60 }}>
                   <FocalText>
                     <p style={{
                       margin: 0, padding: 0,
@@ -962,7 +965,7 @@ export default function App() {
           </ParallaxLayer>
 
           {/* ABOUT title vertical */}
-          <div style={{
+          <div className="about-title-vertical" style={{
             position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '180vh',
             display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5vw',
             zIndex: 40, pointerEvents: 'none',
@@ -977,7 +980,7 @@ export default function App() {
           <AboutPhotoStrip />
 
           {/* About Text */}
-          <div style={{ position: 'absolute', top: '170vh', left: '11.5vw', width: '280px', zIndex: 60 }}>
+          <div className="about-text-block" style={{ position: 'absolute', top: '170vh', left: '11.5vw', width: '280px', zIndex: 60 }}>
             <FocalText>
               <StaggeredTextReveal startTrigger="top 90%" style={{
                 fontFamily: "'Noto Sans JP', sans-serif",
@@ -1002,7 +1005,7 @@ export default function App() {
           <RootsPhotoStrip />
 
           {/* Roots Text */}
-          <div style={{ position: 'absolute', top: 'calc(180vw - 925px)', left: '10vw', width: '323px', zIndex: 60 }}>
+          <div className="roots-text-block" style={{ position: 'absolute', top: 'calc(180vw - 925px)', left: '10vw', width: '323px', zIndex: 60 }}>
             <FocalText>
               <StaggeredTextReveal style={{
                 fontFamily: "'Noto Sans JP', sans-serif",
@@ -1020,7 +1023,7 @@ export default function App() {
           </div>
 
           {/* Roots Playlist Button */}
-          <div style={{ position: 'absolute', top: 'calc(180vw - 640px)', left: '25vw', zIndex: 60 }}>
+          <div className="roots-btn-block" style={{ position: 'absolute', top: 'calc(180vw - 640px)', left: '25vw', zIndex: 60 }}>
             <MagneticBadge
               label={"KEEP IN TOUCH\nPLAYLIST"}
               onClick={() => setIsPlayerOpen(true)}
@@ -1028,7 +1031,7 @@ export default function App() {
           </div>
 
           {/* ROOTS title */}
-          <img src="/roots_title.png" alt="ROOTS" style={{
+          <img src="/roots_title.png" alt="ROOTS" className="roots-title-vertical" style={{
             position: 'absolute', left: '-5vw', top: '195vh',
             width: '60vw', height: 'auto', opacity: 0.8,
             zIndex: 20, pointerEvents: 'none',

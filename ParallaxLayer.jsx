@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useKineticScroll } from './KineticScrollProvider.jsx'; // Corrected import path
 
@@ -12,8 +12,19 @@ export function ParallaxLayer({
   const layerRef = useRef(null);
   const { lerpY, velocity } = useKineticScroll();
   const prevTransform = useRef('');
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 959px)').matches);
 
   useEffect(() => {
+    const mq = window.matchMedia('(max-width: 959px)');
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    // On mobile: no parallax — elements stay in natural flow position
+    if (isMobile) return;
+
     const tick = () => {
       if (!layerRef.current) return;
 
@@ -45,7 +56,7 @@ export function ParallaxLayer({
 
     gsap.ticker.add(tick);
     return () => gsap.ticker.remove(tick);
-  }, [parallaxFactor, skewFactor, limit, lerpY, velocity]);
+  }, [isMobile, parallaxFactor, skewFactor, limit, lerpY, velocity]);
 
   return (
     <div 
@@ -57,7 +68,7 @@ export function ParallaxLayer({
         top: 0, 
         left: 0, 
         zIndex: zIndex,
-        willChange: 'transform',
+        willChange: isMobile ? 'auto' : 'transform',
         pointerEvents: 'none' 
       }}
     >

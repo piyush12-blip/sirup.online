@@ -16,6 +16,8 @@ export default function CustomCursor() {
   useEffect(() => {
     const cursor = cursorRef.current;
     if (!cursor) return;
+    // Don't run on touch/mobile devices — no mouse pointer
+    if (window.matchMedia('(max-width: 959px)').matches) return;
 
     // gsap.quickTo — this is what those portfolio templates use.
     // The 'velocity' parameter creates that signature smooth lag feel.

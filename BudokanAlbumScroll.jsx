@@ -1,12 +1,23 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
 
 export default function BudokanAlbumScroll() {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia('(max-width: 959px)');
+    setIsMobile(mq.matches);
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+
     let renderer, camera, scene, textureLoader;
     let frontTexture, sideTexture;
     let containerGroup, liveGroup;
@@ -167,7 +178,35 @@ export default function BudokanAlbumScroll() {
       renderer.forceContextLoss();
       renderer.dispose();
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) {
+    return (
+      <div className="budokan-album-scroll" tabIndex={0} role="region" aria-label="Budokan Live Stage" style={{
+        position: 'relative',
+        width: '100%',
+        padding: '60px 0',
+        zIndex: 25,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <img 
+          src="/asset/img/canvas/front/00000000.jpg" 
+          alt="Budokan Live Stage" 
+          style={{
+            width: '85%',
+            maxWidth: '450px',
+            height: 'auto',
+            display: 'block',
+            margin: '0 auto',
+            boxShadow: '0 15px 40px rgba(0,0,0,0.6)',
+            borderRadius: '4px'
+          }} 
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="budokan-album-scroll" tabIndex={0} role="region" aria-label="3D Budokan Live Stage Animation" style={{
