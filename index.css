@@ -2555,7 +2555,7 @@ button:focus-visible,
 
   .header-logo {
     top: calc(30 * var(--pv)) !important;
-    width: calc(240 * var(--pv)) !important;
+    width: calc(120 * var(--pv)) !important;
     left: 0 !important;
     right: 0 !important;
     margin: auto !important;
@@ -2594,30 +2594,43 @@ button:focus-visible,
     display: none !important;
   }
 
+  /* Make fixed navbar logo small on mobile */
+  header img {
+    height: calc(95 * var(--pv)) !important;
+  }
+
   /* VESLINE hero logo — position nicely arching over head */
   .hero-vesline-card {
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+    left: calc(-55 * var(--pv)) !important;
+    transform: none !important;
     width: 76vw !important;
-    top: calc(360 * var(--pv)) !important;
+    top: calc(410 * var(--pv)) !important;
   }
 
   /* Date 2007-2012 SVG — position cleanly below VESLINE logo */
   .hero-date-box {
-    top: calc(280 * var(--pv)) !important;
+    top: calc(255 * var(--pv)) !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
   }
   .hero-date-box svg {
-    height: calc(78 * var(--pv)) !important;
+    height: calc(68 * var(--pv)) !important;
     width: auto !important;
   }
 
   /* 7th Anniversary badge — scale down and position so letter 'h' is not cut off */
   .hero-seventh-card {
-    right: 8vw !important;
-    top: calc(360 * var(--pv)) !important;
-    width: 10vw !important;
+    right: 28vw !important;
+    top: calc(410 * var(--pv)) !important;
+    width: 16vw !important;
+  }
+  .hero-seventh-card .date-char:nth-child(1) {
+    margin-right: calc(25 * var(--pv)) !important;
+    transform: translate(calc(10 * var(--pv)), calc(-20 * var(--pv))) !important;
+  }
+  .hero-seventh-card .date-char:nth-child(2),
+  .hero-seventh-card .date-char:nth-child(3) {
+    transform: translateY(calc(-20 * var(--pv))) !important;
   }
 
   /* Anniversary title + Synapse text block */
@@ -2677,14 +2690,14 @@ button:focus-visible,
   .about-photo {
     position: absolute !important;
     top: calc(850 * var(--pv)) !important;
-    left: calc(30 * var(--pv)) !important;
-    width: calc(768 * var(--pv)) !important;
-    gap: 4px !important;
+    left: calc(12 * var(--pv)) !important;
+    width: max-content !important;
+    gap: 1.5px !important;
   }
 
   .about-photo .photo {
-    width: calc(180 * var(--pv)) !important;
-    height: calc(240 * var(--pv)) !important;
+    width: calc(160 * var(--pv)) !important;
+    height: calc(213 * var(--pv)) !important;
     min-width: 0 !important;
   }
   .about-photo .photo:nth-of-type(3),
@@ -2695,9 +2708,11 @@ button:focus-visible,
   /* About text block */
   .about-text-block {
     position: absolute !important;
-    top: calc(1150 * var(--pv)) !important;
-    left: calc(49 * var(--pv)) !important;
+    top: calc(1070 * var(--pv)) !important;
+    left: calc(-40 * var(--pv)) !important;
     width: calc(730 * var(--pv)) !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   .about-text-block p,
   .about-text-block div,
@@ -2729,8 +2744,9 @@ button:focus-visible,
     top: calc(1680 * var(--pv)) !important;
     right: calc(30 * var(--pv)) !important;
     left: auto !important;
-    width: calc(768 * var(--pv)) !important;
-    gap: 4px !important;
+    width: max-content !important;
+    justify-content: flex-end !important;
+    gap: 1.5px !important;
   }
   .roots-photo .photo {
     width: calc(140 * var(--pv)) !important;
@@ -2744,8 +2760,8 @@ button:focus-visible,
   /* Roots text block */
   .roots-text-block {
     position: absolute !important;
-    top: calc(1750 * var(--pv)) !important;
-    left: calc(49 * var(--pv)) !important;
+    top: calc(1680 * var(--pv)) !important;
+    left: 0 !important;
     width: calc(730 * var(--pv)) !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -2914,10 +2930,11 @@ button:focus-visible,
      12. BUDOKAN ALBUM 3D SCROLL
      ───────────────────────────────────────────────────────────────────────── */
   .budokan-album-scroll {
-    height: calc(700 * var(--pv)) !important;
+    height: calc(380 * var(--pv)) !important;
     min-height: 280px !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
+    pointer-events: none !important;
   }
 
   /* ─────────────────────────────────────────────────────────────────────────
