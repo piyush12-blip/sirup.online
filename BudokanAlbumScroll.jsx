@@ -33,6 +33,12 @@ function MobileBudokanAlbum() {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
+    renderer.domElement.style.pointerEvents = 'none';
+    renderer.domElement.style.touchAction = 'pan-y';
+    renderer.domElement.style.userSelect = 'none';
+    renderer.domElement.style.webkitUserSelect = 'none';
+    renderer.domElement.style.webkitTapHighlightColor = 'transparent';
+
     textureLoader = new THREE.TextureLoader();
     frontTexture = textureLoader.load('/asset/img/canvas/front/00000000.jpg');
     sideTexture = textureLoader.load('/asset/img/canvas/side/00000000.jpg');
@@ -166,24 +172,57 @@ function MobileBudokanAlbum() {
   }, []);
 
   return (
-    <div ref={containerRef} className="budokan-album-scroll" style={{
-      position: 'relative',
-      width: '100%',
-      height: '380px',
-      padding: '20px 0',
-      zIndex: 25,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'visible',
-      pointerEvents: 'none'
-    }}>
-      <canvas ref={canvasRef} style={{
+    <div
+      className="budokan-album-scroll"
+      aria-hidden="true"
+      style={{
+        position: 'relative',
         width: '100%',
-        height: '100%',
-        display: 'block',
-        pointerEvents: 'none'
-      }} />
+        height: '380px',
+        padding: '20px 0',
+        zIndex: 999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'visible',
+
+        pointerEvents: 'none',
+        touchAction: 'pan-y',
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+        WebkitTouchCallout: 'none',
+        WebkitTapHighlightColor: 'transparent'
+      }}
+    >
+      <div
+        ref={containerRef}
+        style={{
+          width: '100%',
+          height: '100%',
+          position: 'relative',
+          pointerEvents: 'none',
+          touchAction: 'pan-y',
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+          WebkitTouchCallout: 'none'
+        }}
+      >
+        <canvas
+          ref={canvasRef}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            display: 'block',
+            pointerEvents: 'none',
+            touchAction: 'pan-y',
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            WebkitTapHighlightColor: 'transparent'
+          }}
+        />
+      </div>
     </div>
   );
 }

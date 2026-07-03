@@ -2934,30 +2934,72 @@ button:focus-visible,
     min-height: 280px !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
+    position: relative !important;
+    z-index: 999 !important;
+
     pointer-events: none !important;
+    touch-action: pan-y !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .budokan-album-scroll > div,
+  .budokan-album-scroll canvas {
+    pointer-events: none !important;
+    touch-action: pan-y !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-tap-highlight-color: transparent !important;
   }
 
   /* ─────────────────────────────────────────────────────────────────────────
      13. DVD SECTION
      ───────────────────────────────────────────────────────────────────────── */
   .container-dvd {
-    padding: calc(80 * var(--pv)) calc(30 * var(--pv)) !important;
+    padding: calc(300 * var(--pv)) calc(30 * var(--pv)) calc(120 * var(--pv)) calc(30 * var(--pv)) !important;
+    margin-top: calc(200 * var(--pv)) !important;
+    position: relative !important;
+  }
+
+  .dvd-title {
+    position: absolute !important;
+    left: calc(10 * var(--pv)) !important;
+    top: calc(300 * var(--pv)) !important;
+    padding: 0 !important;
+    z-index: 5 !important;
   }
 
   .dvd-title h2 {
     flex-direction: column !important;
     gap: calc(4 * var(--pv)) !important;
+    width: auto !important;
   }
 
   .dvd-title h2 span img {
-    width: 80vw !important;
-    height: auto !important;
-    margin: 0 auto !important;
+    width: 22vw !important;
+    max-width: 100px !important;
+    height: calc(850 * var(--pv)) !important;
+    min-height: 600px !important;
+    margin: 0 !important;
   }
 
   .dvd-photo {
-    margin: calc(40 * var(--pv)) auto !important;
-    width: 85vw !important;
+    margin: calc(220 * var(--pv)) calc(-10 * var(--pv)) calc(80 * var(--pv)) auto !important;
+    width: 73vw !important;
+    max-width: 350px !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+  }
+  .dvd-photo img {
+    width: 100% !important;
+    height: calc(550 * var(--pv)) !important;
+    min-height: 420px !important;
+    object-fit: cover !important;
+    display: block !important;
+    margin: 0 0 0 auto !important;
   }
 
   .dvd-roll p,
@@ -2982,9 +3024,38 @@ button:focus-visible,
   /* ─────────────────────────────────────────────────────────────────────────
      14. BE THE GROOVE SECTION
      ───────────────────────────────────────────────────────────────────────── */
+  .container-be,
   .container-be-groove {
     padding: calc(60 * var(--pv)) calc(30 * var(--pv)) !important;
     flex-direction: column !important;
+  }
+
+  .be-title h2 {
+    flex-direction: column !important;
+    gap: calc(4 * var(--pv)) !important;
+    align-items: center !important;
+  }
+  .be-title h2 span img {
+    width: 45vw !important;
+    max-width: 180px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+  }
+
+  .be-photo {
+    width: 98vw !important;
+    max-width: none !important;
+    margin: calc(30 * var(--pv)) auto calc(30 * var(--pv)) calc(-30 * var(--pv)) !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+  }
+  .be-photo img {
+    width: 100% !important;
+    height: calc(260 * var(--pv)) !important;
+    min-height: 180px !important;
+    object-fit: cover !important;
+    display: block !important;
+    margin: 0 auto !important;
   }
 
   /* ─────────────────────────────────────────────────────────────────────────
