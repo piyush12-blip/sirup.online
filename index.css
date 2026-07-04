@@ -2774,6 +2774,97 @@ button:focus-visible,
     letter-spacing: 0.05em !important;
   }
 
+  /* ─── REAL SITE MOBILE ENTRANCE ANIMATIONS (5 Photos + 2 Japanese Texts) ─── */
+  
+  /* Initial state: About & Roots Photos */
+  .about-photo .photo div[data-insert],
+  .roots-photo .photo div[data-insert] {
+    opacity: 0 !important;
+    transform: translate(0, 12.5vh) scale(1, 0) !important;
+    transform-origin: center bottom !important;
+  }
+  .about-photo .photo [data-overlay],
+  .roots-photo .photo [data-overlay] {
+    opacity: 1 !important;
+    transform: scale(1, 0) !important;
+    transform-origin: center bottom !important;
+  }
+
+  /* Initial state: About & Roots Japanese Text */
+  .about-text-block,
+  .roots-text-block {
+    opacity: 0 !important;
+    transform: translate(0, 12.5vh) !important;
+  }
+
+  /* Active / Opening Animation: About Photos (Top 2) */
+  .page.is-active .about-photo .photo:nth-of-type(1) div[data-insert] {
+    opacity: 1 !important;
+    transform: translate(0, 0) scale(1, 1) !important;
+    transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.35s !important;
+  }
+  .page.is-active .about-photo .photo:nth-of-type(1) [data-overlay] {
+    opacity: 0 !important;
+    transform: scale(1, 1) !important;
+    transition: opacity 0.5s linear 2s, transform 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.35s !important;
+  }
+  .page.is-active .about-photo .photo:nth-of-type(2) div[data-insert] {
+    opacity: 1 !important;
+    transform: translate(0, 0) scale(1, 1) !important;
+    transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.45s !important;
+  }
+  .page.is-active .about-photo .photo:nth-of-type(2) [data-overlay] {
+    opacity: 0 !important;
+    transform: scale(1, 1) !important;
+    transition: opacity 0.5s linear 2s, transform 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.45s !important;
+  }
+
+  /* Active / Opening Animation: About Japanese Text */
+  .page.is-active .about-text-block {
+    opacity: 1 !important;
+    transform: translate(0, 0) !important;
+    transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.5s !important;
+  }
+
+  /* Active / Opening Animation: Roots Photos (Bottom 3) */
+  .page.is-active .roots-photo .photo:nth-of-type(1) div[data-insert] {
+    opacity: 1 !important;
+    transform: translate(0, 0) scale(1, 1) !important;
+    transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.3s !important;
+  }
+  .page.is-active .roots-photo .photo:nth-of-type(1) [data-overlay] {
+    opacity: 0 !important;
+    transform: scale(1, 1) !important;
+    transition: opacity 0.5s linear 1.95s, transform 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.3s !important;
+  }
+  .page.is-active .roots-photo .photo:nth-of-type(2) div[data-insert] {
+    opacity: 1 !important;
+    transform: translate(0, 0) scale(1, 1) !important;
+    transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.35s !important;
+  }
+  .page.is-active .roots-photo .photo:nth-of-type(2) [data-overlay] {
+    opacity: 0 !important;
+    transform: scale(1, 1) !important;
+    transition: opacity 0.5s linear 2s, transform 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.35s !important;
+  }
+  .page.is-active .roots-photo .photo:nth-of-type(3) div[data-insert] {
+    opacity: 1 !important;
+    transform: translate(0, 0) scale(1, 1) !important;
+    transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.4s !important;
+  }
+  .page.is-active .roots-photo .photo:nth-of-type(3) [data-overlay] {
+    opacity: 0 !important;
+    transform: scale(1, 1) !important;
+    transition: opacity 0.5s linear 2.05s, transform 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.4s !important;
+  }
+
+  /* Active / Opening Animation: Roots Japanese Text */
+  .page.is-active .roots-text-block {
+    opacity: 1 !important;
+    transform: translate(0, 0) !important;
+    transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.25s !important;
+  }
+
   /* Roots playlist button (KEEP IN TOUCH) — scale down and position on left matching real site */
   .roots-btn-block {
     position: absolute !important;
@@ -2979,10 +3070,10 @@ button:focus-visible,
   }
 
   .dvd-title h2 span img {
-    width: 22vw !important;
-    max-width: 100px !important;
-    height: calc(850 * var(--pv)) !important;
-    min-height: 600px !important;
+    width: 20vw !important;
+    max-width: 90px !important;
+    height: calc(550 * var(--pv)) !important;
+    min-height: 400px !important;
     margin: 0 !important;
   }
 

@@ -81,7 +81,7 @@ function AboutPhotoStrip() {
   }, [velocity, addTick, removeTick]);
 
   useGSAP(() => {
-    if (!stripRef.current) return;
+    if (!stripRef.current || window.matchMedia('(max-width: 959px)').matches) return;
     const cards = cardRefs.current.filter(Boolean);
     cards.forEach(card => {
       gsap.set(card, { scaleY: 0, transformOrigin: 'bottom center', opacity: 0 });
@@ -177,7 +177,7 @@ function RootsPhotoStrip() {
   }, [velocity, addTick, removeTick]);
 
   useGSAP(() => {
-    if (!stripRef.current) return;
+    if (!stripRef.current || window.matchMedia('(max-width: 959px)').matches) return;
     const cards = cardRefs.current.filter(Boolean);
     cards.forEach(card => {
       gsap.set(card, { scaleY: 0, transformOrigin: 'bottom center', opacity: 0 });
@@ -702,47 +702,77 @@ export default function App() {
 
     const tl = gsap.timeline({ defaults: { force3D: true } });
 
+    const isMobile = window.matchMedia('(max-width: 959px)').matches;
+
     if (panelRef.current) {
-      gsap.set(panelRef.current, { yPercent: 40, opacity: 0 });
-      tl.to(panelRef.current, { yPercent: 0, opacity: 1, duration: 2.4, ease: 'expo.out' }, 0);
+      if (isMobile) {
+        gsap.set(panelRef.current, { y: '50vh', opacity: 0 });
+        tl.to(panelRef.current, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, 0.25);
+      } else {
+        gsap.set(panelRef.current, { yPercent: 40, opacity: 0 });
+        tl.to(panelRef.current, { yPercent: 0, opacity: 1, duration: 2.4, ease: 'expo.out' }, 0);
+      }
     }
 
     if (characterRef.current) {
-      gsap.set(characterRef.current, { yPercent: 110 });
-      tl.to(characterRef.current, { yPercent: 0, duration: 2.6, ease: 'power4.out' }, 0.3);
+      if (isMobile) {
+        gsap.set(characterRef.current, { y: '50vh', opacity: 0 });
+        tl.to(characterRef.current, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, 0.75);
+      } else {
+        gsap.set(characterRef.current, { yPercent: 110 });
+        tl.to(characterRef.current, { yPercent: 0, duration: 2.6, ease: 'power4.out' }, 0.3);
+      }
     }
 
     if (headlineDateRef.current) {
       const dateChars = headlineDateRef.current.querySelectorAll('.date-char');
       if (dateChars.length) {
-        gsap.set(dateChars, { y: 120, opacity: 0 });
-        tl.to(dateChars, { y: 0, opacity: 1, duration: 1.6, ease: 'expo.out', stagger: { each: 0.05 } }, 0.9);
+        if (isMobile) {
+          gsap.set(dateChars, { transformOrigin: '50% 100%', scaleY: 0, y: '12.5vh', opacity: 0 });
+          tl.to(dateChars, { scaleY: 1, y: 0, opacity: 1, duration: 1.0, ease: 'power2.out', stagger: { each: 0.05 } }, 0.9);
+        } else {
+          gsap.set(dateChars, { y: 120, opacity: 0 });
+          tl.to(dateChars, { y: 0, opacity: 1, duration: 1.6, ease: 'expo.out', stagger: { each: 0.05 } }, 0.9);
+        }
       }
     }
 
     if (seventhRef.current) {
       const seventhChars = seventhRef.current.querySelectorAll('.date-char');
       if (seventhChars.length) {
-        gsap.set(seventhChars, { y: 160, opacity: 0 });
-        tl.to(seventhChars, { y: 0, opacity: 1, duration: 1.8, ease: 'expo.out', stagger: { each: 0.08 } }, 1.4);
+        if (isMobile) {
+          gsap.set(seventhChars, { transformOrigin: '50% 100%', scaleY: 0, y: '12.5vh', opacity: 0 });
+          tl.to(seventhChars, { scaleY: 1, y: 0, opacity: 1, duration: 1.0, ease: 'power2.out', stagger: { each: 0.05 } }, 1.4);
+        } else {
+          gsap.set(seventhChars, { y: 160, opacity: 0 });
+          tl.to(seventhChars, { y: 0, opacity: 1, duration: 1.8, ease: 'expo.out', stagger: { each: 0.08 } }, 1.4);
+        }
       }
     }
 
     if (headlineVeslineRef.current) {
-      const inner = headlineVeslineRef.current.querySelector('.vesline-inner');
-      const lastE = headlineVeslineRef.current.querySelector('.vesline-last-e');
-      if (inner) {
-        if (lastE) gsap.set(lastE, { opacity: 0, yPercent: -40 });
-        gsap.set(inner, { xPercent: -100, y: 20 });
-        tl.to(inner, { xPercent: 0, y: 0, duration: 3.5, ease: 'power4.out' }, 2.0);
-        if (lastE) tl.to(lastE, { opacity: 1, yPercent: 0, duration: 0.6, ease: 'back.out(2.5)' }, 5.5);
+      if (isMobile) {
+        const veslineChars = headlineVeslineRef.current.querySelectorAll('.vesline-char');
+        if (veslineChars.length) {
+          gsap.set(veslineChars, { transformOrigin: '50% 100%', scaleY: 0, y: '12.5vh', opacity: 0 });
+          tl.to(veslineChars, { scaleY: 1, y: 0, opacity: 1, duration: 1.0, ease: 'power2.out', stagger: { each: 0.05 } }, 2.0);
+        }
+      } else {
+        const inner = headlineVeslineRef.current.querySelector('.vesline-inner');
+        const lastE = headlineVeslineRef.current.querySelector('.vesline-last-e');
+        if (inner) {
+          if (lastE) gsap.set(lastE, { opacity: 0, yPercent: -40 });
+          gsap.set(inner, { xPercent: -100, y: 20 });
+          tl.to(inner, { xPercent: 0, y: 0, duration: 3.5, ease: 'power4.out' }, 2.0);
+          if (lastE) tl.to(lastE, { opacity: 1, yPercent: 0, duration: 0.6, ease: 'back.out(2.5)' }, 5.5);
+        }
       }
     }
 
   }, { scope: containerRef, dependencies: [loaderDone] });
 
   return (
-    <div ref={containerRef} className="page page--live">
+    <div ref={containerRef} className={`page page--live ${loaderDone ? 'is-active' : ''}`}>
 
       {/* ── Intro Loader ── */}
       {!loaderDone && (

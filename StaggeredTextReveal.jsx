@@ -10,7 +10,7 @@ export function StaggeredTextReveal({ lines, className, style, startTrigger = 't
   const lineRefs = useRef([]);
 
   useGSAP(() => {
-    if (!containerRef.current || lineRefs.current.length === 0) return;
+    if (!containerRef.current || lineRefs.current.length === 0 || window.matchMedia('(max-width: 959px)').matches) return;
 
     // Clear any existing inline styles just in case
     gsap.set(lineRefs.current, { clearProps: 'all' });

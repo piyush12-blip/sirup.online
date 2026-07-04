@@ -109,6 +109,7 @@ function MobileBudokanAlbum() {
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: containerRef.current,
+        scroller: window,
         start: 'top 85%',
         onEnter: () => {
           gsap.to(liveGroup.scale, {
@@ -132,10 +133,22 @@ function MobileBudokanAlbum() {
         ease: 'none',
         scrollTrigger: {
           trigger: containerRef.current,
+          scroller: window,
           start: 'top bottom',
           end: 'bottom top',
           scrub: 1
         }
+      });
+
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        scroller: window,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => gsap.to('.vanta-front', { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
+        onLeave: () => gsap.to('.vanta-front', { opacity: 0, duration: 1.0, ease: 'power2.out' }),
+        onEnterBack: () => gsap.to('.vanta-front', { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
+        onLeaveBack: () => gsap.to('.vanta-front', { opacity: 0, duration: 1.0, ease: 'power2.out' }),
       });
     }, containerRef);
 

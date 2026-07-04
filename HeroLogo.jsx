@@ -88,7 +88,7 @@ export default function HeroLogo({ fill = '#ffffff', width = '80vw', maxWidth = 
         {positionedLetters.map((letter, idx) => (
           <svg
             key={idx}
-            className={idx === positionedLetters.length - 1 ? 'vesline-last-e' : undefined}
+            className={`vesline-char${idx === positionedLetters.length - 1 ? ' vesline-last-e' : ''}`}
             x={letter.x}
             y={letter.char === 's' ? Y_POSITION - 6 : Y_POSITION} // adjust s slightly because it rises higher
             width={letter.width}
