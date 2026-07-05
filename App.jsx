@@ -707,7 +707,7 @@ export default function App() {
     if (panelRef.current) {
       if (isMobile) {
         gsap.set(panelRef.current, { y: '50vh', opacity: 0 });
-        tl.to(panelRef.current, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, 0.25);
+        tl.to(panelRef.current, { y: 0, opacity: 1, duration: 1.0, ease: 'power3.out' }, 0.25);
       } else {
         gsap.set(panelRef.current, { yPercent: 40, opacity: 0 });
         tl.to(panelRef.current, { yPercent: 0, opacity: 1, duration: 2.4, ease: 'expo.out' }, 0);
@@ -717,7 +717,7 @@ export default function App() {
     if (characterRef.current) {
       if (isMobile) {
         gsap.set(characterRef.current, { y: '50vh', opacity: 0 });
-        tl.to(characterRef.current, { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out' }, 0.75);
+        tl.to(characterRef.current, { y: 0, opacity: 1, duration: 1.0, ease: 'power3.out' }, 0.75);
       } else {
         gsap.set(characterRef.current, { yPercent: 110 });
         tl.to(characterRef.current, { yPercent: 0, duration: 2.6, ease: 'power4.out' }, 0.3);

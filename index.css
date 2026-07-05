@@ -2678,11 +2678,10 @@ button:focus-visible,
     flex-direction: column !important;
     align-items: center !important;
     position: absolute !important;
-    top: calc(880 * var(--pv)) !important;
-    right: calc(25 * var(--pv)) !important;
+    top: calc(970 * var(--pv)) !important;
+    right: calc(30 * var(--pv)) !important;
     left: auto !important;
-    transform: none !important;
-    width: calc(120 * var(--pv)) !important;
+    width: calc(160 * var(--pv)) !important;
     height: auto !important;
     gap: calc(20 * var(--pv)) !important;
   }
@@ -2698,8 +2697,8 @@ button:focus-visible,
   /* About photo strip */
   .about-photo {
     position: absolute !important;
-    top: calc(850 * var(--pv)) !important;
-    left: calc(12 * var(--pv)) !important;
+    top: calc(800 * var(--pv)) !important;
+    left: 0 !important;
     width: max-content !important;
     gap: 1.5px !important;
   }
@@ -2739,10 +2738,9 @@ button:focus-visible,
   .roots-title-vertical {
     display: block !important;
     position: absolute !important;
-    top: calc(1550 * var(--pv)) !important;
+    top: calc(1500 * var(--pv)) !important;
     left: 0 !important;
     right: auto !important;
-    transform: none !important;
     width: calc(390 * var(--pv)) !important;
     height: auto !important;
   }
@@ -2751,7 +2749,7 @@ button:focus-visible,
   .roots-photo {
     position: absolute !important;
     top: calc(1680 * var(--pv)) !important;
-    right: calc(30 * var(--pv)) !important;
+    right: 0 !important;
     left: auto !important;
     width: max-content !important;
     justify-content: flex-end !important;
@@ -2764,6 +2762,14 @@ button:focus-visible,
   }
   .roots-photo .photo:nth-of-type(4) {
     display: none !important;
+  }
+
+  /* On mobile: align images equally inside photo holders and fill containers identically */
+  .about-photo .photo span,
+  .roots-photo .photo span {
+    bottom: 0 !important;
+    top: 0 !important;
+    height: 100% !important;
   }
 
   /* Roots text block */
@@ -2799,11 +2805,36 @@ button:focus-visible,
     transform-origin: center bottom !important;
   }
 
-  /* Initial state: About & Roots Japanese Text */
+  /* Initial state: Blue Palate, About & Roots Japanese Text, and Titles on mobile */
+  .header-panel {
+    opacity: 0 !important;
+    transform: translate(0, 50vh) !important;
+  }
   .about-text-block,
-  .roots-text-block {
+  .roots-text-block,
+  .about-title-vertical,
+  .roots-title-vertical {
     opacity: 0 !important;
     transform: translate(0, 12.5vh) !important;
+  }
+
+  /* Active / Opening Animation: Blue Palate on mobile */
+  .page.is-active .header-panel {
+    opacity: 1 !important;
+    transform: translate(0, 0) !important;
+    transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.25s !important;
+  }
+
+  /* Active / Opening Animation: About & Roots Titles on mobile */
+  .page.is-active .about-title-vertical {
+    opacity: 1 !important;
+    transform: translate(0, 0) !important;
+    transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.35s !important;
+  }
+  .page.is-active .roots-title-vertical {
+    opacity: 1 !important;
+    transform: translate(0, 0) !important;
+    transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.30s !important;
   }
 
   /* Active / Opening Animation: About Photos (Top 2) */

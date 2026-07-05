@@ -1,11 +1,46 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function DvdSection() {
+  const titleRef = useRef(null);
+
+  useEffect(() => {
+    if (!titleRef.current) return;
+    if (!window.matchMedia('(max-width: 959px)').matches) return;
+
+    const spans = titleRef.current.querySelectorAll('span');
+    if (!spans.length) return;
+
+    gsap.set(spans, { transformOrigin: '50% 100%', scaleY: 0, y: '12.5vh', opacity: 0 });
+
+    const tween = gsap.to(spans, {
+      scaleY: 1,
+      y: 0,
+      opacity: 1,
+      duration: 1.0,
+      ease: 'power2.out',
+      stagger: { each: 0.05 },
+      scrollTrigger: {
+        trigger: titleRef.current,
+        start: 'top 85%',
+        toggleActions: 'play none none none',
+      }
+    });
+
+    return () => {
+      if (tween.scrollTrigger) tween.scrollTrigger.kill();
+      tween.kill();
+    };
+  }, []);
+
   return (
     <div className="container-dvd" id="dvd">
       {/* Title */}
       <div className="dvd-title">
-        <h2>
+        <h2 ref={titleRef}>
           <span><img src="/setlist/dvd-title-1-pc.svg" alt="BLU-RAY & DVD" /></span>
           <span><img src="/setlist/dvd-title-2-pc.svg" alt="" /></span>
           <span><img src="/setlist/dvd-title-3-pc.svg" alt="" /></span>

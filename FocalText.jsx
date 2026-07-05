@@ -46,6 +46,15 @@ export function FocalText({
   useEffect(() => {
     const tick = () => {
       if (!containerRef.current) return;
+      if (window.matchMedia('(max-width: 959px)').matches) {
+        if (prevTransform.current !== 'scale(1.0000)' || containerRef.current.dataset.lastOpacity !== '1.0000') {
+          containerRef.current.style.transform = 'scale(1.0000)';
+          containerRef.current.style.opacity = '1.0000';
+          prevTransform.current = 'scale(1.0000)';
+          containerRef.current.dataset.lastOpacity = '1.0000';
+        }
+        return;
+      }
 
       const { absTop, elH, vh } = metrics.current;
       if (elH === 0) return;

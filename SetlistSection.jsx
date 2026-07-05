@@ -1,20 +1,54 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import tracks from './tracks.json';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function SetlistSection() {
   const [activeTrackIndex, setActiveTrackIndex] = useState(0);
   const swiperRef = useRef(null);
+  const titleRef = useRef(null);
+
+  useEffect(() => {
+    if (!titleRef.current) return;
+    if (!window.matchMedia('(max-width: 959px)').matches) return;
+
+    const spans = titleRef.current.querySelectorAll('span');
+    if (!spans.length) return;
+
+    gsap.set(spans, { transformOrigin: '50% 100%', scaleY: 0, y: '12.5vh', opacity: 0 });
+
+    const tween = gsap.to(spans, {
+      scaleY: 1,
+      y: 0,
+      opacity: 1,
+      duration: 1.0,
+      ease: 'power2.out',
+      stagger: { each: 0.05 },
+      scrollTrigger: {
+        trigger: titleRef.current,
+        start: 'top 85%',
+        toggleActions: 'play none none none',
+      }
+    });
+
+    return () => {
+      if (tween.scrollTrigger) tween.scrollTrigger.kill();
+      tween.kill();
+    };
+  }, []);
 
   return (
     <div className="container-setlist" id="setlist" style={{ position: 'relative', width: '100%', padding: '120px 0' }}>
       
       {/* SETLIST Title */}
       <div className="setlist-title">
-        <h2>
+        <h2 ref={titleRef}>
           <span><img src="/setlist/title-1.svg" alt="SETLIST" /></span>
           <span><img src="/setlist/title-2.svg" alt="" /></span>
           <span><img src="/setlist/title-3.svg" alt="" /></span>
