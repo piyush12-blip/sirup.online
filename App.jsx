@@ -383,14 +383,16 @@ function FooterSection() {
     }
 
     // Blackout overlay triggered by Budokan Album section
+    const isMobileView = window.innerWidth < 960;
+    const vantaOverlay = document.querySelectorAll('.vanta-front');
     ScrollTrigger.create({
       trigger: '.budokan-album-scroll',
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => gsap.to('.vanta-front', { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
-      onLeave: () => gsap.to('.vanta-front', { opacity: 0, duration: 1.0, ease: 'power2.out' }),
-      onEnterBack: () => gsap.to('.vanta-front', { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
-      onLeaveBack: () => gsap.to('.vanta-front', { opacity: 0, duration: 1.0, ease: 'power2.out' }),
+      start: isMobileView ? 'top 75%' : 'top center',
+      end: isMobileView ? 'bottom 25%' : 'bottom center',
+      onEnter: () => gsap.to(vantaOverlay, { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
+      onLeave: () => gsap.to(vantaOverlay, { opacity: 0, duration: 1.0, ease: 'power2.out' }),
+      onEnterBack: () => gsap.to(vantaOverlay, { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
+      onLeaveBack: () => gsap.to(vantaOverlay, { opacity: 0, duration: 1.0, ease: 'power2.out' }),
     });
   });
 

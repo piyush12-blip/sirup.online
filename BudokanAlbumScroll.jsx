@@ -140,15 +140,16 @@ function MobileBudokanAlbum() {
         }
       });
 
+      const vantaEl = document.querySelectorAll('.vanta-front');
       ScrollTrigger.create({
         trigger: containerRef.current,
         scroller: window,
-        start: 'top center',
-        end: 'bottom center',
-        onEnter: () => gsap.to('.vanta-front', { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
-        onLeave: () => gsap.to('.vanta-front', { opacity: 0, duration: 1.0, ease: 'power2.out' }),
-        onEnterBack: () => gsap.to('.vanta-front', { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
-        onLeaveBack: () => gsap.to('.vanta-front', { opacity: 0, duration: 1.0, ease: 'power2.out' }),
+        start: 'top 75%',
+        end: 'bottom 25%',
+        onEnter: () => gsap.to(vantaEl, { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
+        onLeave: () => gsap.to(vantaEl, { opacity: 0, duration: 1.0, ease: 'power2.out' }),
+        onEnterBack: () => gsap.to(vantaEl, { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
+        onLeaveBack: () => gsap.to(vantaEl, { opacity: 0, duration: 1.0, ease: 'power2.out' }),
       });
     }, containerRef);
 
