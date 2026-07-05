@@ -2621,16 +2621,12 @@ button:focus-visible,
   /* 7th Anniversary badge — scale down and position so letter 'h' is not cut off */
   .hero-seventh-card {
     right: 28vw !important;
-    top: calc(410 * var(--pv)) !important;
+    top: calc(390 * var(--pv)) !important;
     width: 16vw !important;
   }
   .hero-seventh-card .date-char:nth-child(1) {
+    margin-left: calc(10 * var(--pv)) !important;
     margin-right: calc(25 * var(--pv)) !important;
-    transform: translate(calc(10 * var(--pv)), calc(-20 * var(--pv))) !important;
-  }
-  .hero-seventh-card .date-char:nth-child(2),
-  .hero-seventh-card .date-char:nth-child(3) {
-    transform: translateY(calc(-20 * var(--pv))) !important;
   }
 
   /* Anniversary title + Synapse text block */
@@ -2641,7 +2637,12 @@ button:focus-visible,
     transform: translateX(-50%) !important;
   }
 
-  /* Japanese description text — give right margin so text is not cut off */
+  /* Japanese description text — on top of character on mobile + exact entrance animation from real site */
+  div:has(> .hero-anniversary-card),
+  .hero-anniversary-card,
+  .hero-synapse-text {
+    z-index: 50 !important;
+  }
   .hero-synapse-text {
     display: block !important;
     position: absolute !important;
@@ -2649,6 +2650,14 @@ button:focus-visible,
     right: calc(15 * var(--pv)) !important;
     left: auto !important;
     width: calc(310 * var(--pv)) !important;
+    opacity: 0 !important;
+    transform: translate(0, 12.5vh) !important;
+    transition: none !important;
+  }
+  .page.is-active .hero-synapse-text {
+    opacity: 1 !important;
+    transform: translate(0, 0) !important;
+    transition: all 1s cubic-bezier(0.215, 0.61, 0.355, 1) 1.25s !important;
   }
   .hero-synapse-text p {
     font-size: calc(21 * var(--pv)) !important;
