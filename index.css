@@ -3314,6 +3314,38 @@ button:focus-visible,
     font-size: calc(9 * var(--pv)) !important;
   }
 
+  /* ── Mobile Footer Overrides (Phone Codes Only) ── */
+  @media screen and (max-width: 959px) {
+    .section-footer-wrap {
+      height: calc(1600 * (100vw / 828)) !important;
+      margin-top: calc(250 * (100vw / 828)) !important;
+    }
+    .footer-debut-box {
+      bottom: calc(1140 * (100vw / 828)) !important;
+      width: calc(500 * (100vw / 828)) !important;
+    }
+    .footer-sep-box {
+      bottom: calc(740 * (100vw / 828)) !important;
+      width: calc(230 * (100vw / 828)) !important;
+    }
+    .footer-next-box {
+      bottom: calc(530 * (100vw / 828)) !important;
+      width: calc(45 * (100vw / 828)) !important;
+    }
+    .footer-ticker-top {
+      bottom: calc(275 * (100vw / 828)) !important;
+      height: calc(80 * (100vw / 828)) !important;
+    }
+    .footer-ticker-bottom {
+      bottom: calc(135 * (100vw / 828)) !important;
+      height: calc(80 * (100vw / 828)) !important;
+    }
+    .footer-panel {
+      width: calc(440 * (100vw / 828)) !important;
+      height: calc(490 * (100vw / 828)) !important;
+    }
+  }
+
   /* ─────────────────────────────────────────────────────────────────────────
      17. CUSTOM CURSOR — hidden on touch devices
      ───────────────────────────────────────────────────────────────────────── */

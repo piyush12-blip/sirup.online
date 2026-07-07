@@ -23,6 +23,7 @@ import BeTheGrooveSection from './BeTheGrooveSection';
 import DvdSection from './DvdSection';
 import RotatingAlbum from './RotatingAlbum';
 import BudokanAlbumScroll from './BudokanAlbumScroll';
+import ChessShowcase from './ChessShowcase';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -385,14 +386,16 @@ function FooterSection() {
     // Blackout overlay triggered by Budokan Album section
     const isMobileView = window.innerWidth < 960;
     const vantaOverlay = document.querySelectorAll('.vanta-front');
-    ScrollTrigger.create({
-      trigger: '.budokan-album-scroll',
-      start: isMobileView ? 'top 75%' : 'top center',
-      end: isMobileView ? 'bottom 25%' : 'bottom center',
-      onEnter: () => gsap.to(vantaOverlay, { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
-      onLeave: () => gsap.to(vantaOverlay, { opacity: 0, duration: 1.0, ease: 'power2.out' }),
-      onEnterBack: () => gsap.to(vantaOverlay, { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
-      onLeaveBack: () => gsap.to(vantaOverlay, { opacity: 0, duration: 1.0, ease: 'power2.out' }),
+    document.querySelectorAll('.budokan-album-scroll').forEach((el) => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: isMobileView ? 'top 75%' : 'top center',
+        end: isMobileView ? 'bottom 25%' : 'bottom center',
+        onEnter: () => gsap.to(vantaOverlay, { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
+        onLeave: () => gsap.to(vantaOverlay, { opacity: 0, duration: 1.0, ease: 'power2.out' }),
+        onEnterBack: () => gsap.to(vantaOverlay, { opacity: 0.8, duration: 1.0, ease: 'power2.out' }),
+        onLeaveBack: () => gsap.to(vantaOverlay, { opacity: 0, duration: 1.0, ease: 'power2.out' }),
+      });
     });
   });
 
@@ -677,6 +680,14 @@ export default function App() {
   const [loaderDone, setLoaderDone] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPlayerOpen, setIsPlayerOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 959px)').matches);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 959px)');
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   const handleNavigate = (target) => {
     let el = null;
@@ -1092,6 +1103,11 @@ export default function App() {
 
         {/* Setlist Section */}
         <SetlistSection />
+
+
+        {/* Chess Showcase */}
+        {!isMobile && <ChessShowcase />}
+
 
         {/* ═══════════════════════════════════════════════════════════════════
             SECTION: FOOTER
