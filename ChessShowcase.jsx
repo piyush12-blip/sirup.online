@@ -45,8 +45,9 @@ export default function ChessShowcase() {
       const p1 = Math.max(0, Math.min(1, raw / phase1End));
       const e1 = p1 < 0.5 ? 2 * p1 * p1 : 1 - Math.pow(-2 * p1 + 2, 2) / 2; // ease-in-out
 
-      imgBox.style.width  = `${initialW + (vw - initialW) * e1}px`;
-      imgBox.style.height = `${initialH + (vh - initialH) * e1}px`;
+      const scaleX = 1 + (vw / initialW - 1) * e1;
+      const scaleY = 1 + (vh / initialH - 1) * e1;
+      imgBox.style.transform = `scale(${scaleX}, ${scaleY})`;
 
       // ── Phase 2: black section slides up ─────────────────────────────
       const p2 = Math.max(0, Math.min(1, (raw - phase1End) / (phase2End - phase1End)));
@@ -55,9 +56,6 @@ export default function ChessShowcase() {
       nextSec.style.transform = `translateY(${(1 - e2) * 100}%)`;
 
       // ── Stage offset: stays fixed in the viewport ─────────────────────
-      // Clamp so stage doesn't move once it arrives or after it's done
-      const clampedOffset = Math.max(0, Math.min(raw, trackH));
-      stage.style.transform = `translateY(${scrollY - top + clampedOffset === 0 ? 0 : clampedOffset}px)`;
 
       // Actually: to make stage appear truly fixed, offset it against the
       // KineticScrollProvider's translate3d of the content wrapper.
@@ -115,7 +113,7 @@ export default function ChessShowcase() {
           style={{
             position: 'relative',
             overflow: 'hidden',
-            willChange: 'width, height',
+            willChange: 'transform',
             zIndex: 1,
           }}
         >

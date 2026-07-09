@@ -31,7 +31,9 @@ export default function MarqueeStrip({ items = [], speed = 0.4, reverse = false,
         xPos -= currentSpeed;
       }
       
-      const childWidth = el.firstElementChild.offsetWidth;
+      const first = el.firstElementChild;
+      if (!first || !first.offsetWidth) return;
+      const childWidth = first.offsetWidth;
       
       // Loop the scroll position back
       if (!reverse && xPos <= -childWidth) {

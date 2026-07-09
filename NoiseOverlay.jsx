@@ -20,9 +20,9 @@ export default function NoiseOverlay() {
     let animFrameId = null;
 
     const tick = () => {
-      // Jitter top/left between -100px and -50px randomly on each frame
-      el.style.top = `${50 * Math.random() - 100}px`;
-      el.style.left = `${50 * Math.random() - 100}px`;
+      const x = 50 * Math.random() - 100;
+      const y = 50 * Math.random() - 100;
+      el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       animFrameId = requestAnimationFrame(tick);
     };
 
@@ -37,8 +37,7 @@ export default function NoiseOverlay() {
           cancelAnimationFrame(animFrameId);
           animFrameId = null;
         }
-        el.style.top = '';
-        el.style.left = '';
+        el.style.transform = '';
       }
     };
 

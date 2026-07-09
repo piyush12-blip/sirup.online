@@ -1,19 +1,7 @@
 import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-if (window.location.pathname === '/studio') {
-  import('./plasmic-host.jsx').then(({ default: PlasmicHost }) => {
-    root.render(
-      React.createElement(PlasmicHost)
-    );
-  });
-} else {
-  import('./App.jsx').then(({ default: App }) => {
-    root.render(
-      React.createElement(App)
-    );
-  });
-}
+root.render(React.createElement(App));

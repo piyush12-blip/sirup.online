@@ -13,8 +13,8 @@ const ALBUM_DATA = {
     frontImg: '/setlist/cure-front.jpg',
     cdImg: '/setlist/cure-cd.jpg',
     links: {
-      apple: 'https://music.apple.com/jp/album/cure/1553595561',
-      spotify: 'https://open.spotify.com/album/43D69Jb4Z7ZcK4hQ5y6Y7f'
+      apple: 'https://music.apple.com/jp/album/cure/1553832332',
+      spotify: 'https://open.spotify.com/album/0rczckrcajbB2EOgcMBADk'
     }
   },
   groove: {

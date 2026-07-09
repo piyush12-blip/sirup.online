@@ -14,7 +14,6 @@ export function MagneticBadge({ label = "ROOTS\nPLAYLIST", onClick }) {
   const yText = useRef();
 
   useGSAP(() => {
-    // 🚨 BREADLY'S MATH: quickTo prevents 60fps garbage collection lag
     xBadge.current = gsap.quickTo(badgeRef.current, 'x', { duration: 0.5, ease: 'power3' });
     yBadge.current = gsap.quickTo(badgeRef.current, 'y', { duration: 0.5, ease: 'power3' });
     
@@ -34,7 +33,6 @@ export function MagneticBadge({ label = "ROOTS\nPLAYLIST", onClick }) {
     const dx = clientX - centerX;
     const dy = clientY - centerY;
 
-    // 🚨 TERRY'S MATH: 3D Depth. The outer circle moves 2.5x more than the text!
     xBadge.current(dx * 0.30);
     yBadge.current(dy * 0.30);
     

@@ -17,7 +17,7 @@ export function HorizontalTrack({ children, backgroundColor = '#0a0a1a' }) {
 
     const tween = gsap.to(track, {
       x: getScrollAmount,
-      ease: 'none', // 🚨 CRITICAL: Breadly said no easing here to prevent drift!
+      ease: 'none',
     });
 
     ScrollTrigger.create({
@@ -26,7 +26,7 @@ export function HorizontalTrack({ children, backgroundColor = '#0a0a1a' }) {
       end: () => `+=${track.scrollWidth - window.innerWidth}`, // Spacer matches the track length perfectly
       pin: true,
       animation: tween,
-      scrub: 1, // The 1-second buttery lag Terry recommended
+      scrub: 1,
       invalidateOnRefresh: true, // Recalculates if the user resizes their browser window
     });
 

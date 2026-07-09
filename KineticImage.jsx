@@ -16,8 +16,6 @@ export function KineticImage({
   const metrics = useRef({ absTop: 0, boxH: 0, vh: 0 });
   const prevTransform = useRef('');
 
-  // 🚨 GENIUS UPGRADE: Auto-calculate exactly how much scale is needed 
-  // so the image never slides out of the frame!
   const autoScale = 1 + (Math.abs(speed) * 2); 
 
   useEffect(() => {
