@@ -4,6 +4,7 @@ import { EffectCoverflow, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import tracks from './tracks.json';
+import { flipImage } from './useFlipImage';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -86,9 +87,14 @@ export default function SetlistSection() {
               autoplay={{ delay: 3000, disableOnInteraction: false }}
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;
+                // capture immediately so an image is always ready
+                const active = swiper.slides?.[swiper.activeIndex];
+                if (active) flipImage.capture(active);
               }}
               onSlideChange={(swiper) => {
                 setActiveTrackIndex(swiper.realIndex);
+                const active = swiper.slides?.[swiper.activeIndex];
+                if (active) flipImage.capture(active);
               }}
             >
               {tracks.map((t, index) => (

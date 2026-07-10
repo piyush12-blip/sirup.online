@@ -2,78 +2,74 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useKineticScroll } from './KineticScrollProvider';
+import { flipImage } from './useFlipImage';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ChessShowcase() {
-  const wrapperRef  = useRef(null); // tall scroll-track div (300vh)
-  const stageRef    = useRef(null); // fixed stage that stays in viewport
-  const imgBoxRef   = useRef(null); // image that grows
-  const nextSecRef  = useRef(null); // black section that slides up
+  const wrapperRef = useRef(null);
+  const stageRef = useRef(null);
+  const flyRef = useRef(null);     // the flying/growing image
+  const nextSecRef = useRef(null); // panel that slides up after
+  const startRef = useRef(null);   // captured start rect
   const { lerpY, addTick, removeTick } = useKineticScroll();
 
   useEffect(() => {
-    const wrapper  = wrapperRef.current;
-    const stage    = stageRef.current;
-    const imgBox   = imgBoxRef.current;
-    const nextSec  = nextSecRef.current;
-    if (!wrapper || !stage || !imgBox || !nextSec) return;
+    const wrapper = wrapperRef.current;
+    const stage = stageRef.current;
+    const fly = flyRef.current;
+    const nextSec = nextSecRef.current;
+    if (!wrapper || !stage || !fly || !nextSec) return;
 
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    const initialW = Math.max(vw * 0.5, Math.min(vw * 0.8, 720));
-    const initialH = initialW * (9 / 16);
-
-    // Set initial state
-    gsap.set(imgBox, { width: initialW, height: initialH });
-    gsap.set(nextSec, { y: vh }); // start fully below viewport
+    gsap.set(nextSec, { y: vh });
 
     const tick = () => {
-      const scrollY   = lerpY.current;
-      const top       = wrapper.offsetTop;                  // where the tall track starts
-      const trackH    = wrapper.offsetHeight - vh;         // scrollable distance inside this section
+      const scrollY = lerpY.current;
+      const top = wrapper.offsetTop;
+      const trackH = wrapper.offsetHeight - vh;
       if (trackH <= 0) return;
 
-      // How far we've scrolled into this section
       const raw = scrollY - top;
+      const startLock = top;
+      const endLock = top + trackH;
+      const phase1End = trackH * 0.65;
 
-      // Phase boundaries (proportional to trackH)
-      const phase1End = trackH * 0.6; // image grows until 60% of track
-      const phase2End = trackH;       // then black section slides in
+      // Capture the setlist image the moment we enter
+      if (scrollY >= startLock && !startRef.current) {
+        const r = flipImage.rect || { left: vw/2 - 160, top: vh/2 - 90, width: 320, height: 180 };
+        startRef.current = r;
+        fly.style.backgroundImage = `url(${flipImage.src})`;
+      }
+      if (scrollY < startLock) startRef.current = null; // re-arm on scroll up
 
-      // ── Phase 1: image grows while section is pinned ──────────────────
-      const p1 = Math.max(0, Math.min(1, raw / phase1End));
-      const e1 = p1 < 0.5 ? 2 * p1 * p1 : 1 - Math.pow(-2 * p1 + 2, 2) / 2; // ease-in-out
+      const s = startRef.current;
+      if (s) {
+        const p = Math.max(0, Math.min(1, raw / phase1End));
+        const e = 1 - Math.pow(1 - p, 3); // ease-out cubic
 
-      const scaleX = 1 + (vw / initialW - 1) * e1;
-      const scaleY = 1 + (vh / initialH - 1) * e1;
-      imgBox.style.transform = `scale(${scaleX}, ${scaleY})`;
+        // start: little slide rect -> end: fullscreen (drift + grow)
+        const x = s.left + (0 - s.left) * e;
+        const y = s.top + (0 - s.top) * e;
+        const w = s.width + (vw - s.width) * e;
+        const h = s.height + (vh - s.height) * e;
 
-      // ── Phase 2: black section slides up ─────────────────────────────
-      const p2 = Math.max(0, Math.min(1, (raw - phase1End) / (phase2End - phase1End)));
-      const e2 = p2 * (2 - p2); // ease-out
+        fly.style.opacity = 1;
+        fly.style.transform = `translate(${x}px, ${y}px)`;
+        fly.style.width = `${w}px`;
+        fly.style.height = `${h}px`;
+      }
 
+      // Phase 2: panel slides up
+      const p2 = Math.max(0, Math.min(1, (raw - phase1End) / (trackH - phase1End)));
+      const e2 = p2 * (2 - p2);
       nextSec.style.transform = `translateY(${(1 - e2) * 100}%)`;
 
-      // ── Stage offset: stays fixed in the viewport ─────────────────────
-
-      // Actually: to make stage appear truly fixed, offset it against the
-      // KineticScrollProvider's translate3d of the content wrapper.
-      // The content wrapper is translated -lerpY, so to stay fixed we add lerpY back.
-      // But we only want it to be fixed between top and (top + trackH).
-      const startLock = top;
-      const endLock   = top + trackH;
-
-      if (scrollY < startLock) {
-        // Section is below viewport — normal flow
-        stage.style.transform = 'translateY(0)';
-      } else if (scrollY > endLock) {
-        // Section is done — sit at bottom of track
-        stage.style.transform = `translateY(${trackH}px)`;
-      } else {
-        // Section is in view — lock it to viewport by cancelling scroll offset
-        stage.style.transform = `translateY(${scrollY - startLock}px)`;
-      }
+      // Stage lock (unchanged)
+      if (scrollY < startLock) stage.style.transform = 'translateY(0)';
+      else if (scrollY > endLock) stage.style.transform = `translateY(${trackH}px)`;
+      else stage.style.transform = `translateY(${scrollY - startLock}px)`;
     };
 
     addTick(tick);
@@ -81,73 +77,20 @@ export default function ChessShowcase() {
   }, [lerpY, addTick, removeTick]);
 
   return (
-    // Tall track (300vh) drives the scroll distance
-    <div
-      ref={wrapperRef}
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: '300vh',
-        background: 'transparent',
-      }}
-    >
-      {/* Stage — repositioned via JS to stay fixed while scrolling through track */}
-      <div
-        ref={stageRef}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden',
-          willChange: 'transform',
-        }}
-      >
-        {/* Stage 1: Growing image */}
+    <div ref={wrapperRef} style={{ position: 'relative', width: '100%', height: '300vh' }}>
+      <div ref={stageRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100vh', overflow: 'hidden', willChange: 'transform' }}>
         <div
-          ref={imgBoxRef}
+          ref={flyRef}
           style={{
-            position: 'relative',
-            overflow: 'hidden',
-            willChange: 'transform',
-            zIndex: 1,
+            position: 'fixed', top: 0, left: 0, opacity: 0,
+            backgroundSize: 'cover', backgroundPosition: 'center',
+            willChange: 'transform, width, height', zIndex: 1,
           }}
-        >
-          <img
-            src="https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&w=1920&q=80"
-            alt="Showcase"
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-          />
-        </div>
-
-        {/* Stage 2: Black section slides up after image is full screen */}
-        <div
-          ref={nextSecRef}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            background: '#000',
-            zIndex: 10,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            willChange: 'transform',
-          }}
-        >
+        />
+        <div ref={nextSecRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: '#000', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', willChange: 'transform' }}>
           <div style={{ textAlign: 'center', color: '#fff' }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '4px', color: '#66eeff', textTransform: 'uppercase', display: 'block', marginBottom: '12px' }}>
-              Next Chapter
-            </span>
-            <h3 style={{ fontSize: '3rem', fontWeight: 900, letterSpacing: '2px', textTransform: 'uppercase', margin: 0 }}>
-              Strategic Gaming
-            </h3>
+            <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '4px', color: '#66eeff', textTransform: 'uppercase', display: 'block', marginBottom: '12px' }}>Next Chapter</span>
+            <h3 style={{ fontSize: '3rem', fontWeight: 900, letterSpacing: '2px', textTransform: 'uppercase', margin: 0 }}>Strategic Gaming</h3>
           </div>
         </div>
       </div>
