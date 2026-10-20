@@ -21,7 +21,6 @@ import MusicPlayer from './MusicPlayer';
 import SetlistSection from './SetlistSection';
 import BeTheGrooveSection from './BeTheGrooveSection';
 import DvdSection from './DvdSection';
-import RotatingAlbum from './RotatingAlbum';
 import BudokanAlbumScroll from './BudokanAlbumScroll';
 import ChessShowcase from './ChessShowcase';
 
@@ -1084,8 +1083,6 @@ export default function App() {
 
         </div>{/* end section-header */}
 
-        {/* Rotating Album Showcase Section */}
-        <RotatingAlbum />
 
         {/* ═══════════════════════════════════════════════════════════════════
             SECTION: MAIN LIVE (ticker banners)

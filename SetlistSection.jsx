@@ -44,6 +44,32 @@ export default function SetlistSection() {
     };
   }, []);
 
+  // Placed bottom image scroll-expansion animation
+  const bottomWrapRef = useRef(null);
+  const bottomImgRef = useRef(null);
+
+  useEffect(() => {
+    const img = bottomImgRef.current;
+    const wrap = bottomWrapRef.current;
+    if (!img || !wrap) return;
+
+    gsap.set(img, { scale: 0.35, transformOrigin: 'center center' });
+
+    const st = ScrollTrigger.create({
+      trigger: wrap,
+      start: 'top 90%',
+      end: 'bottom 20%',
+      scrub: 0.5,
+      onUpdate: (self) => {
+        const p = self.progress;
+        const scale = 0.35 + 0.65 * (1 - Math.pow(1 - p, 2));
+        gsap.set(img, { scale });
+      }
+    });
+
+    return () => st.kill();
+  }, []);
+
   return (
     <div className="container-setlist" id="setlist" style={{ position: 'relative', width: '100%', padding: '120px 0' }}>
       
@@ -176,6 +202,34 @@ export default function SetlistSection() {
           <a href="https://lnk.to/rollandbouce" target="_blank" rel="noopener noreferrer">
             <span>プレイリストはこちら</span>
           </a>
+        </div>
+
+        {/* Placed song image at bottom of setlist */}
+        <div
+          ref={bottomWrapRef}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '60px',
+            marginBottom: '40px',
+            overflow: 'hidden',
+          }}
+        >
+          <img
+            ref={bottomImgRef}
+            id="setlist-bottom-image"
+            src={`/setlist/setlist-${parseInt((tracks[activeTrackIndex] || tracks[0]).num)}-1.jpg`}
+            alt={(tracks[activeTrackIndex] || tracks[0]).title}
+            style={{
+              width: 'clamp(300px, 48vw, 680px)',
+              height: 'auto',
+              borderRadius: '8px',
+              boxShadow: '0 16px 50px rgba(0,0,0,0.6)',
+              display: 'block',
+              willChange: 'transform',
+            }}
+          />
         </div>
       </div>
     </div>

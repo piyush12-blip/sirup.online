@@ -285,11 +285,17 @@ export default function ChessShowcase() {
       const phase1End = trackH * 0.45;
       const phase2End = trackH * 0.75;
 
-      // Phase 1: Setlist flip image flies out + grows
+      // Phase 1: Grow bottom placed setlist image in-place to full screen
       if (scrollY >= startLock && !startRef.current) {
-        const r = flipImage.rect || { left: vw/2 - 160, top: vh/2 - 90, width: 320, height: 180 };
+        const bottomImg = document.getElementById('setlist-bottom-image');
+        let r = bottomImg ? bottomImg.getBoundingClientRect() : null;
+        if (!r || r.width === 0) {
+          r = { left: vw/2 - 200, top: vh/2 - 125, width: 400, height: 250 };
+        } else {
+          r = { left: r.left, top: r.top, width: r.width, height: r.height };
+        }
         startRef.current = r;
-        fly.style.backgroundImage = `url(${flipImage.src})`;
+        fly.style.backgroundImage = `url(${bottomImg ? bottomImg.src : flipImage.src})`;
       }
       if (scrollY < startLock) startRef.current = null;
 
@@ -297,7 +303,7 @@ export default function ChessShowcase() {
       if (s) {
         const p = Math.max(0, Math.min(1, raw / phase1End));
         const e = 1 - Math.pow(1 - p, 3);
-        fly.style.opacity   = 1;
+        fly.style.opacity   = Math.min(1, p * 4);
         fly.style.transform = `translate(${s.left + (0 - s.left) * e}px, ${s.top + (0 - s.top) * e}px)`;
         fly.style.width     = `${s.width  + (vw - s.width)  * e}px`;
         fly.style.height    = `${s.height + (vh - s.height) * e}px`;
